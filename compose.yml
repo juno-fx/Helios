@@ -1,0 +1,16 @@
+
+services:
+  helios:
+    image: aldmbmtl/helios:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: helios
+    volumes:
+      - /dev/dri:/dev/dri
+    environment:
+      - USER=helios
+      - UID=5040
+      - PASSWORD=password
+    ports:
+      - "3000:3000"
