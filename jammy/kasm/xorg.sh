@@ -2,12 +2,13 @@ set -e
 
 cd /src
 
+# pulling latest support xserver version for KasmVNC
 XORG_VER="21.1.4"
 wget --no-check-certificate -O /tmp/xorg-server-${XORG_VER}.tar.gz "https://www.x.org/archive/individual/xserver/xorg-server-${XORG_VER}.tar.gz"
 tar --strip-components=1 -C unix/xserver -xf /tmp/xorg-server-${XORG_VER}.tar.gz
 cd unix/xserver
 
-# Need to figure out why these aren't coming in
+# Apply patches
 patch -Np1 -i ../xserver21.patch
 patch -s -p0 < ../CVE-2022-2320-v1.20.patch
 
