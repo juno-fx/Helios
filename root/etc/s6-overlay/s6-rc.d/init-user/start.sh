@@ -43,14 +43,20 @@ else
   echo "Group $GID already exists, skipping group creation"
 fi
 
-# create the user
-if [ ! -d "/home/$USER" ]; then
-  echo "Creating home directory for $USER"
-  useradd -u "$UID" -g "$GID" -m -s /bin/bash "$USER"
+# handle user creation
+if id "$USER" >/dev/null 2>&1; then
+    echo 'User already exists. Skipping user creation.'
 else
-  echo "Home directory for $USER already exists"
-  useradd -u "$UID" -g "$GID" -s /bin/bash "$USER"
+  if [ ! -d "/home/$USER" ]; then
+    echo "Creating home directory for $USER"
+    useradd -u "$UID" -g "$GID" -m -s /bin/bash "$USER"
+  else
+    echo "Home directory for $USER already exists"
+    useradd -u "$UID" -g "$GID" -s /bin/bash "$USER"
+  fi
 fi
+
+# set the users password
 echo "$USER:$PASSWORD" | chpasswd
 chown -R "$USER:$GID" "/home/$USER"
 
@@ -60,4 +66,4 @@ usermod -aG ssl-cert "$USER"
 # setup permissions
 mkdir -p /var/run/pulse
 chown -R "$UID:root" /var/run/pulse
-chown -R "$UID:$GID" /kasmbins
+chown -R "$UID:$GID" /opt/helios/

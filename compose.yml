@@ -2,6 +2,7 @@
 services:
   helios:
     image: aldmbmtl/helios:latest
+    hostname: "helios"
     build:
       context: .
       dockerfile: Dockerfile

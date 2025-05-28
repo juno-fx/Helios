@@ -81,6 +81,9 @@ FROM distro AS base-image
 # pull in args for the tag
 ARG TAG
 
+# copy in distro specific custom rootfs changes
+COPY ${TAG}/root/ /
+
 # build our base image
 COPY --chmod=777 ${TAG}/system/install.sh /tmp/
 RUN /tmp/install.sh
@@ -94,10 +97,10 @@ ENV PREFIX=/
 ENV HTTP_PORT=3000
 ENV DISPLAY=:1
 ENV PERL5LIB=/usr/local/bin
-ENV PULSE_RUNTIME_PATH=/defaults
+ENV PULSE_RUNTIME_PATH=/opt/helios/
 ENV NVIDIA_DRIVER_CAPABILITIES=all
 
-# copy in our custom rootfs changes
+# copy in general custom rootfs changes
 COPY root/ /
 
 RUN chmod -R 7777 /etc/s6-overlay/s6-rc.d/

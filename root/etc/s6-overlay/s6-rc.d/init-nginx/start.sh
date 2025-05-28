@@ -13,19 +13,19 @@ fi
 NGINX_CONFIG=/etc/nginx/sites-available/default
 
 # create self signed cert
-if [ ! -f "/default/ssl/cert.pem" ]; then
-  mkdir -p /default/ssl
+if [ ! -f "/opt/helios/ssl/cert.pem" ]; then
+  mkdir -p /opt/helios/ssl
   openssl req -new -x509 \
     -days 3650 -nodes \
-    -out /default/ssl/cert.pem \
-    -keyout /default/ssl/cert.key \
+    -out /opt/helios/ssl/cert.pem \
+    -keyout /opt/helios/ssl/cert.key \
     -subj "/C=US/ST=CA/L=Carlsbad/O=Linuxserver.io/OU=LSIO Server/CN=*"
-  chmod 600 /default/ssl/cert.key
-  chown -R "$UID:$GID" /default/ssl
+  chmod 600 /opt/helios/ssl/cert.key
+  chown -R "$UID:$GID" /opt/helios/ssl
 fi
 
 # modify nginx config
-cp /defaults/nginx.conf ${NGINX_CONFIG}
+cp /opt/helios/nginx.conf ${NGINX_CONFIG}
 sed -i "s/3000/$HTTP_PORT/g" ${NGINX_CONFIG}
 sed -i "s/3001/$HTTPS_PORT/g" ${NGINX_CONFIG}
 sed -i "s|SUBFOLDER|$PREFIX|g" ${NGINX_CONFIG}

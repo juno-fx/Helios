@@ -25,33 +25,40 @@ dunst &
 mkdir -p "$HOME/Desktop" "$HOME/Downloads"
 rm -rf "$HOME/.config/pulse"
 
+# Setup the VNC location so we can share the home directories
+VNC_LOCATION=/opt/helios/.vnc/
+mkdir -p "$VNC_LOCATION"
+ln -sfv "$VNC_LOCATION"
+
 # Startup Script for DE
-mkdir -p "$HOME/.vnc"
-cp /defaults/startwm.sh "$HOME/.vnc/xstartup"
+cp /opt/helios/startwm.sh "$HOME/.vnc/xstartup"
 chmod +x "$HOME/.vnc/xstartup"
 touch "$HOME/.vnc/.de-was-selected"
 
-# KasmVNC init ##
+# setup Kasm's password
 # Password
-if [[ -f "$HOME/.kasmpasswd" ]]; then
-  rm -f "$HOME/.kasmpasswd"
-fi
 if [[ -z ${PASSWORD+x} ]]; then
-  PASSWORD="vncpassword"
+  echo "No password set, shutting down."
+  exit 1
 fi
 VNC_PW_HASH=$(python3 -c "import crypt; print(crypt.crypt('${PASSWORD}', '\$5\$kasm\$'));")
-echo "${USER}:${VNC_PW_HASH}:ow" > "$HOME/.kasmpasswd"
-echo "${USER}_viewer:${VNC_PW_HASH}:" >> "$HOME/.kasmpasswd"
-chmod 600 "$HOME/.kasmpasswd"
+echo "${USER}:${VNC_PW_HASH}:ow" > "$VNC_LOCATION/.kasmpasswd"
+echo "${USER}_viewer:${VNC_PW_HASH}:" >> "$VNC_LOCATION/.kasmpasswd"
+chmod 600 "$VNC_LOCATION/.kasmpasswd"
+if [[ -f "$HOME/.kasmpasswd" ]]; then
+  echo "Replacing existing .kasmpasswd file with referenced symlink."
+  rm -rfv "$HOME/.kasmpasswd"
+fi
+ln -sf "$VNC_LOCATION/.kasmpasswd" "$HOME/.kasmpasswd"
 
 # SSL cert
-rm -f ${HOME}/.vnc/self.pem
+rm -f "${HOME}/.vnc/self.pem"
 openssl req -x509 \
   -nodes \
   -days 3650 \
   -newkey rsa:2048 \
-  -keyout ${HOME}/.vnc/self.pem \
-  -out ${HOME}/.vnc/self.pem \
+  -keyout "${HOME}/.vnc/self.pem" \
+  -out "${HOME}/.vnc/self.pem" \
   -subj "/C=US/ST=VA/L=None/O=None/OU=DoFu/CN=kasm/emailAddress=none@none.none"
 
 # Start KasmVNC
@@ -67,12 +74,10 @@ vncserver $DISPLAY \
   -PreferBandwidth \
   -DynamicQualityMin=4 \
   -DynamicQualityMax=7 \
-  -DLP_ClipDelay=0 \
-  -UnixRelay printer:/tmp/printer
+  -DLP_ClipDelay=0
 
-# Microservice Init ##
 # Audio
-/kasmbins/kasm_websocket_relay/kasm_audio_out-linux \
+/opt/helios/kasmbins/kasm_websocket_relay/kasm_audio_out-linux \
   kasmaudio \
   8081 \
   4901 \
@@ -93,7 +98,6 @@ HOME=/var/run/pulse no_proxy=127.0.0.1 ffmpeg \
   -ac 1 \
   -muxdelay 0.001 \
   http://127.0.0.1:8081/kasmaudio > /dev/null 2>&1 &
-
 
 sleep 1
 

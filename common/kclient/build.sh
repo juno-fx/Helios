@@ -9,6 +9,6 @@ tar xf /tmp/kclient.tar.gz -C /kclient/ --strip-components=1
 # build kclient
 cd /kclient
 cp -v /build/helios.patch ./
-git apply helios.patch
+git apply --reject --whitespace=fix helios.patch
 npm install
 rm -f package-lock.json

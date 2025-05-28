@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<channel name="xfce4-panel" version="1.0">
+    <property name="configver" type="int" value="2"/>
+    <property name="panels" type="array">
+        <value type="int" value="1"/>
+        <property name="dark-mode" type="bool" value="true"/>
+        <property name="panel-1" type="empty">
+            <property name="position" type="string" value="p=10;x=0;y=0"/>
+            <property name="size" type="uint" value="42"/>
+            <property name="plugin-ids" type="array">
+                <value type="int" value="6"/>
+                <value type="int" value="14"/>
+                <value type="int" value="10"/>
+                <value type="int" value="9"/>
+                <value type="int" value="15"/>
+                <value type="int" value="2"/>
+                <value type="int" value="3"/>
+            </property>
+            <property name="length" type="uint" value="100"/>
+            <property name="position-locked" type="bool" value="true"/>
+            <property name="background-style" type="uint" value="1"/>
+            <property name="background-rgba" type="array">
+                <value type="double" value="0.117647"/>
+                <value type="double" value="0.117647"/>
+                <value type="double" value="0.117647"/>
+                <value type="double" value="1.000000"/>
+            </property>
+            <property name="icon-size" type="uint" value="0"/>
+        </property>
+    </property>
+    <property name="plugins" type="empty">
+        <property name="plugin-2" type="string" value="tasklist">
+            <property name="grouping" type="empty"/>
+            <property name="show-labels" type="bool" value="false"/>
+            <property name="flat-buttons" type="bool" value="false"/>
+            <property name="show-handle" type="bool" value="false"/>
+            <property name="window-scrolling" type="bool" value="false"/>
+        </property>
+        <property name="plugin-3" type="string" value="separator">
+            <property name="style" type="uint" value="0"/>
+            <property name="expand" type="bool" value="true"/>
+        </property>
+        <property name="plugin-9" type="string" value="separator"/>
+        <property name="plugin-10" type="string" value="separator">
+            <property name="style" type="uint" value="0"/>
+        </property>
+        <property name="plugin-6" type="string" value="separator">
+            <property name="style" type="uint" value="0"/>
+        </property>
+        <property name="plugin-7" type="string" value="separator">
+            <property name="style" type="uint" value="0"/>
+        </property>
+        <property name="plugin-14" type="string" value="applicationsmenu">
+            <property name="button-icon" type="string" value="/usr/share/themes/juno_dog_medium.png"/>
+            <property name="button-title" type="string" value="  Helios   "/>
+            <property name="custom-menu" type="bool" value="true"/>
+            <property name="custom-menu-file" type="string" value="/usr/share/applications/polaris.menu"/>
+        </property>
+        <property name="plugin-15" type="string" value="separator">
+            <property name="style" type="uint" value="0"/>
+        </property>
+    </property>
+</channel>

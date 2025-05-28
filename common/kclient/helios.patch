@@ -1,68 +1,39 @@
 diff --git a/index.js b/index.js
-index 4bf7417..2ee59d8 100644
+index 4bf7417..2ef2a48 100644
 --- a/index.js
 +++ b/index.js
-@@ -1,8 +1,6 @@
- // LinuxServer KasmVNC Client
+@@ -182,7 +182,7 @@ aio.on('connection', function (socket) {
  
- //// Env variables ////
--var CUSTOM_USER = process.env.CUSTOM_USER || 'abc';
--var PASSWORD = process.env.PASSWORD || 'abc';
- var SUBFOLDER = process.env.SUBFOLDER || '/';
- var TITLE = process.env.TITLE || 'KasmVNC Client';
- var FM_HOME = process.env.FM_HOME || '/config';
-@@ -48,11 +46,6 @@ baseRouter.get('/manifest.json', function (req, res) {
-   res.render(__dirname + '/public/manifest.json', {title: TITLE});
- });
+   // Dump blobs to pulseaudio sink
+   async function micData(buffer) {
+-    await fsw.writeFile('/defaults/mic.sock', buffer);
++    await fsw.writeFile('/opt/helios/mic.sock', buffer);
+   }
  
--//// Web File Browser ////
--// Send landing page 
--baseRouter.get('/files', function (req, res) {
--  res.sendFile( __dirname + '/public/filebrowser.html');
--});
- // Websocket comms //
- io = socketIO(http, {path: SUBFOLDER + 'files/socket.io',maxHttpBufferSize: 200000000});
- io.on('connection', async function (socket) {
-diff --git a/public/filebrowser.html b/public/filebrowser.html
-deleted file mode 100644
-index cdfc904..0000000
---- a/public/filebrowser.html
-+++ /dev/null
-@@ -1,20 +0,0 @@
--<!DOCTYPE html>
--<html>
--  <head>
--    <link rel="stylesheet" href="public/css/filebrowser.css">
--    <script type="text/javascript" src="public/js/jquery.min.js"></script>
--    <script src="files/socket.io/socket.io.js"></script>
--    <script type="text/javascript" src="public/js/filebrowser.js"></script>
--  </head>
--  <body>
--  <span id="buttons">
--    <input id="folderName" type="text" placeholder="Enter Directory Name"></input>
--    <button onclick="createFolder()">Create Folder</button>
--    <button onclick="$('#uploadInput').trigger( 'click' )">Upload Files</button>
--    <input class="hidden" id="uploadInput" type='file' onchange="upload(this);" multiple>
--  </span>
--  <div id="filebrowser"></div>
--  <div ondrop="dropFiles(event)" ondragover="allowDrop(event)" style="visibility:hidden;opacity:0" id="dropzone">
--  </div>
--  </body>
--</html>
+   // Incoming socket requests
 diff --git a/public/index.html b/public/index.html
-index 5f314dd..e224836 100644
+index 5f314dd..ba80139 100644
 --- a/public/index.html
 +++ b/public/index.html
-@@ -18,12 +18,6 @@
-     <div id="lsbar">
-       <img class="icons" id="fileButton" title="File Manager" src="public/css/files.svg" onclick="toggle('#files')"/>
-       <img class="icons" id="audioButton" title="Enable Audio" src="public/css/speaker.svg" onclick="audio()"/>
+@@ -13,20 +13,8 @@
+   </head>
+   <body>
+     <!--KasmVNC Iframe-->
+-    <iframe class="vnc" src="vnc/index.html?autoconnect=1&resize=remote&clipboard_up=true&clipboard_down=true&clipboard_seamless=true&show_control_bar=true<% if(path){ %><%- path -%><% } %>"></iframe>
+-    <!--LSIO Function Bar-->
+-    <div id="lsbar">
+-      <img class="icons" id="fileButton" title="File Manager" src="public/css/files.svg" onclick="toggle('#files')"/>
+-      <img class="icons" id="audioButton" title="Enable Audio" src="public/css/speaker.svg" onclick="audio()"/>
 -      <img class="icons" id="micButton" title="Enable Microphone" src="public/css/mic.svg" onclick="mic()"/>
 -    </div>
 -    <!--File Browser-->
 -    <div id="files">
 -      <iframe id="files_frame" name="files_frame" src="files" frameborder="0"></iframe>
 -      <div class="close" onclick="closeToggle('#files')"></div>
-     </div>
+-    </div>
++    <iframe class="vnc" src="vnc/index.html?autoconnect=1&resize=remote&clipboard_up=true&clipboard_down=true&clipboard_seamless=true&show_control_bar=true<% if(path){ %><%- path -%><% } %>" onload="audio()"></iframe>
      <!--Main logic-->
-     <script src="public/js/jquery.min.js"></script>
+-    <script src="public/js/jquery.min.js"></script>
+     <script src="public/js/kclient.js"></script>
+   </body>
+ </html>

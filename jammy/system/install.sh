@@ -4,9 +4,9 @@ set -e
 export DEBIAN_FRONTEND=noninteractive
 
 sed -i '/locale/d' /etc/dpkg/dpkg.cfg.d/excludes
-apt-get update
-apt-get upgrade -y
-apt-get install -y gnupg curl wget
+apt update
+apt upgrade -y
+apt install -y gnupg curl wget
 wget -q -O- https://packagecloud.io/dcommander/virtualgl/gpgkey | \
   gpg --dearmor >/etc/apt/trusted.gpg.d/VirtualGL.gpg
 echo "deb [signed-by=/etc/apt/trusted.gpg.d/VirtualGL.gpg] https://packagecloud.io/dcommander/virtualgl/any/ any main" > /etc/apt/sources.list.d/virtualgl.list
@@ -14,8 +14,10 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu jammy stable" > /etc/apt/sources.list.d/docker.list
 curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
 echo 'deb https://deb.nodesource.com/node_20.x jammy main' > /etc/apt/sources.list.d/nodesource.list
-apt-get update
-apt-get install --no-install-recommends -y \
+apt update
+
+apt install --no-install-recommends -y \
+  neofetch \
   ca-certificates \
   dbus-x11 \
   dunst \
@@ -57,7 +59,6 @@ apt-get install --no-install-recommends -y \
   libxshmfence1 \
   libxtst6 \
   libyaml-tiny-perl \
-  locales-all \
   mesa-va-drivers \
   mesa-vulkan-drivers \
   nginx \
@@ -70,7 +71,6 @@ apt-get install --no-install-recommends -y \
   pulseaudio \
   pulseaudio-utils \
   python3 \
-  software-properties-common \
   ssl-cert \
   tar \
   util-linux \
@@ -95,9 +95,17 @@ apt-get install --no-install-recommends -y \
   xfce4 \
   xubuntu-default-settings \
   xubuntu-icon-theme \
+  xfce4-whiskermenu-plugin \
   libdrm-dev \
   nvtop \
-  virtualgl
+  virtualgl \
+  vim \
+  unzip \
+  tumbler \
+  tumbler-common \
+  tumbler-plugins-extra \
+  fonts-cascadia-code
+
 
 # remove screensaver and lock screen
 rm -f /etc/xdg/autostart/xscreensaver.desktop
