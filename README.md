@@ -23,14 +23,12 @@ We try our best to keep the latest version of Kasm installed so we get all the l
 - Size: 1.48 GB
 - X Server: 21.1.4 (Custom)
 
-<br/>
 
 ### Ubuntu 22.04 ([Jammy](https://hub.docker.com/_/ubuntu/tags?name=jammy))
 
 - Size: 1.48 GB
 - X Server: 21.1.4 (Custom)
 
-<br/>
 
 ### Kali Linux ([Rolling Release](https://hub.docker.com/r/kalilinux/kali-rolling))
 
@@ -40,7 +38,6 @@ We try our best to keep the latest version of Kasm installed so we get all the l
 - Size: 1.74 GB (This does not include the Kali tools which make the image much larger)
 - X Server: 21.1.4 (Custom)
 
-<br/>
 
 ### Rocky Linux ([9](https://hub.docker.com/_/rockylinux/tags?name=9))
 
@@ -50,7 +47,6 @@ We try our best to keep the latest version of Kasm installed so we get all the l
 - Size: 1.82 GB
 - X Server: 1.20.14 (Custom)
 
-<br/>
 
 ### Alma Linux ([9](https://hub.docker.com/_/almalinux/tags?name=9))
 
