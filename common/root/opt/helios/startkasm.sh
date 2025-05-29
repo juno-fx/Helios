@@ -3,7 +3,7 @@ set -e
 
 echo ">>> Helios Version $HELIOS_VERSION <<<"
 
-fastfetch
+fastfetch || neofetch || echo > /dev/null
 
 # Lang
 if [ ! -z ${LC_ALL+x} ]; then

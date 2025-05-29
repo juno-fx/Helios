@@ -14,7 +14,8 @@ curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
 apt update
 
 apt install --no-install-recommends -y \
-  fastfetch \
+  nodejs \
+  neofetch \
   ca-certificates \
   dbus-x11 \
   ffmpeg \

@@ -34,7 +34,7 @@ ENV QT_QPA_PLATFORM=offscreen
 ENV QT_QPA_FONTDIR=/usr/share/fonts
 
 # Build kasm noVNC client base
-COPY --chmod=777 common/kasm/novnc.sh /
+COPY --chmod=777 common/build/novnc.sh /
 RUN /novnc.sh
 
 
@@ -53,25 +53,25 @@ WORKDIR /build
 
 # copying individually as to allow for change caching
 # running individually as to keep the cache in case of failure and for debugging
-COPY --chmod=777 ${SRC}/kasm/dependencies.sh /build/
-RUN ./dependencies.sh
-COPY --chmod=777 common/kasm/turbo.sh /build/
-RUN ./turbo.sh
-COPY --chmod=777 common/kasm/kasm.sh /build/
+COPY --chmod=777 ${SRC}/build/kasm.sh /build/
 RUN ./kasm.sh
-COPY --chmod=777 ${SRC}/x/xorg.sh /build/
+COPY --chmod=777 common/build/turbo.sh /build/
+RUN ./turbo.sh
+COPY --chmod=777 common/build/kasm.sh /build/
+RUN ./kasm.sh
+COPY --chmod=777 ${SRC}/build/xorg.sh /build/
 RUN ./xorg.sh
-COPY --chmod=777 ${SRC}/kclient/dependencies.sh /build/
-RUN ./dependencies.sh
-COPY --chmod=777 common/kclient/build.sh /build/
-COPY --chmod=777 common/kclient/helios.patch /build/
-RUN ./build.sh
+COPY --chmod=777 ${SRC}/build/kclient.sh /build/
+RUN ./kclient.sh
+COPY --chmod=777 common/build/kclient.sh /build/
+COPY --chmod=777 common/build/helios.patch /build/
+RUN ./kclient.sh
 
 # copy over the built noVNC client
 COPY --from=novnc /build-out /www
 
 # package up the server for distribution
-COPY --chmod=777 common/kasm/package.sh /build/
+COPY --chmod=777 common/build/package.sh /build/
 RUN ./package.sh
 
 
@@ -92,8 +92,8 @@ ARG SRC
 COPY ${SRC}/root/ /
 
 # build our base image
-COPY --chmod=777 ${SRC}/system/install.sh /tmp/
-RUN /tmp/install.sh
+COPY --chmod=777 ${SRC}/build/system.sh /tmp/
+RUN /tmp/system.sh
 
 # install init system
 COPY --from=s6 /s6 /
@@ -108,7 +108,7 @@ ENV PULSE_RUNTIME_PATH=/opt/helios/
 ENV NVIDIA_DRIVER_CAPABILITIES=all
 
 # copy in general custom rootfs changes
-COPY root/ /
+COPY common/root/ /
 
 RUN chmod -R 7777 /etc/s6-overlay/s6-rc.d/
 

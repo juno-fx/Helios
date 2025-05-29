@@ -116,4 +116,4 @@ if ! shopt -oq posix; then
   fi
 fi
 
-fastfetch || echo > /dev/null
+neofetch || echo > /dev/null
