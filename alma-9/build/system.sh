@@ -3,10 +3,10 @@ set -e
 dnf install --nogpgcheck -y \
 	epel-release \
 	https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-$(rpm -E %rhel).noarch.rpm \
-	https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-$(rpm -E %rhel).noarch.rpm
+	https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-$(rpm -E %rhel).noarch.rpm \
+	almalinux-release-devel
 dnf config-manager --add-repo https://raw.githubusercontent.com/VirtualGL/repo/main/VirtualGL.repo
 dnf config-manager --set-enabled crb
-dnf config-manager --set-enabled devel
 
 dnf update -y
 dnf install -y --setopt=install_weak_deps=False --best \
@@ -86,9 +86,9 @@ fc-cache -f -v
 
 # run clean up
 dnf config-manager --set-disabled crb
-dnf config-manager --set-disabled devel
 dnf remove --nogpgcheck -y \
 	epel-release \
 	https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-$(rpm -E %rhel).noarch.rpm \
-	https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-$(rpm -E %rhel).noarch.rpm
+	https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-$(rpm -E %rhel).noarch.rpm \
+	almalinux-release-devel
 dnf clean all -y

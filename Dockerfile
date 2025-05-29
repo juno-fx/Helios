@@ -113,8 +113,8 @@ COPY common/root/ /
 RUN chmod -R 7777 /etc/s6-overlay/s6-rc.d/
 
 # this is to ensure that the snake oil certificate is available for Kasm
-COPY --from=snake-oil /etc/ssl/certs/ssl-cert-snakeoil.pem /etc/ssl/certs/
-COPY --from=snake-oil /etc/ssl/private/ssl-cert-snakeoil.key /etc/ssl/private/
+COPY --from=snake-oil /etc/ssl/certs/ssl-cert-snakeoil.pem /etc/ssl/certs/ssl-cert-snakeoil.pem
+COPY --from=snake-oil /etc/ssl/private/ssl-cert-snakeoil.key /etc/ssl/private/ssl-cert-snakeoil.key
 
 EXPOSE 3000
 

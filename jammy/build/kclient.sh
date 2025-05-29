@@ -3,14 +3,13 @@ set -e
 # build dependencies
 apt-get update
 apt-get install -y \
-  gnupg
-curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
-echo 'deb https://deb.nodesource.com/node_20.x jammy main' > /etc/apt/sources.list.d/nodesource.list && \
+	gnupg
+curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
 apt-get update
 apt-get install -y \
-  g++ \
-  gcc \
-  libpam0g-dev \
-  libpulse-dev \
-  make \
-  nodejs
+	g++ \
+	gcc \
+	libpam0g-dev \
+	libpulse-dev \
+	make \
+	nodejs

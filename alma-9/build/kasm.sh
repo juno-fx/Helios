@@ -1,8 +1,7 @@
 set -e
 
-dnf install -y epel-release
+dnf install -y epel-release almalinux-release-devel
 dnf config-manager --set-enabled crb
-dnf config-manager --set-enabled devel
 dnf config-manager --add-repo https://raw.githubusercontent.com/VirtualGL/repo/main/VirtualGL.repo
 dnf update -y
 

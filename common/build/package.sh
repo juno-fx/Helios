@@ -12,12 +12,12 @@ cp /src/unix/xserver/hw/vnc/Xvnc.man man/man1/Xvnc.1
 mkdir lib
 cd lib
 if [ -d /usr/lib64/dri ]; then
-  ln -s /usr/lib64/dri dri
+	ln -s /usr/lib64/dri dri
 elif [ -d /usr/lib/x86_64-linux-gnu/dri ]; then
-  ln -s /usr/lib/x86_64-linux-gnu/dri dri
+	ln -s /usr/lib/x86_64-linux-gnu/dri dri
 else
-  echo "No dri directory found in /usr/lib64 or /usr/lib/x86_64-linux-gnu"
-  exit 1
+	echo "No dri directory found in /usr/lib64 or /usr/lib/x86_64-linux-gnu"
+	exit 1
 fi
 cd /src
 mkdir -p builder/www
@@ -39,8 +39,8 @@ ln -sf /usr/local/lib/kasmvnc /build-out/usr/lib/kasmvncserver
 mkdir -p /build-out/opt/helios/kasmbins
 curl -s https://kasm-ci.s3.amazonaws.com/kasmbins-amd64-${KASMBINS_RELEASE}.tar.gz | tar xzvf - -C /build-out/opt/helios/kasmbins/
 rm -rfv \
-  /build-out/opt/helios/kasmbins/kasm_gamepad_server \
-  /build-out/opt/helios/kasmbins/kasm_printer_service \
-  /build-out/opt/helios/kasmbins/kasm_upload_server \
-  /build-out/opt/helios/kasmbins/kasm_webcam_server
+	/build-out/opt/helios/kasmbins/kasm_gamepad_server \
+	/build-out/opt/helios/kasmbins/kasm_printer_service \
+	/build-out/opt/helios/kasmbins/kasm_upload_server \
+	/build-out/opt/helios/kasmbins/kasm_webcam_server
 chmod +x /build-out/opt/helios/kasmbins/*

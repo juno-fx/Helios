@@ -1,0 +1,9 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.14.2/.schema/devbox.schema.json",
+  "packages": [
+    "shfmt@latest",
+    "gnumake@latest",
+    "docker@latest",
+    "docker-compose@latest"
+  ]
+}

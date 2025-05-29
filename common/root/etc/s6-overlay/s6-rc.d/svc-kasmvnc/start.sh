@@ -7,9 +7,9 @@ set -e
 #  HW3D="-hw3d"
 #fi
 if [ -z ${DRINODE+x} ]; then
-  DRINODE="/dev/dri/renderD128"
+	DRINODE="/dev/dri/renderD128"
 fi
 
-HOME=$( getent passwd "$USER" | cut -d: -f6 )
+HOME=$(getent passwd "$USER" | cut -d: -f6)
 cd "${HOME}" || (echo "Home directory not found" && exit 1)
 exec s6-setuidgid "${USER}" /bin/bash /opt/helios/startkasm.sh
