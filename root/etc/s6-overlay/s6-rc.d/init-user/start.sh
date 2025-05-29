@@ -61,7 +61,7 @@ echo "$USER:$PASSWORD" | chpasswd
 chown -R "$USER:$GID" "/home/$USER"
 
 # add to the ssl group
-usermod -aG ssl-cert "$USER"
+usermod -aG 101 "$USER" || echo "ssl-cert assignment failed. Skipping."
 
 # setup permissions
 mkdir -p /var/run/pulse

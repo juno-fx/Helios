@@ -3,17 +3,22 @@ set -e
 
 export DEBIAN_FRONTEND=noninteractive
 
-sed -i '/locale/d' /etc/dpkg/dpkg.cfg.d/excludes
+echo "deb http://http.kali.org/kali kali-rolling main non-free contrib" >> /etc/apt/sources.list
+echo "deb-src http://http.kali.org/kali kali-rolling main contrib non-free non-free-firmware" >> /etc/apt/sources.list
+
 apt update
 apt upgrade -y
 apt install -y gnupg curl wget
-wget -q -O- https://packagecloud.io/dcommander/virtualgl/gpgkey | \
-  gpg --dearmor >/etc/apt/trusted.gpg.d/VirtualGL.gpg
+wget -q -O- https://packagecloud.io/dcommander/virtualgl/gpgkey | gpg --dearmor >/etc/apt/trusted.gpg.d/VirtualGL.gpg
 echo "deb [signed-by=/etc/apt/trusted.gpg.d/VirtualGL.gpg] https://packagecloud.io/dcommander/virtualgl/any/ any main" > /etc/apt/sources.list.d/virtualgl.list
 curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
 apt update
 
 apt install --no-install-recommends -y \
+  gcc \
+  g++ \
+  python3-dev \
+  python3-pip \
   fastfetch \
   ca-certificates \
   dbus-x11 \
@@ -31,7 +36,6 @@ apt install --no-install-recommends -y \
   libgnutls30 \
   libgomp1 \
   libhash-merge-simple-perl \
-  libjpeg-turbo8 \
   libnotify-bin \
   liblist-moreutils-perl \
   libp11-kit0 \
@@ -58,6 +62,7 @@ apt install --no-install-recommends -y \
   mesa-va-drivers \
   mesa-vulkan-drivers \
   nginx \
+  nodejs \
   openssh-client \
   openssl \
   pciutils \
@@ -88,8 +93,6 @@ apt install --no-install-recommends -y \
   zlib1g \
   xfce4-terminal \
   xfce4 \
-  xubuntu-default-settings \
-  xubuntu-icon-theme \
   xfce4-whiskermenu-plugin \
   libdrm-dev \
   nvtop \
@@ -101,6 +104,14 @@ apt install --no-install-recommends -y \
   tumbler-plugins-extra \
   fonts-cascadia-code
 
+# backwards compat for password generation
+pip install crypt-r --break-system-packages
+
+# package clean up
+apt remove --purge -y \
+  gcc \
+  g++ \
+  python3-dev
 
 # remove screensaver and lock screen
 rm -f /etc/xdg/autostart/xscreensaver.desktop

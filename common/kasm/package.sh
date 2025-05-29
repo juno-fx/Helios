@@ -11,7 +11,14 @@ touch man/man1/Xserver.1
 cp /src/unix/xserver/hw/vnc/Xvnc.man man/man1/Xvnc.1
 mkdir lib
 cd lib
-ln -s /usr/lib/x86_64-linux-gnu/dri dri
+if [ -d /usr/lib64/dri ]; then
+  ln -s /usr/lib64/dri dri
+elif [ -d /usr/lib/x86_64-linux-gnu/dri ]; then
+  ln -s /usr/lib/x86_64-linux-gnu/dri dri
+else
+  echo "No dri directory found in /usr/lib64 or /usr/lib/x86_64-linux-gnu"
+  exit 1
+fi
 cd /src
 mkdir -p builder/www
 cp -ax /www/dist/* builder/www/

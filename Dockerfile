@@ -1,8 +1,8 @@
 # heavily refernces https://github.com/linuxserver/docker-baseimage-kasmvnc/blob/master/Dockerfile
-ARG DISTRO
-ARG TAG
+ARG IMAGE
+ARG SRC
 
-FROM ${DISTRO}:${TAG} AS distro
+FROM ${IMAGE} AS distro
 
 
 FROM alpine AS s6
@@ -46,22 +46,22 @@ ENV KASMVNC_COMMIT="e647af5e281735d1c7fc676ca089201aeae7130a"
 ENV KASMBINS_RELEASE="1.15.0"
 
 # pull in args for the tag
-ARG TAG
+ARG SRC
 
 # setup build environment
 WORKDIR /build
 
 # copying individually as to allow for change caching
 # running individually as to keep the cache in case of failure and for debugging
-COPY --chmod=777 ${TAG}/kasm/dependencies.sh /build/
+COPY --chmod=777 ${SRC}/kasm/dependencies.sh /build/
 RUN ./dependencies.sh
 COPY --chmod=777 common/kasm/turbo.sh /build/
 RUN ./turbo.sh
 COPY --chmod=777 common/kasm/kasm.sh /build/
 RUN ./kasm.sh
-COPY --chmod=777 ${TAG}/kasm/xorg.sh /build/
+COPY --chmod=777 ${SRC}/x/xorg.sh /build/
 RUN ./xorg.sh
-COPY --chmod=777 ${TAG}/kclient/dependencies.sh /build/
+COPY --chmod=777 ${SRC}/kclient/dependencies.sh /build/
 RUN ./dependencies.sh
 COPY --chmod=777 common/kclient/build.sh /build/
 COPY --chmod=777 common/kclient/helios.patch /build/
@@ -75,17 +75,24 @@ COPY --chmod=777 common/kasm/package.sh /build/
 RUN ./package.sh
 
 
+# generate the snake oil certificate
+FROM ubuntu AS snake-oil
+RUN apt update && apt install -y ssl-cert
+
+
 # base image
 FROM distro AS base-image
 
+ENV HELIOS_VERSION="0.0.1"
+
 # pull in args for the tag
-ARG TAG
+ARG SRC
 
 # copy in distro specific custom rootfs changes
-COPY ${TAG}/root/ /
+COPY ${SRC}/root/ /
 
 # build our base image
-COPY --chmod=777 ${TAG}/system/install.sh /tmp/
+COPY --chmod=777 ${SRC}/system/install.sh /tmp/
 RUN /tmp/install.sh
 
 # install init system
@@ -104,6 +111,10 @@ ENV NVIDIA_DRIVER_CAPABILITIES=all
 COPY root/ /
 
 RUN chmod -R 7777 /etc/s6-overlay/s6-rc.d/
+
+# this is to ensure that the snake oil certificate is available for Kasm
+COPY --from=snake-oil /etc/ssl/certs/ssl-cert-snakeoil.pem /etc/ssl/certs/
+COPY --from=snake-oil /etc/ssl/private/ssl-cert-snakeoil.key /etc/ssl/private/
 
 EXPOSE 3000
 

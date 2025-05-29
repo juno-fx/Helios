@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -e
 
+echo ">>> Helios Version $HELIOS_VERSION <<<"
+
+fastfetch
+
 # Lang
 if [ ! -z ${LC_ALL+x} ]; then
   export LANGUAGE="${LC_ALL%.UTF-8}"
@@ -17,9 +21,6 @@ KASMNVC_HW3D=''
 if [ ! -z ${HW3D+x} ]; then
   KASMVNC_HW3D="-hw3d"
 fi
-
-# Notification daemon
-dunst &
 
 ## Directory setup for home folder ##
 mkdir -p "$HOME/Desktop" "$HOME/Downloads"

@@ -11,6 +11,7 @@ fi
 
 # nginx Path
 NGINX_CONFIG=/etc/nginx/sites-available/default
+mkdir -vp /etc/nginx/sites-available/
 
 # create self signed cert
 if [ ! -f "/opt/helios/ssl/cert.pem" ]; then
