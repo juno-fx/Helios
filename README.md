@@ -21,25 +21,25 @@ Optimized Kasm Desktops for general use
 
 ### Kali Linux (Rolling Release)
 
-- Size: 1.74 GB (This does not include the Kali tools which make the image much larger)
-- X Server: 21.1.4 (Custom)
-
 > [!NOTE]  
 > We don't install any default Kali tools in this image. Please follow the instructions in the [Kali Linux Docker Image documentation](https://www.kali.org/docs/containers/official-kalilinux-docker-images/) to install them.
 
+- Size: 1.74 GB (This does not include the Kali tools which make the image much larger)
+- X Server: 21.1.4 (Custom)
+
 ### Rocky Linux (9)
+
+> [!DANGER]  
+> Currently WebRTC is not supported on Rocky Linux due to upstream limitations with Kasm. This may change in the future.
 
 - Size: 1.82 GB
 - X Server: 1.20.14 (Custom)
 
-> [!NOTE]  
-> Currently WebRTC is not supported on Rocky Linux due to upstream limitations with Kasm. This may change in the future.
-
 
 ### Alma Linux (9)
 
+> [!DANGER]  
+> Currently WebRTC is not supported on Alma Linux due to upstream limitations with Kasm. This may change in the future.
+
 - Size: 1.61 GB 
 - X Server: 1.20.14 (Custom)
-
-> [!NOTE]  
-> Currently WebRTC is not supported on Alma Linux due to upstream limitations with Kasm. This may change in the future.
