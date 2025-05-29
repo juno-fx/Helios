@@ -11,3 +11,5 @@ rm -rf node_modules/ *.md AUTHORS
 cp -R ./* /build-out/
 cd /build-out
 cp index.html vnc.html
+
+echo "KasmWeb Version: ${KASMWEB_COMMIT}" >/tmp/kasmweb.version

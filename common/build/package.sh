@@ -44,3 +44,6 @@ rm -rfv \
 	/build-out/opt/helios/kasmbins/kasm_upload_server \
 	/build-out/opt/helios/kasmbins/kasm_webcam_server
 chmod +x /build-out/opt/helios/kasmbins/*
+
+echo "KasmVNC Version: ${KASMVNC_COMMIT}" >/build-out/opt/helios/kasmvnc.version
+echo "Kasm Bins Version: ${KASMBINS_RELEASE}" >/build-out/opt/helios/kasmbins.version

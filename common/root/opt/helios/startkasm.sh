@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -e
 
-echo ">>> Helios Version $HELIOS_VERSION <<<"
-
 # Lang
 if [ ! -z ${LC_ALL+x} ]; then
 	export LANGUAGE="${LC_ALL%.UTF-8}"

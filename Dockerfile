@@ -29,7 +29,6 @@ FROM node:20 AS novnc
 
 # https://github.com/kasmtech/noVNC/tree/bed156c565f7646434563d2deddd3a6c945b7727
 ENV KASMWEB_COMMIT="bed156c565f7646434563d2deddd3a6c945b7727"
-
 ENV QT_QPA_PLATFORM=offscreen
 ENV QT_QPA_FONTDIR=/usr/share/fonts
 
@@ -74,6 +73,9 @@ COPY --from=novnc /build-out /www
 COPY --chmod=777 common/build/package.sh /build/
 RUN ./package.sh
 
+# copy over build version information
+COPY --from=novnc /tmp/kasmweb.version /build-out/opt/helios/kasmweb.version
+
 
 # generate the snake oil certificate
 FROM ubuntu AS snake-oil
@@ -83,7 +85,7 @@ RUN apt update && apt install -y ssl-cert
 # base image
 FROM distro AS base-image
 
-ENV HELIOS_VERSION="0.0.1"
+ENV HELIOS_VERSION="0.0.0"
 
 # pull in args for the tag
 ARG SRC

@@ -3,6 +3,12 @@
 # trigger custom init scripts
 set -e
 
+echo
+echo
+echo "Helios Version $HELIOS_VERSION"
+cat /opt/helios/*.version
+echo
+
 chmod +x /etc/helios/init.d/*.sh
 
 for script in /etc/helios/init.d/*.sh; do
@@ -13,3 +19,6 @@ for script in /etc/helios/init.d/*.sh; do
 		echo "Skipping non-executable script: $script"
 	fi
 done
+
+echo
+echo

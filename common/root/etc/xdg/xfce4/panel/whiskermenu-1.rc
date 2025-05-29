@@ -1,6 +1,6 @@
 favorites=xfce4-web-browser.desktop,xfce4-file-manager.desktop,xfce4-terminal-emulator.desktop
 recent=xfce4-web-browser.desktop,xfce4-file-manager.desktop
-button-title=Helios
+button-title=
 button-icon=/usr/share/themes/juno_dog_medium.png
 button-single-row=false
 show-button-title=true
