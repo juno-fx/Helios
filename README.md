@@ -12,6 +12,7 @@ Optimized Kasm Desktops for general use
     - [Kali Linux (Rolling Release)](#kali-linux-rolling-release)
     - [Rocky Linux (9)](#rocky-linux-9)
     - [Alma Linux (9)](#alma-linux-9)
+- [Versioning](#versioning)
 - [Usage](#usage)
     - [Deployment](#deployment)
         - [Docker](#docker)
@@ -99,6 +100,18 @@ We try our best to keep the latest version of Kasm installed so we get all the l
 
 - Size: 1.61 GB 
 - X Server: 1.20.14 (Custom)
+
+## Versioning
+
+Helios ships its own version that is independent of the underlying distro version. The version is in the format 
+`0.0.0-noble`, where `noble` is the codename of the underlying distro. This allows us to track changes and updates to 
+Helios independently of the underlying distro. Some further examples of the versioning scheme are:
+
+- `0.0.0-noble` for Ubuntu 24.04
+- `0.0.0-jammy` for Ubuntu 22.04
+- `0.0.0-kali` for Kali Linux
+- `0.0.0-rocky-9` for Rocky Linux
+- `0.0.0-alma-9` for Alma Linux
 
 ## Usage
 
