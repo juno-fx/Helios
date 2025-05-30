@@ -12,6 +12,23 @@ Optimized Kasm Desktops for general use
     - [Kali Linux (Rolling Release)](#kali-linux-rolling-release)
     - [Rocky Linux (9)](#rocky-linux-9)
     - [Alma Linux (9)](#alma-linux-9)
+- [Usage](#usage)
+    - [Deployment](#deployment)
+        - [Docker](#docker)
+        - [Docker Compose](#docker-compose)
+        - [Kubernetes](#kubernetes)
+- [Customizing Helios](#customizing-helios)
+    - [Using FROM](#using-from)
+    - [Event Hooks](#event-hooks)
+        - [Using FROM](#using-from-1)
+        - [Mounting](#mounting)
+- [Contributing](#contributing)
+    - [Build Process](#build-process)
+    - [Repository Layout](#repository-layout)
+    - [Build Order](#build-order)
+    - [Shared Configuration Changes](#shared-configuration-changes)
+    - [Distro Specific Configuration Changes](#distro-specific-configuration-changes)
+    - [Custom Dependencies](#custom-dependencies)
 
 ## Overview
 
@@ -355,3 +372,5 @@ apt-get update
 apt-get install -y kali-linux-headless
 ...
 ```
+
+
