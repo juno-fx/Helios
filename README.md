@@ -29,6 +29,9 @@ Optimized Kasm Desktops for general use
     - [Shared Configuration Changes](#shared-configuration-changes)
     - [Distro Specific Configuration Changes](#distro-specific-configuration-changes)
     - [Custom Dependencies](#custom-dependencies)
+    - [Development Workflow](#development-workflow)
+        - [Pre-requisites](#pre-requisites)
+        - [Workflow](#workflow)
 
 ## Overview
 
@@ -373,4 +376,23 @@ apt-get install -y kali-linux-headless
 ...
 ```
 
+### Development Workflow
 
+Development on Helios is meant to be as easy as possible.
+
+#### Pre-requisites
+
+1. **Devbox**: Install Devbox from their official [website](https://www.jetify.com/docs/devbox/installing_devbox/)
+
+#### Workflow
+
+1. Clone this repository and change into the directory.
+2. Run `devbox shell` to enter the development environment.
+3. Run `make <distro>` to build the desired distro. For example, `make noble` will build the Ubuntu 24.04 image.
+4. Open your browser at `http://localhost:3000` to access the Kasm web client.
+
+> [!TIP]
+> The make targets essentially launch `docker compose`. If you need to try other deployment configurations, such as 
+> accessing a local graphics card, you can modify the `compose.yml` file in the root of the repository and run 
+> `make <distro>` to start the container with your custom configuration. Please make sure to change this file back to 
+> the original state before committing your changes.
