@@ -104,14 +104,25 @@ We try our best to keep the latest version of Kasm installed so we get all the l
 ## Versioning
 
 Helios ships its own version that is independent of the underlying distro version. The version is in the format 
-`0.0.0-noble`, where `noble` is the codename of the underlying distro. This allows us to track changes and updates to 
+`v0.0.0-noble`, where `noble` is the codename of the underlying distro. This allows us to track changes and updates to 
 Helios independently of the underlying distro. Some further examples of the versioning scheme are:
 
-- `0.0.0-noble` for Ubuntu 24.04
-- `0.0.0-jammy` for Ubuntu 22.04
-- `0.0.0-kali` for Kali Linux
-- `0.0.0-rocky-9` for Rocky Linux
-- `0.0.0-alma-9` for Alma Linux
+- `v0.0.0-noble` for Ubuntu 24.04
+- `v0.0.0-jammy` for Ubuntu 22.04
+- `v0.0.0-kali` for Kali Linux
+- `v0.0.0-rocky-9` for Rocky Linux
+- `v0.0.0-alma-9` for Alma Linux
+
+Helios also ships `unstable` builds which are built directly off of the `testing` branch. These builds are meant for
+testing and development purposes only. They are not meant for production use and may contain bugs or incomplete features.
+
+- `unstable-noble` for the latest unstable build of Ubuntu 24.04
+- `unstable-jammy` for the latest unstable build of Ubuntu 22.04
+- `unstable-kali` for the latest unstable build of Kali Linux
+- `unstable-rocky-9` for the latest unstable build of Rocky Linux
+- `unstable-alma-9` for the latest unstable build of Alma Linux
+
+
 
 ## Usage
 
@@ -150,7 +161,7 @@ docker run -d \
   -e UID=1000 \
   -e GID=1000 \
   -e PASSWORD=password \
-  helios:0.0.0-noble
+  helios:v0.0.0-noble
 ``` 
 
 #### Docker Compose
@@ -160,7 +171,7 @@ You can also use Docker Compose to run Helios. Create a `docker-compose.yml` fil
 ```yaml
 services:
    helios:
-      image: helios:0.0.0-noble
+      image: helios:v0.0.0-noble
       hostname: "helios"
       container_name: helios
       environment:
@@ -194,7 +205,7 @@ spec:
       spec:
          containers:
             - name: helios
-              image: helios:0.0.0-noble
+              image: helios:v0.0.0-noble
               ports:
                  - containerPort: 3000
               env:
@@ -216,7 +227,7 @@ You can use the `FROM` instruction in your Dockerfile to build on top of Helios 
 on top of the Ubuntu 24.04 image, you can do the following:
 
 ```dockerfile
-FROM helios:0.0.0-noble
+FROM helios:v0.0.0-noble
 
 RUN apt-get update && \
     apt-get install -y htop
@@ -241,7 +252,7 @@ heavily inspired by the incredible team at [Linuxserver IO](https://www.linuxser
 As mentioned above, you can use the `FROM` instruction to add in your custom init scripts and services.
 
 ```dockerfile
-FROM helios:0.0.0-noble
+FROM helios:v0.0.0-noble
 
 # custom init script
 COPY ./my-custom-init.sh /etc/helios/init.d/my-custom-init.sh
@@ -262,7 +273,7 @@ docker run -d \
   --name my-helios-container \
   -v /path/to/my-custom-init.sh:/etc/helios/init.d/my-custom-init.sh \
   -v /path/to/my-custom-service.sh:/etc/helios/services.d/my-custom-service.sh \
-  helios:0.0.0-noble
+  helios:v0.0.0-noble
 ```
 
 You can achive the same a number of ways in Kubernetes. For example, you can use a ConfigMap to mount the scripts into the container.
@@ -297,7 +308,7 @@ spec:
         spec:
            containers:
            - name: helios-container
-             image: helios:0.0.0-noble
+             image: helios:v0.0.0-noble
              ports:
                - containerPort: 3000
              volumeMounts:
