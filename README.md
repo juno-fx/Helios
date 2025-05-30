@@ -15,7 +15,8 @@ We try our best to keep the latest version of Kasm installed so we get all the l
 
 - **Kasm VNC**: [e647af5e281735d1c7fc676ca089201aeae7130a](https://github.com/kasmtech/KasmVNC/tree/e647af5e281735d1c7fc676ca089201aeae7130a)
 - **Kasm Web Client**: [bed156c565f7646434563d2deddd3a6c945b7727](https://github.com/kasmtech/noVNC/tree/bed156c565f7646434563d2deddd3a6c945b7727)
-- **Linux Server KClient**: [master](https://github.com/linuxserver/kclient/commits/master/)
+- **Kasm Binaries**: 1.15.0
+- **Linuxserver.io KClient**: [master](https://github.com/linuxserver/kclient/commits/master/)
 
 ## Distros
 
