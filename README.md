@@ -99,3 +99,75 @@ common
 11. `<distro>/build/system.sh` is run to install the distro specific packages and dependencies to finalize the deliverable image.
 12. `common/root` is copied into the image to provide the common rootfs files.
 
+## Customizing Helios
+
+### Using FROM
+
+You can use the `FROM` instruction in your Dockerfile to build on top of Helios images. For example, if you want to build 
+on top of the Ubuntu 24.04 image, you can do the following:
+
+```dockerfile
+FROM helios:0.0.0-noble
+
+RUN apt-get update && \
+    apt-get install -y htop
+```
+
+You can then push it to a private registry and use it in your Kasm compatible deployments.
+
+### Using the Helios Base Image
+
+You can also use the Helios base image as a starting point for your own custom images. The base image is available on 
+Docker Hub and can be pulled using the following command:
+
+#### Shared Configuration Changes
+
+You can modify the shared configuration files in the `common/root` directory to customize the resulting rootfs. 
+For example, you can reference the `common/root/etc/kasm/kasmvnc.conf` file to change the default settings for KasmVNC.
+
+#### Distro Specific Configuration Changes
+
+You can modify the distro specific configuration files in the `<distro>/root` directory to customize the resulting rootfs 
+for that specific distro. For example, you can reference the `<distro>/root/etc/skel/.bashrc` file to change the default 
+settings for the shell on that specific distro.
+
+#### Custom Dependencies
+
+If you would like to pre-install different packages, you can modify the `<distro>/build/system.sh` file to add the packages
+you want to install. For example, the Kali Linux image doesn't ship with any of the Kali tools by default. You can add them 
+to the `system.sh` file to have them pre-installed in the image.
+
+```shell
+...
+apt-get update
+apt-get install -y kali-linux-headless
+...
+```
+
+#### Event Hooks
+
+Helios uses [s6 overlay](https://github.com/just-containers/s6-overlay) init system from [just-containers](https://github.com/just-containers).
+This allows us to tap into the boot sequence of the container and run custom scripts and even custom services. This is
+heavily inspired by the incredible team at [Linuxserver IO](https://www.linuxserver.io/).
+
+> [!TIP]  
+> The init hook executes before all else. So the user is not present yet on the system, but you have full access to the environment variables and the filesystem.
+
+> [!TIP]  
+> Custom services are not managed by s6 yet, the scripts are added to the xfce4 autostart on the system. So your service will not start if xfce4 fails to start.
+
+#### Using FROM
+
+As mentioned above, you can use the `FROM` instruction to add in your custom init scripts and services.
+
+```dockerfile
+FROM helios:0.0.0-noble
+
+# custom init script
+COPY ./my-custom-init.sh /etc/helios/init.d/my-custom-init.sh
+
+# custom service
+COPY ./my-custom-service.sh /etc/helios/services.d/my-custom-service.sh
+```
+
+
