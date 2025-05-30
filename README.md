@@ -22,8 +22,6 @@ and ready for use in various environments such as Docker, Kubernetes, and more. 
 - **Base Images**: Helios containers are meant to be used as a base image for Kasm compatible deployments.
 - **Extremely Minimal Desktops**: The images are designed to be as minimal as possible. No additional software should ever be added the these images. Instead, you should use the `FROM` instruction in your Dockerfile to build on top of Helios images.
 
-
-
 ## Features
 
 - **Lightweight**: Minimal resource usage for efficient performance.
