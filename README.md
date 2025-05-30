@@ -1,6 +1,18 @@
 # Helios
 Optimized Kasm Desktops for general use
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Kasm Setup](#kasm-setup)
+- [Distros](#distros)
+    - [Ubuntu 24.04 (Noble)](#ubuntu-2404-noble)
+    - [Ubuntu 22.04 (Jammy)](#ubuntu-2204-jammy)
+    - [Kali Linux (Rolling Release)](#kali-linux-rolling-release)
+    - [Rocky Linux (9)](#rocky-linux-9)
+    - [Alma Linux (9)](#alma-linux-9)
+
 ## Overview
 
 Helios provides base images for multiple key Linux distributions, optimized to be as small as possible to reduce pull 
@@ -10,16 +22,7 @@ and ready for use in various environments such as Docker, Kubernetes, and more. 
 - **Base Images**: Helios containers are meant to be used as a base image for Kasm compatible deployments.
 - **Extremely Minimal Desktops**: The images are designed to be as minimal as possible. No additional software should ever be added the these images. Instead, you should use the `FROM` instruction in your Dockerfile to build on top of Helios images.
 
-## Table of Contents
 
-- [Features](#features)
-- [Kasm Setup](#kasm-setup)
-- [Distros](#distros)
-  - [Ubuntu 24.04 (Noble)](#ubuntu-2404-noble)
-  - [Ubuntu 22.04 (Jammy)](#ubuntu-2204-jammy)
-  - [Kali Linux (Rolling Release)](#kali-linux-rolling-release)
-  - [Rocky Linux (9)](#rocky-linux-9)
-  - [Alma Linux (9)](#alma-linux-9)
 
 ## Features
 
