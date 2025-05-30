@@ -396,3 +396,11 @@ Development on Helios is meant to be as easy as possible.
 > accessing a local graphics card, you can modify the `compose.yml` file in the root of the repository and run 
 > `make <distro>` to start the container with your custom configuration. Please make sure to change this file back to 
 > the original state before committing your changes.
+
+
+## Acknowledgements
+
+Helios is built on the shoulders of giants. We would like to acknowledge the following projects and teams for inspiring us:
+
+- [Kasm](https://www.kasmweb.com/kasmvnc) for providing the base VDI solution for our containerized desktops.
+- [Linuxserver.io](https://www.linuxserver.io/) for their incredible work which heavily inspires our workflow.
