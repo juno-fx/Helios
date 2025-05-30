@@ -7,6 +7,7 @@ Optimized Kasm Desktops for general use
 - **WebRTC Support**: Seamless audio and video streaming capabilities. (Non-RHEL distros)
 - **Multi-Monitor Support**: Enhanced productivity with multiple displays.
 - **Audio Support**: High-quality audio streaming for a better user experience.
+- **VirtualGL Support**: Hardware-accelerated graphics for 3D applications is supported using `vglrun`.
 
 ## Kasm Setup
 
@@ -55,6 +56,101 @@ We try our best to keep the latest version of Kasm installed so we get all the l
 
 - Size: 1.61 GB 
 - X Server: 1.20.14 (Custom)
+
+## Usage
+
+Environment variables are used to configure the Helios container. The following environment variables are available:
+
+| Name     | Value                                               | Required |
+|----------|-----------------------------------------------------|----------|
+| USER     | Name of the user                                    | X        |
+| PASSWORD | Password that will be set to access the workstation | X        |
+| UID      | POSIX compliant uid for the user                    | X        |
+| GID      | POSIX compliant gid for the user                    |          |
+
+> [!TIP]  
+> The `GID` will be match the `UID` if not specified.
+
+> [!TIP]  
+> The `UID` and `GID` are NOT the user that is launching and running the container. 
+> Because of s6, the container always starts and runs as root. It then uses s6 to run the desktop using the specified 
+> user using those environment variables. This is done to ensure that the desktop has the correct permissions and 
+> ownership on things like the home directory and other files. This helps with things like Network Shares as well.
+
+### Deployment
+
+Helios is meant to be launched in a number of different ways. It works as a standalone docker container as well as being
+k8s ready. The following examples show how to run Helios in different environments.
+
+
+#### Docker
+You can run Helios in a Docker container using the following command:
+
+```shell
+docker run -d \
+  --name helios \
+  -p 3000:3000 \
+  -e USER=bob \
+  -e UID=1000 \
+  -e GID=1000 \
+  -e PASSWORD=password \
+  helios:0.0.0-noble
+``` 
+
+#### Docker Compose
+
+You can also use Docker Compose to run Helios. Create a `docker-compose.yml` file with the following content:
+
+```yaml
+services:
+   helios:
+      image: helios:0.0.0-noble
+      hostname: "helios"
+      container_name: helios
+      environment:
+         - USER=helios
+         - UID=1000
+         - GID=1000
+         - PASSWORD=password
+      ports:
+         - "3000:3000"
+```
+
+#### Kubernetes
+
+You can run Helios in a Kubernetes cluster using the following manifest:
+
+```yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+   name: helios
+spec:
+   serviceName: helios
+   replicas: 1
+   selector:
+      matchLabels:
+         app: helios
+   template:
+      metadata:
+         labels:
+            app: helios
+      spec:
+         containers:
+            - name: helios
+              image: helios:0.0.0-noble
+              ports:
+                 - containerPort: 3000
+              env:
+                 - name: USER
+                   value: "helios"
+                 - name: UID
+                   value: "1000"
+                 - name: GID
+                   value: "1000"
+                 - name: PASSWORD
+                   value: "password"
+```
 
 ## Contributing
 
@@ -168,6 +264,77 @@ COPY ./my-custom-init.sh /etc/helios/init.d/my-custom-init.sh
 
 # custom service
 COPY ./my-custom-service.sh /etc/helios/services.d/my-custom-service.sh
+```
+
+#### Building Helios
+
+You can add your service to the `common/root/etc/helios/services.d` directory to have it included in the final image. You 
+can also add your custom init script to the `common/root/etc/helios/init.d` directory to have it included in the final image.
+
+#### Mounting
+
+Finally, you can dynamically mount the scripts via docker or kubernetes mounts by just mapping the sciripts to the 
+`/etc/helios/init.d` or `/etc/helios/services.d` directories. This allows you to have custom scripts and services without
+the need to rebuild the image. This is useful for testing and development purposes.
+
+Docker
+```shell
+docker run -d \
+  --name my-helios-container \
+  -v /path/to/my-custom-init.sh:/etc/helios/init.d/my-custom-init.sh \
+  -v /path/to/my-custom-service.sh:/etc/helios/services.d/my-custom-service.sh \
+  helios:0.0.0-noble
+```
+
+You can achive the same a number of ways in Kubernetes. For example, you can use a ConfigMap to mount the scripts into the container.
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-helios-config
+data:
+    my-custom-init.sh: |
+        #!/bin/sh
+        echo "Hello from my custom init script!"
+    
+    my-custom-service.sh: |
+        #!/bin/sh
+        echo "Hello from my custom service!"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-helios-deployment
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+           app: my-helios-app
+    template:
+        metadata:
+           labels:
+               app: my-helios-app
+        spec:
+           containers:
+           - name: helios-container
+             image: helios:0.0.0-noble
+             ports:
+               - containerPort: 3000
+             volumeMounts:
+              - name: custom-scripts
+                mountPath: /etc/helios/init.d/my-custom-init.sh
+                subPath: my-custom-init.sh
+              - name: custom-services
+                mountPath: /etc/helios/services.d/my-custom-service.sh
+                subPath: my-custom-service.sh
+           volumes:
+           - name: custom-scripts
+             configMap:
+               name: my-helios-config
+           - name: custom-services
+             configMap:
+               name: my-helios-config
 ```
 
 
