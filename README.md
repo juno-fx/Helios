@@ -55,3 +55,48 @@ We try our best to keep the latest version of Kasm installed so we get all the l
 
 - Size: 1.61 GB 
 - X Server: 1.20.14 (Custom)
+
+## Contributing
+
+### Build Process
+
+All builds are run through a single Dockerfile which is at the root of the repository. This describes the standard
+procedure to build a Helios container. There are a few rules.
+
+1. NOTHING distro specific should ever be added to the Dockerfile.
+    - The only exception is the Ubuntu stage which generates the snakeoil certificates which are then copied into the common rootfs. This is used to satisfy the requirement for KasmVNC to launch on RHEL based distros.
+2. All builds MUST be run through the Dockerfile at the root of the repository. This ensures that the build process is consistent across all distros and all versions are uniform.
+3. The Dockerfile is heavily monitored for changes and any proposed changes will require a very detailed explanation of why the change is necessary and how it will affect the build process. As of right now, there is no reason to modify the Dockerfile as it provides hooks in the rest of the repo to do anything you want.
+
+### Repository Layout
+
+The repository is laid out as follows.
+
+```
+common
+├── build <- Common build scripts for all distros
+└── root <- Modified rootfs for all distros
+<distro>
+├── build <- Distro specific build scripts
+└── root <- Distro specific rootfs
+```
+
+### Build Order
+
+1. `common/build/novnc.sh` is run to build the noVNC client. (This is standard across all distros)
+2. `<distro>/build/kasm.sh` is run to install the distro specific packages and dependencies to build the KasmVNC server and the custom X server.
+3. `common/build/turbo.sh` is run to build the custom libjpeg-turbo required by KasmVNC server. (This is standard across all distros)
+4. `common/build/kasm.sh` is run to build the KasmVNC server. (This is standard across all distros)
+5. `<distro>/build/xorg.sh` is run to build the X server. Depending on the distro, it will change which X version is built. This is the case for RHEL distros for example.
+6. `<distro>/build/kclient.sh` is run to install Node for the distro. This changes per distro as some distros have different package managers or versions of Node available.
+7. `common/build/kclient.sh` is run to build the kclient client. (This is standard across all distros)
+
+> [!NOTE]  
+> We do apply a patch to the kclient that removes the fileserver functionality as well as automatically enable audio by default.
+
+8. `common/build/package.sh` is run in the build stage to generate the rootfs containing, kclient, KasmVNC server, custom X server, and noVNC client.
+9. `<distro>/root` is then copied into a fresh image with all distro specific files and configurations.
+10. We then copy the packaged rootfs from the build stage to a fresh flattened image which "installs" Kasm
+11. `<distro>/build/system.sh` is run to install the distro specific packages and dependencies to finalize the deliverable image.
+12. `common/root` is copied into the image to provide the common rootfs files.
+
