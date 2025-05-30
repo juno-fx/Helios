@@ -391,6 +391,7 @@ Development on Helios is meant to be as easy as possible.
 2. Run `devbox shell` to enter the development environment.
 3. Run `make <distro>` to build the desired distro. For example, `make noble` will build the Ubuntu 24.04 image.
 4. Open your browser at `http://localhost:3000` to access the Kasm web client.
+5. Formatting your changes is done by running `make format`.
 
 > [!TIP]
 > The make targets essentially launch `docker compose`. If you need to try other deployment configurations, such as 
