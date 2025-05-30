@@ -1,6 +1,26 @@
 # Helios
 Optimized Kasm Desktops for general use
 
+## Overview
+
+Helios provides base images for multiple key Linux distributions, optimized to be as small as possible to reduce pull 
+times, minimize attach surface and reduce data transfer costs. These images are designed to be lightweight, efficient, 
+and ready for use in various environments such as Docker, Kubernetes, and more. Some key points about Helios:
+
+- **Base Images**: Helios containers are meant to be used as a base image for Kasm compatible deployments.
+- **Extremely Minimal Desktops**: The images are designed to be as minimal as possible. No additional software should ever be added the these images. Instead, you should use the `FROM` instruction in your Dockerfile to build on top of Helios images.
+
+## Table of Contents
+
+- [Features](#features)
+- [Kasm Setup](#kasm-setup)
+- [Distros](#distros)
+  - [Ubuntu 24.04 (Noble)](#ubuntu-2404-noble)
+  - [Ubuntu 22.04 (Jammy)](#ubuntu-2204-jammy)
+  - [Kali Linux (Rolling Release)](#kali-linux-rolling-release)
+  - [Rocky Linux (9)](#rocky-linux-9)
+  - [Alma Linux (9)](#alma-linux-9)
+
 ## Features
 
 - **Lightweight**: Minimal resource usage for efficient performance.
@@ -153,54 +173,11 @@ spec:
                    value: "password"
 ```
 
-## Contributing
-
-### Build Process
-
-All builds are run through a single Dockerfile which is at the root of the repository. This describes the standard
-procedure to build a Helios container. There are a few rules.
-
-1. NOTHING distro specific should ever be added to the Dockerfile.
-    - The only exception is the Ubuntu stage which generates the snakeoil certificates which are then copied into the common rootfs. This is used to satisfy the requirement for KasmVNC to launch on RHEL based distros.
-2. All builds MUST be run through the Dockerfile at the root of the repository. This ensures that the build process is consistent across all distros and all versions are uniform.
-3. The Dockerfile is heavily monitored for changes and any proposed changes will require a very detailed explanation of why the change is necessary and how it will affect the build process. As of right now, there is no reason to modify the Dockerfile as it provides hooks in the rest of the repo to do anything you want.
-
-### Repository Layout
-
-The repository is laid out as follows.
-
-```
-common
-├── build <- Common build scripts for all distros
-└── root <- Modified rootfs for all distros
-<distro>
-├── build <- Distro specific build scripts
-└── root <- Distro specific rootfs
-```
-
-### Build Order
-
-1. `common/build/novnc.sh` is run to build the noVNC client. (This is standard across all distros)
-2. `<distro>/build/kasm.sh` is run to install the distro specific packages and dependencies to build the KasmVNC server and the custom X server.
-3. `common/build/turbo.sh` is run to build the custom libjpeg-turbo required by KasmVNC server. (This is standard across all distros)
-4. `common/build/kasm.sh` is run to build the KasmVNC server. (This is standard across all distros)
-5. `<distro>/build/xorg.sh` is run to build the X server. Depending on the distro, it will change which X version is built. This is the case for RHEL distros for example.
-6. `<distro>/build/kclient.sh` is run to install Node for the distro. This changes per distro as some distros have different package managers or versions of Node available.
-7. `common/build/kclient.sh` is run to build the kclient client. (This is standard across all distros)
-
-   > We do apply a helios.patch to the kclient that removes the fileserver functionality as well as automatically enable audio by default.
-
-8. `common/build/package.sh` is run in the build stage to generate the rootfs containing, kclient, KasmVNC server, custom X server, and noVNC client.
-9. `<distro>/root` is then copied into a fresh image with all distro specific files and configurations.
-10. We then copy the packaged rootfs from the build stage to a fresh flattened image which "installs" Kasm
-11. `<distro>/build/system.sh` is run to install the distro specific packages and dependencies to finalize the deliverable image.
-12. `common/root` is copied into the image to provide the common rootfs files.
-
 ## Customizing Helios
 
 ### Using FROM
 
-You can use the `FROM` instruction in your Dockerfile to build on top of Helios images. For example, if you want to build 
+You can use the `FROM` instruction in your Dockerfile to build on top of Helios images. For example, if you want to build
 on top of the Ubuntu 24.04 image, you can do the following:
 
 ```dockerfile
@@ -212,36 +189,7 @@ RUN apt-get update && \
 
 You can then push it to a private registry and use it in your Kasm compatible deployments.
 
-### Using the Helios Base Image
-
-You can also use the Helios base image as a starting point for your own custom images. The base image is available on 
-Docker Hub and can be pulled using the following command:
-
-#### Shared Configuration Changes
-
-You can modify the shared configuration files in the `common/root` directory to customize the resulting rootfs. 
-For example, you can reference the `common/root/etc/kasm/kasmvnc.conf` file to change the default settings for KasmVNC.
-
-#### Distro Specific Configuration Changes
-
-You can modify the distro specific configuration files in the `<distro>/root` directory to customize the resulting rootfs 
-for that specific distro. For example, you can reference the `<distro>/root/etc/skel/.bashrc` file to change the default 
-settings for the shell on that specific distro.
-
-#### Custom Dependencies
-
-If you would like to pre-install different packages, you can modify the `<distro>/build/system.sh` file to add the packages
-you want to install. For example, the Kali Linux image doesn't ship with any of the Kali tools by default. You can add them 
-to the `system.sh` file to have them pre-installed in the image.
-
-```shell
-...
-apt-get update
-apt-get install -y kali-linux-headless
-...
-```
-
-#### Event Hooks
+### Event Hooks
 
 Helios uses [s6 overlay](https://github.com/just-containers/s6-overlay) init system from [just-containers](https://github.com/just-containers).
 This allows us to tap into the boot sequence of the container and run custom scripts and even custom services. This is
@@ -267,14 +215,9 @@ COPY ./my-custom-init.sh /etc/helios/init.d/my-custom-init.sh
 COPY ./my-custom-service.sh /etc/helios/services.d/my-custom-service.sh
 ```
 
-#### Building Helios
-
-You can add your service to the `common/root/etc/helios/services.d` directory to have it included in the final image. You 
-can also add your custom init script to the `common/root/etc/helios/init.d` directory to have it included in the final image.
-
 #### Mounting
 
-Finally, you can dynamically mount the scripts via docker or kubernetes mounts by just mapping the sciripts to the 
+Finally, you can dynamically mount the scripts via docker or kubernetes mounts by just mapping the sciripts to the
 `/etc/helios/init.d` or `/etc/helios/services.d` directories. This allows you to have custom scripts and services without
 the need to rebuild the image. This is useful for testing and development purposes.
 
@@ -338,4 +281,76 @@ spec:
                name: my-helios-config
 ```
 
+## Contributing
 
+Contributions to Helios are welcome! We just ask that evaluate what you actually need to adjust. This repo is not
+meant to provide a fully built desktop with all the bells and whistles. It is meant to provide a base image
+that others can build on top of. That means most changes to Helios should be geared towards adding new distros,
+optimizing the build process, or upgrading part of the Helios stack. If you have a specific use case that requires
+a change to Helios, please open an issue or a pull request with a detailed explanation of the change and why it is
+necessary.
+
+### Build Process
+
+All builds are run through a single Dockerfile which is at the root of the repository. This describes the standard
+procedure to build a Helios container. There are a few rules.
+
+1. NOTHING distro specific should ever be added to the Dockerfile.
+    - The only exception is the Ubuntu stage which generates the snakeoil certificates which are then copied into the common rootfs. This is used to satisfy the requirement for KasmVNC to launch on RHEL based distros.
+2. All builds MUST be run through the Dockerfile at the root of the repository. This ensures that the build process is consistent across all distros and all versions are uniform.
+3. The Dockerfile is heavily monitored for changes and any proposed changes will require a very detailed explanation of why the change is necessary and how it will affect the build process. As of right now, there is no reason to modify the Dockerfile as it provides hooks in the rest of the repo to do anything you want.
+
+### Repository Layout
+
+The repository is laid out as follows.
+
+```
+common
+├── build <- Common build scripts for all distros
+└── root <- Modified rootfs for all distros
+<distro>
+├── build <- Distro specific build scripts
+└── root <- Distro specific rootfs
+```
+
+### Build Order
+
+1. `common/build/novnc.sh` is run to build the noVNC client. (This is standard across all distros)
+2. `<distro>/build/kasm.sh` is run to install the distro specific packages and dependencies to build the KasmVNC server and the custom X server.
+3. `common/build/turbo.sh` is run to build the custom libjpeg-turbo required by KasmVNC server. (This is standard across all distros)
+4. `common/build/kasm.sh` is run to build the KasmVNC server. (This is standard across all distros)
+5. `<distro>/build/xorg.sh` is run to build the X server. Depending on the distro, it will change which X version is built. This is the case for RHEL distros for example.
+6. `<distro>/build/kclient.sh` is run to install Node for the distro. This changes per distro as some distros have different package managers or versions of Node available.
+7. `common/build/kclient.sh` is run to build the kclient client. (This is standard across all distros)
+
+   > We do apply a helios.patch to the kclient that removes the fileserver functionality as well as automatically enable audio by default.
+
+8. `common/build/package.sh` is run in the build stage to generate the rootfs containing, kclient, KasmVNC server, custom X server, and noVNC client.
+9. `<distro>/root` is then copied into a fresh image with all distro specific files and configurations.
+10. We then copy the packaged rootfs from the build stage to a fresh flattened image which "installs" Kasm
+11. `<distro>/build/system.sh` is run to install the distro specific packages and dependencies to finalize the deliverable image.
+12. `common/root` is copied into the image to provide the common rootfs files.
+
+### Shared Configuration Changes
+
+You can modify the shared configuration files in the `common/root` directory to customize the resulting rootfs.
+For example, you can reference the `common/root/etc/kasm/kasmvnc.conf` file to change the default settings for KasmVNC.
+
+### Distro Specific Configuration Changes
+
+You can modify the distro specific configuration files in the `<distro>/root` directory to customize the resulting rootfs
+for that specific distro. For example, you can reference the `<distro>/root/etc/skel/.bashrc` file to change the default
+settings for the shell on that specific distro.
+
+### Custom Dependencies
+
+If you would like to pre-install different packages, you can modify the `<distro>/build/system.sh` file to add the packages
+you want to install. For example, the Kali Linux image doesn't ship with any of the Kali tools by default. You can add them
+to the `system.sh` file to have them pre-installed in the image.
+
+```shell
+...
+apt-get update
+apt-get install -y kali-linux-headless
+...
+```
