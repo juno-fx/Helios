@@ -91,8 +91,7 @@ common
 6. `<distro>/build/kclient.sh` is run to install Node for the distro. This changes per distro as some distros have different package managers or versions of Node available.
 7. `common/build/kclient.sh` is run to build the kclient client. (This is standard across all distros)
 
-   > [!NOTE]  
-   > We do apply a patch to the kclient that removes the fileserver functionality as well as automatically enable audio by default.
+   > We do apply a helios.patch to the kclient that removes the fileserver functionality as well as automatically enable audio by default.
 
 8. `common/build/package.sh` is run in the build stage to generate the rootfs containing, kclient, KasmVNC server, custom X server, and noVNC client.
 9. `<distro>/root` is then copied into a fresh image with all distro specific files and configurations.
