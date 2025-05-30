@@ -32,6 +32,7 @@ Optimized Kasm Desktops for general use
     - [Development Workflow](#development-workflow)
         - [Pre-requisites](#pre-requisites)
         - [Workflow](#workflow)
+- [Acknowledgements](#acknowledgements)
 
 ## Overview
 
