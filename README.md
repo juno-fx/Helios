@@ -38,7 +38,7 @@ Optimized Kasm Desktops for general use
 ## Overview
 
 Helios provides base images for multiple key Linux distributions, optimized to be as small as possible to reduce pull 
-times, minimize attach surface and reduce data transfer costs. These images are designed to be lightweight, efficient, 
+times, minimize attack surface and reduce data transfer costs. These images are designed to be lightweight, efficient, 
 and ready for use in various environments such as Docker, Kubernetes, and more. Some key points about Helios:
 
 - **Base Images**: Helios containers are meant to be used as a base image for Kasm compatible deployments.
@@ -126,6 +126,8 @@ testing and development purposes only. They are not meant for production use and
 
 ## Usage
 
+### Environment Variables
+
 Environment variables are used to configure the Helios container. The following environment variables are available:
 
 | Name     | Value                                               | Required |
@@ -136,13 +138,21 @@ Environment variables are used to configure the Helios container. The following 
 | GID      | POSIX compliant gid for the user                    |          |
 
 > [!TIP]  
-> The `GID` will be match the `UID` if not specified.
+> The `GID` will match the `UID` if not specified.
 
 > [!TIP]  
 > The `UID` and `GID` are NOT the user that is launching and running the container. 
 > Because of s6, the container always starts and runs as root. It then uses s6 to run the desktop using the specified 
 > user using those environment variables. This is done to ensure that the desktop has the correct permissions and 
 > ownership on things like the home directory and other files. This helps with things like Network Shares as well.
+
+### Ports
+
+Helios exposes the following ports:
+
+| Port | Description       |
+|------|-------------------|
+| 3000 | HTTP Desktop Port |
 
 ### Deployment
 
@@ -237,7 +247,7 @@ You can then push it to a private registry and use it in your Kasm compatible de
 
 ### Event Hooks
 
-Helios uses [s6 overlay](https://github.com/just-containers/s6-overlay) init system from [just-containers](https://github.com/just-containers).
+Helios uses the [s6 overlay](https://github.com/just-containers/s6-overlay) init system from [just-containers](https://github.com/just-containers).
 This allows us to tap into the boot sequence of the container and run custom scripts and even custom services. This is
 heavily inspired by the incredible team at [Linuxserver IO](https://www.linuxserver.io/).
 
@@ -267,7 +277,6 @@ Finally, you can dynamically mount the scripts via docker or kubernetes mounts b
 `/etc/helios/init.d` or `/etc/helios/services.d` directories. This allows you to have custom scripts and services without
 the need to rebuild the image. This is useful for testing and development purposes.
 
-Docker
 ```shell
 docker run -d \
   --name my-helios-container \
@@ -329,7 +338,7 @@ spec:
 
 ## Contributing
 
-Contributions to Helios are welcome! We just ask that evaluate what you actually need to adjust. This repo is not
+Contributions to Helios are welcome! We just ask that you evaluate what you actually need to adjust. This repo is not
 meant to provide a fully built desktop with all the bells and whistles. It is meant to provide a base image
 that others can build on top of. That means most changes to Helios should be geared towards adding new distros,
 optimizing the build process, or upgrading part of the Helios stack. If you have a specific use case that requires
@@ -430,3 +439,4 @@ Helios is built on the shoulders of giants. We would like to acknowledge the fol
 
 - [Kasm](https://www.kasmweb.com/kasmvnc) for providing the base VDI solution for our containerized desktops.
 - [Linuxserver.io](https://www.linuxserver.io/) for their incredible work which heavily inspires our workflow.
+- [just-containers](https://github.com/just-containers/) for the awesome s6 overlay init system.
