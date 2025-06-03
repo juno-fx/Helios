@@ -254,8 +254,9 @@ heavily inspired by the incredible team at [Linuxserver IO](https://www.linuxser
 > [!TIP]  
 > The init hook executes before all else. So the user is not present yet on the system, but you have full access to the environment variables and the filesystem.
 
-> [!TIP]  
-> Custom services are not managed by s6 yet, the scripts are added to the xfce4 autostart on the system. So your service will not start if xfce4 fails to start.
+Custom services are executed via the `/etc/helios/services.d` directory. You can add your own custom services by overriding
+the `/etc/helios/services.d/custom.sh` file in your Dockerfile or by mounting it into the container. There you can launch 
+your own custom services that will run in the background.
 
 #### Using FROM
 
@@ -268,7 +269,7 @@ FROM helios:v0.0.0-noble
 COPY ./my-custom-init.sh /etc/helios/init.d/my-custom-init.sh
 
 # custom service
-COPY ./my-custom-service.sh /etc/helios/services.d/my-custom-service.sh
+COPY ./my-custom-service.sh /etc/helios/services.d/custom.sh
 ```
 
 #### Mounting
@@ -281,7 +282,7 @@ the need to rebuild the image. This is useful for testing and development purpos
 docker run -d \
   --name my-helios-container \
   -v /path/to/my-custom-init.sh:/etc/helios/init.d/my-custom-init.sh \
-  -v /path/to/my-custom-service.sh:/etc/helios/services.d/my-custom-service.sh \
+  -v /path/to/my-custom-service.sh:/etc/helios/services.d/custom.sh \
   helios:v0.0.0-noble
 ```
 
@@ -298,8 +299,16 @@ data:
         echo "Hello from my custom init script!"
     
     my-custom-service.sh: |
-        #!/bin/sh
-        echo "Hello from my custom service!"
+        #!/bin/bash
+        
+        set -e
+        
+        echo
+        echo "Helios Custom Service Initialization"
+        echo
+        /path/to/my/custom/script.sh
+        /path/to/my/other/custom/script.sh
+        sleep infinity
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -325,7 +334,7 @@ spec:
                 mountPath: /etc/helios/init.d/my-custom-init.sh
                 subPath: my-custom-init.sh
               - name: custom-services
-                mountPath: /etc/helios/services.d/my-custom-service.sh
+                mountPath: /etc/helios/services.d/custom.sh
                 subPath: my-custom-service.sh
            volumes:
            - name: custom-scripts

@@ -1,0 +1,2 @@
+#!/command/execlineb -S0
+with-contenv /etc/helios/services.d/custom.sh

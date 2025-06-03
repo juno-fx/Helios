@@ -20,5 +20,7 @@ for script in /etc/helios/init.d/*.sh; do
 	fi
 done
 
+chmod +x /etc/helios/services.d/custom.sh
+
 echo
 echo
