@@ -1,0 +1,13 @@
+diff --git a/index.html b/index.html
+index 2495646..f0ab5d0 100644
+--- a/index.html
++++ b/index.html
+@@ -192,7 +192,7 @@
+                 </div>
+ 
+                 <!-- Toggle game mode -->
+-                <div class="noVNC_button_div noVNC_hidden noVNC_hide_on_disconnect" >
++                <div class="noVNC_button_div noVNC_hidden noVNC_hide_on_disconnect" style="display: none">
+                     <input type="image" alt="Game Mode" src="app/images/gamepad.png"
+                         id="noVNC_game_mode_button" class="noVNC_button"
+                         title="Game Pointer Mode">

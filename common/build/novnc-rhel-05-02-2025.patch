@@ -1,0 +1,105 @@
+diff --git a/app/ui.js b/app/ui.js
+index 8307388..29c4d63 100644
+--- a/app/ui.js
++++ b/app/ui.js
+@@ -1505,7 +1505,7 @@ const UI = {
+         UI.rfb.clipboardSeamless = UI.getSetting('clipboard_seamless');
+         UI.rfb.keyboard.enableIME = UI.getSetting('enable_ime');
+         UI.rfb.clipboardBinary = supportsBinaryClipboard() && UI.rfb.clipboardSeamless;
+-        UI.rfb.enableWebRTC = UI.getSetting('enable_webrtc');
++        UI.rfb.enableWebRTC = false  // UI.getSetting('enable_webrtc'); This is disabled until RHEL based distros are properly supported by upstream
+         UI.rfb.enableHiDpi = UI.getSetting('enable_hidpi');
+         UI.rfb.threading = UI.getSetting('enable_threading');
+         UI.rfb.mouseButtonMapper = UI.initMouseButtonMapper();
+@@ -1777,16 +1777,10 @@ const UI = {
+                     UI.closeDisplays()
+                     break;
+                 case 'enable_webrtc':
+-                    if (!UI.getSetting('enable_webrtc')) {
+-                        UI.forceSetting('enable_webrtc', true, false);
+-                        UI.toggleWebRTC();
+-                    }
++                    UI.forceSetting('enable_webrtc', false, true)
+                     break;
+                 case 'disable_webrtc':
+-                    if (UI.getSetting('enable_webrtc')) {
+-                        UI.forceSetting('enable_webrtc', false, false);
+-                        UI.toggleWebRTC();
+-                    }
++                    UI.forceSetting('enable_webrtc', false, true)
+                     break;
+                 case 'resize':
+                     UI.forceSetting('resize', event.data.value, false);
+@@ -2633,16 +2627,16 @@ const UI = {
+ 
+     toggleWebRTC() {
+         if (UI.rfb) {
+-            if (typeof RTCPeerConnection === 'undefined') {
+-                UI.showStatus('This browser does not support WebRTC UDP Data Channels.', 'warn', 5000, true);
+-                return;
+-            }
+-
+-            if (UI.getSetting('enable_webrtc')) {
+-                UI.rfb.enableWebRTC = true;
+-            } else {
+-                UI.rfb.enableWebRTC = false;
+-            }
++            // if (typeof RTCPeerConnection === 'undefined') {
++            //     UI.showStatus('This browser does not support WebRTC UDP Data Channels.', 'warn', 5000, true);
++            //     return;
++            // }
++
++            // if (UI.getSetting('enable_webrtc')) {
++            //     UI.rfb.enableWebRTC = false;
++            // } else {
++            //     UI.rfb.enableWebRTC = false;
++            // }
+             UI.updateQuality();
+         }
+     },
+diff --git a/app/ui_screen.js b/app/ui_screen.js
+index af1a876..eab24b1 100644
+--- a/app/ui_screen.js
++++ b/app/ui_screen.js
+@@ -194,7 +194,7 @@ const UI = {
+         UI.rfb.clipboardSeamless = seamlessClip
+         UI.rfb.keyboard.enableIME = UI.getSetting('enable_ime', true, false);
+         UI.rfb.clipboardBinary = supportsBinaryClipboard() && UI.rfb.clipboardSeamless;
+-        UI.rfb.enableWebRTC = UI.getSetting('enable_webrtc', true, false);
++        UI.rfb.enableWebRTC = false  // UI.getSetting('enable_webrtc'); This is disabled until RHEL based distros are properly supported by upstream
+         UI.rfb.mouseButtonMapper = UI.initMouseButtonMapper();
+         if (UI.rfb.videoQuality === 5) {
+             UI.rfb.enableQOI = true;
+diff --git a/index.html b/index.html
+index 2495646..68c452c 100644
+--- a/index.html
++++ b/index.html
+@@ -137,7 +137,7 @@
+                 </div>
+ 
+                 <!-- Shutdown/Reboot -->
+-                <div class="noVNC_button_div noVNC_hide_on_disconnect" >
++                <div class="noVNC_button_div noVNC_hide_on_disconnect" style="display: none">
+                     <input type="image" alt="Shutdown/Reboot" src="app/images/power.svg"
+                         id="noVNC_power_button" class="noVNC_button"
+                         title="Shutdown/Reboot...">
+@@ -192,7 +192,7 @@
+                 </div>
+ 
+                 <!-- Toggle game mode -->
+-                <div class="noVNC_button_div noVNC_hidden noVNC_hide_on_disconnect" >
++                <div class="noVNC_button_div noVNC_hidden noVNC_hide_on_disconnect" style="display: none">
+                     <input type="image" alt="Game Mode" src="app/images/gamepad.png"
+                         id="noVNC_game_mode_button" class="noVNC_button"
+                         title="Game Pointer Mode">
+@@ -253,8 +253,8 @@
+                                         <span class="slider-label">Translate keyboard shortcuts</span>
+                                     </label>
+                                 </li>
+-                                <li>
+-                                    <label class="switch"><input id="noVNC_setting_enable_webrtc" type="checkbox" />
++                                <li style="display: none">
++                                    <label class="switch"><input id="noVNC_setting_enable_webrtc" type="checkbox"/>
+                                         <span class="slider round"></span>
+                                         <span class="slider-label">Enable WebRTC UDP Transit</span>
+                                     </label>

@@ -1,6 +1,7 @@
 # heavily refernces https://github.com/linuxserver/docker-baseimage-kasmvnc/blob/master/Dockerfile
 ARG IMAGE
 ARG SRC
+ARG RHEL
 
 FROM ${IMAGE} AS distro
 
@@ -27,6 +28,8 @@ RUN tar -C /s6 -Jxpf /tmp/s6-overlay-symlinks-arch.tar.xz
 
 FROM node:20 AS novnc
 
+ARG RHEL
+
 # https://github.com/kasmtech/noVNC/tree/bed156c565f7646434563d2deddd3a6c945b7727
 ENV KASMWEB_COMMIT="bed156c565f7646434563d2deddd3a6c945b7727"
 ENV QT_QPA_PLATFORM=offscreen
@@ -34,6 +37,7 @@ ENV QT_QPA_FONTDIR=/usr/share/fonts
 
 # Build kasm noVNC client base
 COPY --chmod=777 common/build/novnc.sh /
+COPY --chmod=777 common/build/novnc-*.patch /
 RUN /novnc.sh
 
 
@@ -63,7 +67,7 @@ RUN ./xorg.sh
 COPY --chmod=777 ${SRC}/build/kclient.sh /build/
 RUN ./kclient.sh
 COPY --chmod=777 common/build/kclient.sh /build/
-COPY --chmod=777 common/build/helios.patch /build/
+COPY --chmod=777 common/build/kclient-05-02-2025.patch /build/
 RUN ./kclient.sh
 
 # copy over the built noVNC client

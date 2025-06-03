@@ -8,7 +8,7 @@ curl -o /tmp/kclient.tar.gz -L "https://github.com/linuxserver/kclient/archive/$
 
 # build kclient
 cd /kclient
-cp -v /build/helios.patch ./
-git apply --reject --whitespace=fix helios.patch
+cp -v /build/kclient-05-02-2025.patch ./
+git apply --reject --whitespace=fix kclient-05-02-2025.patch
 npm install
 rm -f package-lock.json

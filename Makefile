@@ -13,11 +13,11 @@ kali:
 	@docker compose up
 
 rocky-9:
-	@docker compose build --build-arg IMAGE=rockylinux:9 --build-arg SRC=rocky-9
+	@docker compose build --build-arg IMAGE=rockylinux:9 --build-arg SRC=rocky-9 --build-arg RHEL=true
 	@docker compose up
 
 alma-9:
-	@docker compose build --build-arg IMAGE=almalinux:9 --build-arg SRC=alma-9
+	@docker compose build --build-arg IMAGE=almalinux:9 --build-arg SRC=alma-9 --build-arg RHEL=true
 	@docker compose up
 
 format:
