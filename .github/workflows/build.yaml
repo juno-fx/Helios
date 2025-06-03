@@ -1,6 +1,8 @@
-name: Build Container Image
+name: Build Helios Image
 on:
   push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
 
 jobs:
   build:

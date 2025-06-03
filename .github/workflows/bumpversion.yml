@@ -1,10 +1,16 @@
 name: Bumpversion
 
 on:
-  workflow_call:
+  workflow_dispatch:
     inputs:
       bump:
-        type: string
+        type: choice
+        description: What to bump by.
+        default: patch
+        options:
+          - patch
+          - minor
+          - major
 
 jobs:
   Bumpversion:
@@ -25,7 +31,7 @@ jobs:
         shell: bash
         run: |
           pip install bump-my-version
-          bump2version ${{ inputs.bump }}
+          bump-my-version bump ${{ inputs.bump }} -v
 
       - name: Push changes
         uses: ad-m/github-push-action@v0.8.0
