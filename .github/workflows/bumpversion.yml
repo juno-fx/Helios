@@ -24,11 +24,11 @@ jobs:
       - name: Bumpversion
         shell: bash
         run: |
-          pip install bump2version
+          pip install bump-my-version
           bump2version ${{ inputs.bump }}
 
       - name: Push changes
-        uses: ad-m/github-push-action@master
+        uses: ad-m/github-push-action@v0.8.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           tags: true
