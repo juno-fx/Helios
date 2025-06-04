@@ -113,7 +113,7 @@ Helios independently of the underlying distro. Some further examples of the vers
 - `v0.0.0-rocky-9` for Rocky Linux
 - `v0.0.0-alma-9` for Alma Linux
 
-Helios also ships `unstable` builds which are built directly off of the `testing` branch. These builds are meant for
+Helios also ships `unstable` builds which are built directly off of the `main` branch. These builds are meant for
 testing and development purposes only. They are not meant for production use and may contain bugs or incomplete features.
 
 - `unstable-noble` for the latest unstable build of Ubuntu 24.04
@@ -122,6 +122,15 @@ testing and development purposes only. They are not meant for production use and
 - `unstable-rocky-9` for the latest unstable build of Rocky Linux
 - `unstable-alma-9` for the latest unstable build of Alma Linux
 
+Helios also ships a `testing` tag which is built from the `testing` branch. This branch is meant for testing new 
+features and changes before they are merged into the `main` branch. The `testing` tag is meant to be used for testing 
+purposes only and may contain bugs or incomplete features.
+
+- `testing-noble` for the latest testing build of Ubuntu 24.04
+- `testing-jammy` for the latest testing build of Ubuntu 22.04
+- `testing-kali` for the latest testing build of Kali Linux
+- `testing-rocky-9` for the latest testing build of Rocky Linux
+- `testing-alma-9` for the latest testing build of Alma Linux
 
 
 ## Usage

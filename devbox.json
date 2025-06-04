@@ -4,15 +4,6 @@
     "shfmt@latest",
     "gnumake@latest",
     "docker@latest",
-    "docker-compose@latest",
-    "python3@latest"
-  ],
-  "shell": {
-    "init_hook": [
-      "./.devbox/virtenv/python3/bin/venvShellHook.sh",
-      ". $VENV_DIR/bin/activate",
-      "pip install uv",
-      "uv pip install -r requirements.txt"
-    ]
-  }
+    "docker-compose@latest"
+  ]
 }

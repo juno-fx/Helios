@@ -1,7 +1,7 @@
 # heavily refernces https://github.com/linuxserver/docker-baseimage-kasmvnc/blob/master/Dockerfile
-ARG IMAGE
-ARG SRC
-ARG RHEL
+ARG IMAGE=ubuntu:jammy
+ARG SRC=jammy
+ARG RHEL=false
 
 FROM ${IMAGE} AS distro
 
