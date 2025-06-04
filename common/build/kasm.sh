@@ -1,3 +1,5 @@
+#!/bin/bash
+
 mkdir /src
 git clone https://github.com/kasmtech/KasmVNC.git /src
 cd /src

@@ -1,3 +1,5 @@
+#!/bin/bash
+
 set -e
 
 # get initial sources list

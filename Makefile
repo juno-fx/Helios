@@ -1,4 +1,4 @@
-.PHONY: jammy kali noble rocky-9 alma-9 bookworm sid noble-mobile
+.PHONY: jammy kali noble rocky-9 alma-9 bookworm sid
 
 
 # DEBIAN

@@ -1,3 +1,5 @@
+#!/bin/bash
+
 set -e
 
 # run the kasm packaing process

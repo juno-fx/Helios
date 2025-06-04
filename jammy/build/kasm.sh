@@ -1,3 +1,5 @@
+#!/bin/bash
+
 set -e
 
 # add srcs for deb
