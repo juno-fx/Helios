@@ -63,28 +63,43 @@ We try our best to keep the latest version of Kasm installed so we get all the l
 
 ## Distros
 
-### [Ubuntu 24.04 (Noble)](https://hub.docker.com/_/ubuntu/tags?name=noble)
+### Debian
 
-- Size: 1.48 GB
+#### [Debian 12 (Bookworm)](https://hub.docker.com/_/debian/tags?name=bookworm)
+
+- Size: 1.68 GB
 - X Server: 21.1.4 (Custom)
 
+#### [Debian Rolling (Trixie/Sid)](https://hub.docker.com/_/debian/tags?name=sid)
 
-### [Ubuntu 22.04 (Jammy)](https://hub.docker.com/_/ubuntu/tags?name=jammy)
-
-- Size: 1.48 GB
+- Size: 1.79 GB
 - X Server: 21.1.4 (Custom)
 
-
-### [Kali Linux (Rolling Release)](https://hub.docker.com/r/kalilinux/kali-rolling)
+#### [Kali Linux (Rolling Release)](https://hub.docker.com/r/kalilinux/kali-rolling)
 
 > [!TIP]  
 > We don't install any default Kali tools in this image. Please follow the instructions in the [Kali Linux Docker Image documentation](https://www.kali.org/docs/containers/official-kalilinux-docker-images/) to install them.
 
-- Size: 1.74 GB (This does not include the Kali tools which make the image much larger)
+- Size: 1.73 GB (This does not include the Kali tools which make the image much larger)
+- X Server: 21.1.4 (Custom)
+
+### Ubuntu
+
+#### [Ubuntu 24.04 (Noble)](https://hub.docker.com/_/ubuntu/tags?name=noble)
+
+- Size: 1.48 GB
 - X Server: 21.1.4 (Custom)
 
 
-### [Rocky Linux (9)](https://hub.docker.com/_/rockylinux/tags?name=9)
+#### [Ubuntu 22.04 (Jammy)](https://hub.docker.com/_/ubuntu/tags?name=jammy)
+
+- Size: 1.48 GB
+- X Server: 21.1.4 (Custom)
+
+
+### RHEL
+
+#### [Rocky Linux (9)](https://hub.docker.com/_/rockylinux/tags?name=9)
 
 > [!WARNING]  
 > Currently WebRTC is not supported on Rocky Linux due to upstream limitations with Kasm. This may change in the future.
@@ -93,7 +108,7 @@ We try our best to keep the latest version of Kasm installed so we get all the l
 - X Server: 1.20.14 (Custom)
 
 
-### [Alma Linux (9)](https://hub.docker.com/_/almalinux/tags?name=9)
+#### [Alma Linux (9)](https://hub.docker.com/_/almalinux/tags?name=9)
 
 > [!WARNING]  
 > Currently WebRTC is not supported on Alma Linux due to upstream limitations with Kasm. This may change in the future.
@@ -107,6 +122,7 @@ Helios ships its own version that is independent of the underlying distro versio
 `v0.0.0-noble`, where `noble` is the codename of the underlying distro. This allows us to track changes and updates to 
 Helios independently of the underlying distro. Some further examples of the versioning scheme are:
 
+- `v0.0.0-bookworm` for Debian 12 (Bookworm)
 - `v0.0.0-noble` for Ubuntu 24.04
 - `v0.0.0-jammy` for Ubuntu 22.04
 - `v0.0.0-kali` for Kali Linux
@@ -116,6 +132,7 @@ Helios independently of the underlying distro. Some further examples of the vers
 Helios also ships `unstable` builds which are built directly off of the `testing` branch. These builds are meant for
 testing and development purposes only. They are not meant for production use and may contain bugs or incomplete features.
 
+- `unstable-bookworm` for the latest unstable build of Debian 12
 - `unstable-noble` for the latest unstable build of Ubuntu 24.04
 - `unstable-jammy` for the latest unstable build of Ubuntu 22.04
 - `unstable-kali` for the latest unstable build of Kali Linux

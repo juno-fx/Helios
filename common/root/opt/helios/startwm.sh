@@ -7,5 +7,6 @@ if [ -f "${HOME}"/.config/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml ]; then
 		"${HOME}"/.config/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml
 fi
 
-# Start DE
-/usr/bin/xfce4-session 2>&1
+if [ -x /usr/bin/xfce4-session ]; then
+  /usr/bin/xfce4-session 2>&1
+fi

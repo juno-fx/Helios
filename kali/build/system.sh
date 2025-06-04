@@ -110,7 +110,8 @@ pip install crypt-r --break-system-packages
 apt remove --purge -y \
 	gcc \
 	g++ \
-	python3-dev
+	python3-dev \
+	python3-pip
 
 # remove screensaver and lock screen
 rm -f /etc/xdg/autostart/xscreensaver.desktop

@@ -94,9 +94,6 @@ ENV HELIOS_VERSION="0.0.0"
 # pull in args for the tag
 ARG SRC
 
-# copy in distro specific custom rootfs changes
-COPY ${SRC}/root/ /
-
 # build our base image
 COPY --chmod=777 ${SRC}/build/system.sh /tmp/
 RUN /tmp/system.sh
@@ -116,6 +113,10 @@ ENV NVIDIA_DRIVER_CAPABILITIES=all
 # copy in general custom rootfs changes
 COPY common/root/ /
 
+# copy in distro specific custom rootfs changes
+COPY ${SRC}/root/ /
+
+# set permissions
 RUN chmod -R 7777 /etc/s6-overlay/s6-rc.d/
 
 # this is to ensure that the snake oil certificate is available for Kasm

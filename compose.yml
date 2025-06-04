@@ -9,6 +9,7 @@ services:
     container_name: helios
     volumes:
       - /dev/dri:/dev/dri
+      - .out/:/mnt/
     environment:
       - USER=helios
       - UID=5040
