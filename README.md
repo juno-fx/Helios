@@ -7,9 +7,14 @@ Optimized Kasm Desktops for general use
 - [Features](#features)
 - [Kasm Setup](#kasm-setup)
 - [Distros](#distros)
+  - Debian
+    - [Debian 12 (Bookworm)](#debian-12-bookworm)
+    - [Debian Rolling (Trixie/Sid)](#debian-rolling-trixie-sid)
+    - [Kali Linux (Rolling Release)](#kali-linux-rolling-release)
+  - Ubuntu
     - [Ubuntu 24.04 (Noble)](#ubuntu-2404-noble)
     - [Ubuntu 22.04 (Jammy)](#ubuntu-2204-jammy)
-    - [Kali Linux (Rolling Release)](#kali-linux-rolling-release)
+  - RHEL
     - [Rocky Linux (9)](#rocky-linux-9)
     - [Alma Linux (9)](#alma-linux-9)
 - [Versioning](#versioning)
