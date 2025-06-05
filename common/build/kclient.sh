@@ -1,3 +1,5 @@
+#!/bin/bash
+
 set -e
 
 # clone kclient from lsio

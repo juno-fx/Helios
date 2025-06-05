@@ -4,13 +4,18 @@ set -e
 
 export DEBIAN_FRONTEND=noninteractive
 
-echo "deb http://http.kali.org/kali kali-rolling main non-free contrib" >>/etc/apt/sources.list
-echo "deb-src http://http.kali.org/kali kali-rolling main contrib non-free non-free-firmware" >>/etc/apt/sources.list
+# add srcs for deb
+sed -Ei 's/^Components: main /Components: main contrib non-free non-free-firmware /' /etc/apt/sources.list.d/debian.sources
+cat >/etc/apt/sources.list <<EOL
+deb http://deb.debian.org/debian/ sid main contrib non-free non-free-firmware
+deb-src http://deb.debian.org/debian/ sid main contrib non-free non-free-firmware
+EOL
 
 apt update
 apt upgrade -y
 apt install -y gnupg curl wget
-wget -q -O- https://packagecloud.io/dcommander/virtualgl/gpgkey | gpg --dearmor >/etc/apt/trusted.gpg.d/VirtualGL.gpg
+wget -q -O- https://packagecloud.io/dcommander/virtualgl/gpgkey |
+	gpg --dearmor >/etc/apt/trusted.gpg.d/VirtualGL.gpg
 echo "deb [signed-by=/etc/apt/trusted.gpg.d/VirtualGL.gpg] https://packagecloud.io/dcommander/virtualgl/any/ any main" >/etc/apt/sources.list.d/virtualgl.list
 curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
 apt update
@@ -20,6 +25,7 @@ apt install --no-install-recommends -y \
 	g++ \
 	python3-dev \
 	python3-pip \
+	nodejs \
 	fastfetch \
 	ca-certificates \
 	dbus-x11 \
@@ -37,6 +43,7 @@ apt install --no-install-recommends -y \
 	libgnutls30 \
 	libgomp1 \
 	libhash-merge-simple-perl \
+	libjpeg62-turbo \
 	libnotify-bin \
 	liblist-moreutils-perl \
 	libp11-kit0 \
@@ -63,7 +70,6 @@ apt install --no-install-recommends -y \
 	mesa-va-drivers \
 	mesa-vulkan-drivers \
 	nginx \
-	nodejs \
 	openssh-client \
 	openssl \
 	pciutils \
@@ -102,8 +108,7 @@ apt install --no-install-recommends -y \
 	unzip \
 	tumbler \
 	tumbler-common \
-	tumbler-plugins-extra \
-	fonts-cascadia-code
+	tumbler-plugins-extra
 
 # backwards compat for password generation
 pip install crypt-r --break-system-packages
@@ -115,11 +120,23 @@ apt remove --purge -y \
 	python3-dev \
 	python3-pip
 
+# remove duplicate sources
+rm -f /etc/apt/sources.list
+
 # remove screensaver and lock screen
 rm -f /etc/xdg/autostart/xscreensaver.desktop
 
 # configure vgl
 /opt/VirtualGL/bin/vglserver_config +glx +s +f +t
+
+# install font
+mkdir -pv /usr/share/fonts/cascadia-code
+cd /tmp
+wget https://github.com/microsoft/cascadia-code/releases/download/v2407.24/CascadiaCode-2407.24.zip
+unzip CascadiaCode-2407.24.zip
+mv -v otf/static/* /usr/share/fonts/cascadia-code/
+rm -rfv /tmp/*
+fc-cache -f -v
 
 # run clean up
 apt clean -y

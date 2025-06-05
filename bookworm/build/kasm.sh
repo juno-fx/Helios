@@ -2,8 +2,24 @@
 
 set -e
 
+# get initial sources list
+apt-get update
+
 # add srcs for deb
-sed -Ei 's/^# deb-src /deb-src /' /etc/apt/sources.list
+sed -Ei 's/^Components: main /Components: main contrib non-free non-free-firmware /' /etc/apt/sources.list.d/debian.sources
+cat >/etc/apt/sources.list <<EOL
+deb http://deb.debian.org/debian/ bookworm main contrib non-free non-free-firmware
+deb-src http://deb.debian.org/debian/ bookworm main contrib non-free non-free-firmware
+
+deb http://deb.debian.org/debian/ bookworm-updates main contrib non-free non-free-firmware
+deb-src http://deb.debian.org/debian/ bookworm-updates main contrib non-free non-free-firmware
+
+deb http://deb.debian.org/debian/ bookworm-backports main contrib non-free non-free-firmware
+deb-src http://deb.debian.org/debian/ bookworm-backports main contrib non-free non-free-firmware
+
+deb http://security.debian.org/debian-security/ bookworm-security main contrib non-free non-free-firmware
+deb-src http://security.debian.org/debian-security/ bookworm-security main contrib non-free non-free-firmware
+EOL
 
 # install deps
 apt-get update
@@ -26,7 +42,7 @@ apt-get install -y \
 	libgnutls28-dev \
 	libgnutls28-dev \
 	libjpeg-dev \
-	libjpeg-turbo8-dev \
+	libjpeg62-turbo-dev \
 	libpciaccess-dev \
 	libpng-dev \
 	libssl-dev \

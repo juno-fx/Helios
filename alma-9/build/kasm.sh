@@ -1,3 +1,5 @@
+#!/bin/bash
+
 set -e
 
 dnf install -y epel-release almalinux-release-devel

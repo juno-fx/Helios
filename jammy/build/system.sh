@@ -1,6 +1,14 @@
+#!/bin/bash
+
 set -e
 
 export DEBIAN_FRONTEND=noninteractive
+
+cat >/etc/apt/preferences.d/firefox-no-snap <<EOL
+Package: firefox*
+Pin: release o=Ubuntu*
+Pin-Priority: -1
+EOL
 
 sed -i '/locale/d' /etc/dpkg/dpkg.cfg.d/excludes
 apt update
