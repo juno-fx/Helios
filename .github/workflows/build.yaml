@@ -9,6 +9,12 @@ jobs:
     strategy:
       matrix:
         distro:
+          - image: debian:bookworm
+            source: bookworm
+            rhel: false
+          - image: debian:sid
+            source: sid
+            rhel: false
           - image: ubuntu:jammy
             source: jammy
             rhel: false
