@@ -2,6 +2,9 @@
 
 set -e
 
+# Incase of loop, remove the healthz file and force a fresh start
+rm -rfv /tmp/.healthz
+
 # Lang
 if [ ! -z ${LC_ALL+x} ]; then
 	export LANGUAGE="${LC_ALL%.UTF-8}"
@@ -97,7 +100,30 @@ HOME=/var/run/pulse no_proxy=127.0.0.1 ffmpeg \
 	-muxdelay 0.001 \
 	http://127.0.0.1:8081/kasmaudio >/dev/null 2>&1 &
 
-sleep 1
+# enter a while loop and wait for the curl command to return success
+tries=0
+echo "Waiting for KasmVNC to start..."
+while [ $tries -le 15 ]; do
+	response=$(curl -s -w "%{http_code}" "http://127.0.0.1:3000${PREFIX-}")
+	http_code=$(tail -n1 <<<"$response")
+	if [ "$http_code" == "200" ]; then
+		echo "Up and running, releasing healthz endpoint."
+
+		# Unblock the healthz endpoint
+		touch /tmp/.healthz
+		chmod -v 777 /tmp/.healthz
+		break
+	fi
+
+	if [ $tries -eq 15 ]; then
+		echo "KasmVNC did not start within the expected time frame. Exiting."
+		cat $HOME/.vnc/*${DISPLAY}.log
+		exit 1
+	fi
+
+	tries=$(($tries + 1))
+	sleep .5
+done
 
 # Show KasmVNC Logs
 tail -f $HOME/.vnc/*${DISPLAY}.log

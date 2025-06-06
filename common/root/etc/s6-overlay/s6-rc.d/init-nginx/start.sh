@@ -20,7 +20,7 @@ if [ ! -f "/opt/helios/ssl/cert.pem" ]; then
 		-days 3650 -nodes \
 		-out /opt/helios/ssl/cert.pem \
 		-keyout /opt/helios/ssl/cert.key \
-		-subj "/C=US/ST=CA/L=Carlsbad/O=Linuxserver.io/OU=LSIO Server/CN=*"
+		-subj "/C=US/ST=CA/L=Berry/O=JunoInnovations.com/OU=LSIO Server/CN=*"
 	chmod 600 /opt/helios/ssl/cert.key
 	chown -R "$UID:$GID" /opt/helios/ssl
 fi
