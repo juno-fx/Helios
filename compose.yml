@@ -14,5 +14,6 @@ services:
       - USER=helios
       - UID=5040
       - PASSWORD=password
+#      - PREFIX=/custom/prefix
     ports:
       - "3000:3000"
