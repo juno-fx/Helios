@@ -177,7 +177,7 @@ Environment variables are used to configure the Helios container. The following 
 > user using those environment variables. This is done to ensure that the desktop has the correct permissions and 
 > ownership on things like the home directory and other files. This helps with things like Network Shares as well.
 
-> [!DANGER]
+> [!CAUTION]
 > Helios DOES NOT provide any authentication for connecting to the workstation. This means that anyone who can
 > connect to the http endpoint can access the desktop as that user. For proper security, we recommend using a 
 > reverse proxy with authentication in front of Helios. This can be done using Nginx, Traefik, or any other 
