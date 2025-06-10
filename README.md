@@ -182,6 +182,10 @@ Environment variables are used to configure the Helios container. The following 
 > connect to the http endpoint can access the desktop as that user. For proper security, we recommend using a 
 > reverse proxy with authentication in front of Helios. This can be done using Nginx, Traefik, or any other 
 > reverse proxy that supports authentication.
+> 
+> Security is a very important part of any deployment and it isn't a one size fits all solution. Instead of shipping
+> Helios with a specific authentication method, we leave it up to the user to implement their own security measures
+> that best fit their deployment. This allows for more flexibility and customization in how Helios is used.
 
 ### Ports
 
