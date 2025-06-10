@@ -20,17 +20,11 @@ if [ -z "$GID" ]; then
 	GID="$UID"
 fi
 
-if [ -z "$PASSWORD" ]; then
-	echo "No password configured"
-	exit 1
-fi
-
 # notify we are good to go
 echo "Configured User Information"
 echo "User: $USER"
 echo "UID: $UID"
 echo "GID: $GID"
-echo "Password: SET"
 
 # create user
 echo "Creating user $USER with UID $UID and GID $GID"

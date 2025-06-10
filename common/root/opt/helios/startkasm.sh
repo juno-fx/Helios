@@ -37,11 +37,6 @@ chmod +x "$HOME/.vnc/xstartup"
 touch "$HOME/.vnc/.de-was-selected"
 
 # setup Kasm's password
-# Password
-if [[ -z ${PASSWORD+x} ]]; then
-	echo "No password set, shutting down."
-	exit 1
-fi
 VNC_PW_HASH=$(python3 -c "import crypt; print(crypt.crypt('${PASSWORD}', '\$5\$kasm\$'));")
 echo "${USER}:${VNC_PW_HASH}:ow" >"$VNC_LOCATION/.kasmpasswd"
 echo "${USER}_viewer:${VNC_PW_HASH}:" >>"$VNC_LOCATION/.kasmpasswd"
@@ -75,7 +70,8 @@ vncserver $DISPLAY \
 	-PreferBandwidth \
 	-DynamicQualityMin=4 \
 	-DynamicQualityMax=7 \
-	-DLP_ClipDelay=0
+	-DLP_ClipDelay=0 \
+	-disableBasicAuth
 
 # Audio
 /opt/helios/kasmbins/kasm_websocket_relay/kasm_audio_out-linux \
