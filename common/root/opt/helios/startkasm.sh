@@ -2,6 +2,9 @@
 
 set -e
 
+# Incase of loop, remove the healthz file and force a fresh start
+rm -rfv /tmp/.healthz
+
 # Lang
 if [ ! -z ${LC_ALL+x} ]; then
 	export LANGUAGE="${LC_ALL%.UTF-8}"
@@ -34,11 +37,6 @@ chmod +x "$HOME/.vnc/xstartup"
 touch "$HOME/.vnc/.de-was-selected"
 
 # setup Kasm's password
-# Password
-if [[ -z ${PASSWORD+x} ]]; then
-	echo "No password set, shutting down."
-	exit 1
-fi
 VNC_PW_HASH=$(python3 -c "import crypt; print(crypt.crypt('${PASSWORD}', '\$5\$kasm\$'));")
 echo "${USER}:${VNC_PW_HASH}:ow" >"$VNC_LOCATION/.kasmpasswd"
 echo "${USER}_viewer:${VNC_PW_HASH}:" >>"$VNC_LOCATION/.kasmpasswd"
@@ -72,7 +70,8 @@ vncserver $DISPLAY \
 	-PreferBandwidth \
 	-DynamicQualityMin=4 \
 	-DynamicQualityMax=7 \
-	-DLP_ClipDelay=0
+	-DLP_ClipDelay=0 \
+	-disableBasicAuth
 
 # Audio
 /opt/helios/kasmbins/kasm_websocket_relay/kasm_audio_out-linux \
@@ -97,7 +96,30 @@ HOME=/var/run/pulse no_proxy=127.0.0.1 ffmpeg \
 	-muxdelay 0.001 \
 	http://127.0.0.1:8081/kasmaudio >/dev/null 2>&1 &
 
-sleep 1
+# enter a while loop and wait for the curl command to return success
+tries=0
+echo "Waiting for KasmVNC to start..."
+while [ $tries -le 15 ]; do
+	response=$(curl -s -w "%{http_code}" "http://127.0.0.1:3000${PREFIX-}")
+	http_code=$(tail -n1 <<<"$response")
+	if [ "$http_code" == "200" ]; then
+		echo "Up and running, releasing healthz endpoint."
+
+		# Unblock the healthz endpoint
+		touch /tmp/.healthz
+		chmod -v 777 /tmp/.healthz
+		break
+	fi
+
+	if [ $tries -eq 15 ]; then
+		echo "KasmVNC did not start within the expected time frame. Exiting."
+		cat $HOME/.vnc/*${DISPLAY}.log
+		exit 1
+	fi
+
+	tries=$(($tries + 1))
+	sleep .5
+done
 
 # Show KasmVNC Logs
 tail -f $HOME/.vnc/*${DISPLAY}.log

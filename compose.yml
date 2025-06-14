@@ -1,7 +1,7 @@
 
 services:
   helios:
-    image: aldmbmtl/helios:latest
+    image: junoinnovations/helios:unstable-jammy
     hostname: "helios"
     build:
       context: .
@@ -13,6 +13,8 @@ services:
     environment:
       - USER=helios
       - UID=5040
-      - PASSWORD=password
+#      - IDLE_TIME=1
+#      - PASSWORD=password
+#      - PREFIX=/custom/prefix
     ports:
       - "3000:3000"

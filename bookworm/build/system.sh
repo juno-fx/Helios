@@ -113,7 +113,8 @@ apt install --no-install-recommends -y \
 	unzip \
 	tumbler \
 	tumbler-common \
-	tumbler-plugins-extra
+	tumbler-plugins-extra \
+	xssstate
 
 rm -rfv /usr/share/backgrounds/*
 

@@ -104,7 +104,8 @@ apt install --no-install-recommends -y \
 	tumbler-common \
 	tumbler-plugins-extra \
 	fonts-cascadia-code \
-	kali-wallpapers-2025
+	kali-wallpapers-2025 \
+  xssstate
 
 # handle background
 mv -v /usr/share/backgrounds/kali/kali-oleo-16x9.png /tmp/background.png

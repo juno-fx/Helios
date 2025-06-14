@@ -108,7 +108,8 @@ apt install --no-install-recommends -y \
 	tumbler-common \
 	tumbler-plugins-extra \
 	fonts-cascadia-code \
-	ubuntu-wallpapers
+	ubuntu-wallpapers \
+  xssstate
 
 apt remove -y xubuntu-wallpapers
 

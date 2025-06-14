@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=0.9.4
+Type=Application
+Name=Idle Detect
+Comment=
+Exec=/bin/bash /opt/helios/idlehook.sh
+OnlyShowIn=XFCE;
+RunHook=0
+StartupNotify=true
+Terminal=false
+Hidden=false
+
