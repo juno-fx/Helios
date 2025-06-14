@@ -103,7 +103,13 @@ apt install --no-install-recommends -y \
 	tumbler \
 	tumbler-common \
 	tumbler-plugins-extra \
-	fonts-cascadia-code
+	fonts-cascadia-code \
+	kali-wallpapers-2025
+
+# handle background
+mv -v /usr/share/backgrounds/kali/kali-oleo-16x9.png /tmp/background.png
+rm -rfv /usr/share/backgrounds/*
+mv -v /tmp/background.png /usr/share/backgrounds/
 
 # backwards compat for password generation
 pip install crypt-r --break-system-packages

@@ -8,15 +8,11 @@
       <property name="position" type="string" value="p=10;x=0;y=0"/>
       <property name="size" type="uint" value="42"/>
       <property name="plugin-ids" type="array">
-        <value type="int" value="7"/>
         <value type="int" value="1"/>
         <value type="int" value="6"/>
         <value type="int" value="4"/>
         <value type="int" value="14"/>
-        <value type="int" value="3"/>
         <value type="int" value="5"/>
-        <value type="int" value="2"/>
-        <value type="int" value="8"/>
       </property>
       <property name="length" type="uint" value="100"/>
       <property name="position-locked" type="bool" value="true"/>
@@ -66,15 +62,5 @@
       <property name="expand" type="bool" value="false"/>
     </property>
     <property name="plugin-6" type="string" value="separator"/>
-    <property name="plugin-7" type="string" value="separator"/>
-    <property name="plugin-8" type="string" value="systray">
-      <property name="known-legacy-items" type="array">
-        <value type="string" value="thunar"/>
-        <value type="string" value="app.py"/>
-      </property>
-      <property name="known-items" type="array">
-        <value type="string" value="app.py"/>
-      </property>
-    </property>
   </property>
 </channel>

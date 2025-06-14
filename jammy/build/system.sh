@@ -107,7 +107,15 @@ apt install --no-install-recommends -y \
 	tumbler \
 	tumbler-common \
 	tumbler-plugins-extra \
-	fonts-cascadia-code
+	fonts-cascadia-code \
+	ubuntu-wallpapers
+
+apt remove -y xubuntu-wallpapers
+
+# handle background
+mv -v /usr/share/backgrounds/warty-final-ubuntu.png /tmp/background.png
+rm -rfv /usr/share/backgrounds/*
+mv -v /tmp/background.png /usr/share/backgrounds/
 
 # remove screensaver and lock screen
 rm -f /etc/xdg/autostart/xscreensaver.desktop

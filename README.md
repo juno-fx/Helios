@@ -77,7 +77,7 @@ We try our best to keep the latest version of Kasm installed so we get all the l
 
 #### [Debian Rolling (Trixie/Sid)](https://hub.docker.com/_/debian/tags?name=sid)
 
-- Size: 1.79 GB
+- Size: 1.78 GB
 - X Server: 21.1.4 (Custom)
 
 #### [Kali Linux (Rolling Release)](https://hub.docker.com/r/kalilinux/kali-rolling)
@@ -85,20 +85,20 @@ We try our best to keep the latest version of Kasm installed so we get all the l
 > [!TIP]  
 > We don't install any default Kali tools in this image. Please follow the instructions in the [Kali Linux Docker Image documentation](https://www.kali.org/docs/containers/official-kalilinux-docker-images/) to install them.
 
-- Size: 1.73 GB (This does not include the Kali tools which make the image much larger)
+- Size: 1.74 GB (This does not include the Kali tools which make the image much larger)
 - X Server: 21.1.4 (Custom)
 
 ### Ubuntu
 
 #### [Ubuntu 24.04 (Noble)](https://hub.docker.com/_/ubuntu/tags?name=noble)
 
-- Size: 1.48 GB
+- Size: 1.47 GB
 - X Server: 21.1.4 (Custom)
 
 
 #### [Ubuntu 22.04 (Jammy)](https://hub.docker.com/_/ubuntu/tags?name=jammy)
 
-- Size: 1.48 GB
+- Size: 1.39 GB
 - X Server: 21.1.4 (Custom)
 
 
@@ -109,7 +109,7 @@ We try our best to keep the latest version of Kasm installed so we get all the l
 > [!WARNING]  
 > Currently WebRTC is not supported on Rocky Linux due to upstream limitations with Kasm. This may change in the future.
 
-- Size: 1.82 GB
+- Size: 1.86 GB
 - X Server: 1.20.14 (Custom)
 
 

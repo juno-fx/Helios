@@ -68,6 +68,11 @@ dnf install -y --setopt=install_weak_deps=False --best \
 	xfce-polkit \
 	wget
 
+# handle background
+mv -v /usr/share/backgrounds/rocky-default-9-onyx-mountains.png /tmp/background.png
+rm -rfv /usr/share/backgrounds/*
+mv -v /tmp/background.png /usr/share/backgrounds/
+
 # install node
 dnf module install nodejs:20/common -y
 

@@ -110,6 +110,8 @@ apt install --no-install-recommends -y \
 	tumbler-common \
 	tumbler-plugins-extra
 
+rm -rfv /usr/share/backgrounds/*
+
 # backwards compat for password generation
 pip install crypt-r --break-system-packages
 

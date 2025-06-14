@@ -115,6 +115,8 @@ apt install --no-install-recommends -y \
 	tumbler-common \
 	tumbler-plugins-extra
 
+rm -rfv /usr/share/backgrounds/*
+
 # remove duplicate sources
 rm -f /etc/apt/sources.list
 

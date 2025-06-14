@@ -6,7 +6,7 @@ mkdir /src
 cd /src
 wget https://github.com/kasmtech/noVNC/tarball/${KASMWEB_COMMIT} -O - | tar --strip-components=1 -xz
 
-if [ "$RHEL" ]; then
+if [ "$RHEL" = "true" ]; then
 	echo "Using RHEL patch for noVNC"
 	cp -v /novnc-rhel-05-02-2025.patch ./novnc.patch
 else
