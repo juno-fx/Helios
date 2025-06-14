@@ -65,8 +65,8 @@ dnf install -y --setopt=install_weak_deps=False --best \
 	xfwm4 \
 	xfwm4-themes \
 	VirtualGL \
-	xfce-polkit \
-	wget
+	wget \
+	https://kojipkgs.fedoraproject.org//vol/fedora_koji_archive06/packages/xssstate/1.1/18.fc35/x86_64/xssstate-1.1-18.fc35.x86_64.rpm
 
 # install node
 dnf module install nodejs:20/common -y

@@ -103,7 +103,8 @@ apt install --no-install-recommends -y \
 	tumbler \
 	tumbler-common \
 	tumbler-plugins-extra \
-	fonts-cascadia-code
+	fonts-cascadia-code \
+	xssstate
 
 # backwards compat for password generation
 pip install crypt-r --break-system-packages

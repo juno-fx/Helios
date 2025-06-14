@@ -51,10 +51,10 @@ fi
 
 # set the users password
 if [ -z "$PASSWORD" ]; then
-  echo "No password configured for user $USER, skipping password setup"
+	echo "No password configured for user $USER, skipping password setup"
 else
-  echo "Setting password for user $USER"
-  echo "$USER:$PASSWORD" | chpasswd
+	echo "Setting password for user $USER"
+	echo "$USER:$PASSWORD" | chpasswd
 fi
 
 chown -R "$USER:$GID" "/home/$USER"

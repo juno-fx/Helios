@@ -108,7 +108,8 @@ apt install --no-install-recommends -y \
 	unzip \
 	tumbler \
 	tumbler-common \
-	tumbler-plugins-extra
+	tumbler-plugins-extra \
+	xssstate
 
 # backwards compat for password generation
 pip install crypt-r --break-system-packages

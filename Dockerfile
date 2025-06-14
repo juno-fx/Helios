@@ -109,6 +109,7 @@ ENV DISPLAY=:1
 ENV PERL5LIB=/usr/local/bin
 ENV PULSE_RUNTIME_PATH=/opt/helios/
 ENV NVIDIA_DRIVER_CAPABILITIES=all
+ENV IDLE_TIME=30
 
 # copy in general custom rootfs changes
 COPY common/root/ /

@@ -113,7 +113,8 @@ apt install --no-install-recommends -y \
 	unzip \
 	tumbler \
 	tumbler-common \
-	tumbler-plugins-extra
+	tumbler-plugins-extra \
+	xssstate
 
 # remove duplicate sources
 rm -f /etc/apt/sources.list

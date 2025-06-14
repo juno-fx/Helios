@@ -107,7 +107,8 @@ apt install --no-install-recommends -y \
 	tumbler \
 	tumbler-common \
 	tumbler-plugins-extra \
-	fonts-cascadia-code
+	fonts-cascadia-code \
+	xssstate
 
 # remove screensaver and lock screen
 rm -f /etc/xdg/autostart/xscreensaver.desktop

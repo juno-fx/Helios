@@ -161,12 +161,13 @@ purposes only and may contain bugs or incomplete features.
 
 Environment variables are used to configure the Helios container. The following environment variables are available:
 
-| Name     | Value                            | Required |
-|----------|----------------------------------|----------|
-| USER     | Name of the user                 | X        |
-| UID      | POSIX compliant uid for the user | X        |
-| GID      | POSIX compliant gid for the user |          |
-| PASSWORD | Password set for the user        |          |
+| Name      | Value                              | Required |
+|-----------|------------------------------------|----------|
+| USER      | Name of the user                   | X        |
+| UID       | POSIX compliant uid for the user   | X        |
+| GID       | POSIX compliant gid for the user   |          |
+| PASSWORD  | Password set for the user          |          |
+| IDLE_TIME | Trigger the idle hook after x time |          |
 
 > [!TIP]  
 > The `GID` will match the `UID` if not specified.
@@ -210,8 +211,6 @@ docker run -d \
   -p 3000:3000 \
   -e USER=bob \
   -e UID=1000 \
-  -e GID=1000 \
-  -e PASSWORD=password \
   helios:v0.0.0-noble
 ``` 
 
@@ -228,8 +227,6 @@ services:
       environment:
          - USER=helios
          - UID=1000
-         - GID=1000
-         - PASSWORD=password
       ports:
          - "3000:3000"
 ```
@@ -264,10 +261,6 @@ spec:
                    value: "helios"
                  - name: UID
                    value: "1000"
-                 - name: GID
-                   value: "1000"
-                 - name: PASSWORD
-                   value: "password"
 ```
 
 ## Customizing Helios
@@ -311,11 +304,14 @@ COPY ./my-custom-init.sh /etc/helios/init.d/my-custom-init.sh
 
 # custom service
 COPY ./my-custom-service.sh /etc/helios/services.d/custom.sh
+
+# custom idle script
+COPY ./my-custom-service.sh /etc/helios/idle.d/custom.sh
 ```
 
 #### Mounting
 
-Finally, you can dynamically mount the scripts via docker or kubernetes mounts by just mapping the sciripts to the
+Finally, you can dynamically mount the scripts via docker or kubernetes mounts by just mapping the scripts to the
 `/etc/helios/init.d` or `/etc/helios/services.d` directories. This allows you to have custom scripts and services without
 the need to rebuild the image. This is useful for testing and development purposes.
 
@@ -324,10 +320,11 @@ docker run -d \
   --name my-helios-container \
   -v /path/to/my-custom-init.sh:/etc/helios/init.d/my-custom-init.sh \
   -v /path/to/my-custom-service.sh:/etc/helios/services.d/custom.sh \
+  -v /path/to/my-custom-idle.sh:/etc/helios/idle.d/custom.sh \
   helios:v0.0.0-noble
 ```
 
-You can achive the same a number of ways in Kubernetes. For example, you can use a ConfigMap to mount the scripts into the container.
+You can achieve the same a number of ways in Kubernetes. For example, you can use a ConfigMap to mount the scripts into the container.
 
 ```yaml
 apiVersion: v1
@@ -335,6 +332,10 @@ kind: ConfigMap
 metadata:
   name: my-helios-config
 data:
+    my-custom-idle.sh: |
+        #!/bin/sh
+        echo "Helios has hit the idle timeout!"
+      
     my-custom-init.sh: |
         #!/bin/sh
         echo "Hello from my custom init script!"
@@ -377,11 +378,11 @@ spec:
               - name: custom-services
                 mountPath: /etc/helios/services.d/custom.sh
                 subPath: my-custom-service.sh
+              - name: custom-idle
+                mountPath: /etc/helios/idle.d/custom.sh
+                subPath: my-custom-idle.sh
            volumes:
            - name: custom-scripts
-             configMap:
-               name: my-helios-config
-           - name: custom-services
              configMap:
                name: my-helios-config
 ```
