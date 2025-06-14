@@ -2,7 +2,7 @@ name: Build Helios Image
 on:
   push:
     paths-ignore:
-      - .github
+      - .github/**
       - .gitignore
       - compose.yml
       - devbox.json
