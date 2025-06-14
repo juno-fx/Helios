@@ -6,7 +6,7 @@ cd /src
 
 # pulling latest support xserver version for KasmVNC
 XORG_VER="21.1.4"
-wget --no-check-certificate -O /tmp/xorg-server-${XORG_VER}.tar.gz "https://www.x.org/archive/individual/xserver/xorg-server-${XORG_VER}.tar.gz"
+wget -O /tmp/xorg-server-${XORG_VER}.tar.gz "https://www.x.org/archive/individual/xserver/xorg-server-${XORG_VER}.tar.gz"
 tar --strip-components=1 -C unix/xserver -xf /tmp/xorg-server-${XORG_VER}.tar.gz
 cd unix/xserver
 
