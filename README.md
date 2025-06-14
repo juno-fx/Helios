@@ -8,7 +8,7 @@ Optimized Kasm Desktops for general use
 - [Kasm Setup](#kasm-setup)
 - [Distros](#distros)
   - Alpine
-    - [Alpine (3)](#debian-12-bookworm)
+    - [Alpine (3)](#alpine-3)
   - Debian
     - [Debian 12 (Bookworm)](#debian-12-bookworm)
     - [Debian Rolling (Trixie/Sid)](#debian-rolling-trixie-sid)
