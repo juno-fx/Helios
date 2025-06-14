@@ -124,6 +124,9 @@ RUN chmod -R 7777 /etc/s6-overlay/s6-rc.d/
 COPY --from=snake-oil /etc/ssl/certs/ssl-cert-snakeoil.pem /etc/ssl/certs/ssl-cert-snakeoil.pem
 COPY --from=snake-oil /etc/ssl/private/ssl-cert-snakeoil.key /etc/ssl/private/ssl-cert-snakeoil.key
 
+# add license file
+COPY LICENSE /LICENSE
+
 EXPOSE 3000
 
 CMD ["/init"]

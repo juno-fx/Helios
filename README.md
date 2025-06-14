@@ -7,6 +7,8 @@ Optimized Kasm Desktops for general use
 - [Features](#features)
 - [Kasm Setup](#kasm-setup)
 - [Distros](#distros)
+  - Alpine
+    - [Alpine (3)](#debian-12-bookworm)
   - Debian
     - [Debian 12 (Bookworm)](#debian-12-bookworm)
     - [Debian Rolling (Trixie/Sid)](#debian-rolling-trixie-sid)
@@ -68,6 +70,13 @@ We try our best to keep the latest version of Kasm installed so we get all the l
 
 ## Distros
 
+### Alpine
+
+#### [Alpine (3)](https://hub.docker.com/_/debian/tags?name=alpine)
+
+- Size: 1.34 GB
+- X Server: 1.20.14 (Custom)
+
 ### Debian
 
 #### [Debian 12 (Bookworm)](https://hub.docker.com/_/debian/tags?name=bookworm)
@@ -128,6 +137,7 @@ Helios ships its own version that is independent of the underlying distro versio
 Helios independently of the underlying distro. Some further examples of the versioning scheme are:
 
 - `v0.0.0-bookworm` for Debian 12 (Bookworm)
+- `v0.0.0-alpine-3` for Alpine (3)
 - `v0.0.0-noble` for Ubuntu 24.04
 - `v0.0.0-jammy` for Ubuntu 22.04
 - `v0.0.0-kali` for Kali Linux
@@ -138,6 +148,7 @@ Helios also ships `unstable` builds which are built directly off of the `main` b
 testing and development purposes only. They are not meant for production use and may contain bugs or incomplete features.
 
 - `unstable-bookworm` for the latest unstable build of Debian 12
+- `unstable-alpine-3` for the latest unstable build of Alpine 3
 - `unstable-noble` for the latest unstable build of Ubuntu 24.04
 - `unstable-jammy` for the latest unstable build of Ubuntu 22.04
 - `unstable-kali` for the latest unstable build of Kali Linux
@@ -149,6 +160,8 @@ features and changes before they are merged into the `main` branch. The `testing
 purposes only and may contain bugs or incomplete features.
 
 - `testing-noble` for the latest testing build of Ubuntu 24.04
+- `testing-bookworm` for the latest testing build of Debian 12
+- `testing-alpine-3` for the latest testing build of Alpine 3
 - `testing-jammy` for the latest testing build of Ubuntu 22.04
 - `testing-kali` for the latest testing build of Kali Linux
 - `testing-rocky-9` for the latest testing build of Rocky Linux

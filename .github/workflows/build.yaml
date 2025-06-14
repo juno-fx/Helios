@@ -1,6 +1,15 @@
 name: Build Helios Image
 on:
   push:
+    paths-ignore:
+      - .github
+      - .gitignore
+      - compose.yml
+      - devbox.json
+      - devbox.lock
+      - README.md
+      - Makefile
+      - .bumpversion.toml
 
 jobs:
   build:
@@ -9,6 +18,9 @@ jobs:
     strategy:
       matrix:
         distro:
+          - image: alpine:3
+            source: alpine-3
+            rhel: false
           - image: debian:bookworm
             source: bookworm
             rhel: false
