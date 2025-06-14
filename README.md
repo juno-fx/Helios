@@ -72,7 +72,7 @@ We try our best to keep the latest version of Kasm installed so we get all the l
 
 ### Alpine
 
-#### [Alpine (3)](https://hub.docker.com/_/debian/tags?name=alpine)
+#### [Alpine (3)](https://hub.docker.com/_/alpine/tags?name=3)
 
 - Size: 1.34 GB
 - X Server: 1.20.14 (Custom)
