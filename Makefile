@@ -1,5 +1,9 @@
-.PHONY: jammy kali noble rocky-9 alma-9 bookworm sid
+.PHONY: jammy kali noble rocky-9 alma-9 bookworm sid alpine-3
 
+# ALPINE
+alpine-3:
+	@docker compose build --build-arg IMAGE=alpine:3 --build-arg SRC=alpine-3
+	@docker compose up
 
 # DEBIAN
 bookworm:
