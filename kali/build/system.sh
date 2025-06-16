@@ -16,14 +16,13 @@ curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
 apt update
 
 apt install --no-install-recommends -y \
-  $(cat /tmp/lists/debian.list) \
-  fastfetch \
-  kali-wallpapers-2025 \
+	$(cat /tmp/lists/debian.list) \
+	fastfetch \
+	kali-wallpapers-2025 \
 	gcc \
 	g++ \
 	python3-dev \
 	python3-pip
-
 
 # handle background
 mv -v /usr/share/backgrounds/kali/kali-oleo-16x9.png /tmp/background.png

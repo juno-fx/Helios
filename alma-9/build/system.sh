@@ -13,8 +13,8 @@ dnf config-manager --set-enabled crb
 # install system
 dnf update -y
 dnf install -y --allowerasing --setopt=install_weak_deps=False --best \
-  $(cat /tmp/lists/rhel.list) \
-  fastfetch
+	$(cat /tmp/lists/rhel.list) \
+	fastfetch
 
 # handle background
 mv -v /usr/share/backgrounds/Alma-waves-sunset-2560x1600.jpg /tmp/background.png

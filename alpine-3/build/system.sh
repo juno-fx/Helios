@@ -5,7 +5,7 @@ set -e
 echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >>/etc/apk/repositories
 
 apk add --no-cache \
-  $(cat /tmp/lists/alpine.list) \
+	$(cat /tmp/lists/alpine.list) \
 	fastfetch
 
 # remove screensaver and lock screen
