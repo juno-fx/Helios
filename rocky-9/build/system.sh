@@ -10,63 +10,11 @@ dnf config-manager --add-repo https://raw.githubusercontent.com/VirtualGL/repo/m
 dnf config-manager --set-enabled crb
 dnf config-manager --set-enabled devel
 
+# install system
 dnf update -y
-dnf install -y --setopt=install_weak_deps=False --best \
-	xfce4-whiskermenu-plugin \
-	procps-ng \
-	libXdmcp \
-	fastfetch \
-	git \
-	ca-certificates \
-	dbus-x11 \
-	ffmpeg \
-	fuse-overlayfs \
-	intel-media-driver \
-	iproute \
-	libjpeg-turbo \
-	libnotify \
-	libstdc++ \
-	libwebp \
-	libXfont2 \
-	libxshmfence \
-	mesa-dri-drivers \
-	mesa-libgbm \
-	mesa-libGL \
-	mesa-vulkan-drivers \
-	nginx \
-	nodejs \
-	openssh-clients \
-	openssl \
-	pciutils-libs \
-	perl \
-	perl-DateTime \
-	perl-Hash-Merge-Simple \
-	perl-List-MoreUtils \
-	perl-Switch \
-	perl-Try-Tiny \
-	perl-YAML-Tiny \
-	pixman \
-	pulseaudio \
-	pulseaudio-utils \
-	python3 \
-	python3-pyxdg \
-	setxkbmap \
-	util-linux \
-	xauth \
-	xkbcomp \
-	xkeyboard-config \
-	Thunar \
-	xfce4-panel \
-	xfce4-session \
-	xfce4-settings \
-	xfce4-terminal \
-	xfconf \
-	xfdesktop \
-	xfwm4 \
-	xfwm4-themes \
-	VirtualGL \
-	wget \
-	https://kojipkgs.fedoraproject.org//vol/fedora_koji_archive06/packages/xssstate/1.1/18.fc35/x86_64/xssstate-1.1-18.fc35.x86_64.rpm
+dnf install -y --allowerasing --setopt=install_weak_deps=False --best \
+  $(cat /tmp/lists/rhel.list) \
+  fastfetch
 
 # handle background
 mv -v /usr/share/backgrounds/rocky-default-9-onyx-mountains.png /tmp/background.png

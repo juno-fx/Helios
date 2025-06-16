@@ -21,94 +21,11 @@ curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
 apt update
 
 apt install --no-install-recommends -y \
-	nodejs \
+  $(cat /tmp/lists/debian.list) \
+  $(cat /tmp/lists/ubuntu.list) \
 	neofetch \
-	ca-certificates \
-	dbus-x11 \
-	ffmpeg \
-	file \
-	fuse-overlayfs \
-	intel-media-va-driver \
-	libdatetime-perl \
-	libfontenc1 \
-	libfreetype6 \
-	libgbm1 \
-	libgcrypt20 \
-	libgl1-mesa-dri \
-	libglu1-mesa \
-	libgnutls30 \
-	libgomp1 \
-	libhash-merge-simple-perl \
-	libjpeg-turbo8 \
-	libnotify-bin \
-	liblist-moreutils-perl \
-	libp11-kit0 \
-	libpam0g \
-	libpixman-1-0 \
-	libscalar-list-utils-perl \
-	libswitch-perl \
-	libtasn1-6 \
-	libtry-tiny-perl \
-	libvulkan1 \
-	libwebp7 \
-	libx11-6 \
-	libxau6 \
-	libxcb1 \
-	libxcursor1 \
-	libxdmcp6 \
-	libxext6 \
-	libxfixes3 \
-	libxfont2 \
-	libxinerama1 \
-	libxshmfence1 \
-	libxtst6 \
-	libyaml-tiny-perl \
-	mesa-va-drivers \
-	mesa-vulkan-drivers \
-	nginx \
-	openssh-client \
-	openssl \
-	pciutils \
-	perl \
-	procps \
-	pulseaudio \
-	pulseaudio-utils \
-	python3 \
-	ssl-cert \
-	tar \
-	util-linux \
-	x11-apps \
-	x11-common \
-	x11-utils \
-	x11-xkb-utils \
-	x11-xserver-utils \
-	xauth \
-	xdg-utils \
-	xfonts-base \
-	xkb-data \
-	xserver-common \
-	xserver-xorg-core \
-	xserver-xorg-video-amdgpu \
-	xserver-xorg-video-ati \
-	xserver-xorg-video-intel \
-	xserver-xorg-video-qxl \
-	xutils \
-	zlib1g \
-	xfce4-terminal \
-	xfce4 \
 	xubuntu-default-settings \
 	xubuntu-icon-theme \
-	xfce4-whiskermenu-plugin \
-	libdrm-dev \
-	nvtop \
-	virtualgl \
-	vim \
-	unzip \
-	tumbler \
-	tumbler-common \
-	tumbler-plugins-extra \
-	fonts-cascadia-code \
-	xssstate \
 	ubuntu-wallpapers
 
 apt remove -y xubuntu-wallpapers
@@ -117,6 +34,15 @@ apt remove -y xubuntu-wallpapers
 mv -v /usr/share/backgrounds/warty-final-ubuntu.png /tmp/background.png
 rm -rfv /usr/share/backgrounds/*
 mv -v /tmp/background.png /usr/share/backgrounds/
+
+# install font
+mkdir -pv /usr/share/fonts/cascadia-code
+cd /tmp
+wget https://github.com/microsoft/cascadia-code/releases/download/v2407.24/CascadiaCode-2407.24.zip
+unzip CascadiaCode-2407.24.zip
+mv -v otf/static/* /usr/share/fonts/cascadia-code/
+rm -rfv /tmp/*
+fc-cache -f -v
 
 # remove screensaver and lock screen
 rm -f /etc/xdg/autostart/xscreensaver.desktop

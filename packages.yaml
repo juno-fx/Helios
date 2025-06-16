@@ -1,0 +1,227 @@
+inherit:
+  ubuntu:
+    - common
+    - debian
+  alpine:
+    - common
+  debian:
+    - common
+  rhel:
+    - common
+
+packages:
+  # ====================================
+  # Common packages across all distributions
+  # ====================================
+  - common: curl
+  - common: dbus-x11  # Provides D-Bus message bus system for communication between applications in a GUI environment.
+  - common: xauth  # Handles authentication for X11 sessions, enabling secure access to the X server.
+  - common: unzip  # Tool for extracting compressed .zip archive files.
+  - common: wget  # Command-line tool for downloading files from the web.
+  - common: ca-certificates  # Stores trusted CA (Certificate Authority) certificates for SSL/TLS verification.
+  - common: fuse-overlayfs  # Implements the OverlayFS filesystem on top of FUSE for containerized file systems.
+  - common: util-linux  # Provides essential utilities for system administration, such as fdisk, mount, etc.
+  - common: nginx  # High-performance web server and reverse proxy server.
+  - common: nodejs  # JavaScript runtime built on Chrome's V8 JavaScript engine, often used for web development.
+  - common: openssl  # Toolkit for Secure Sockets Layer (SSL) and Transport Layer Security (TLS) protocols.
+  - common: python3  # Python programming language (version 3), used for scripting and automation tasks.
+  - common: ffmpeg  # A tool for handling video, audio, and other multimedia files and streams.
+  - common: tar  # Utility to create, extract, and manipulate .tar archive files.
+  - common: git  # Distributed version control system for tracking changes in source code.
+  - common: vim  # Text editor, an improved version of vi, used for programming and system administration.
+  - common: xfce4-terminal  # Terminal emulator for the XFCE desktop environment.
+  - common: xfconf  # Configuration management library for XFCE, handling user preferences and settings.
+  - common: xfwm4  # Window manager for the XFCE desktop environment.
+  - common: xfce4-panel  # Panel for the XFCE desktop environment, providing access to applications and system status.
+  - common: xfce4-session  # XFCE session manager, responsible for managing user sessions.
+  - common: xfce4-settings  # Provides graphical tools for configuring the XFCE desktop environment.
+  - common: xfce4-whiskermenu-plugin  # A Whisker menu plugin for the XFCE panel, offering a modern application launcher.
+  - common: pulseaudio  # Sound server for Linux, managing audio playback and recording.
+  - common: pulseaudio-utils  # Utility tools for interacting with the PulseAudio sound server.
+  - common: file  # Command-line tool to determine the type of files based on content, not file extension.
+  - common: tumbler  # Thumbnailer service for creating previews of files in the file manager.
+
+  # ========================================
+  # Graphics and Multimedia Packages
+  # ========================================
+  - debian: mesa-va-drivers  # Provides video acceleration drivers for Intel, AMD, and other graphics cards in Linux.
+    rhel: mesa-va-drivers   
+    alpine: mesa-va-gallium
+  - debian: libxinerama1  # Library for the X11 extension that provides multi-head display support.
+    rhel: libXinerama   
+  - debian: libxfixes3  # X11 library that provides support for handling window management fixes.
+    rhel: libXfixes   
+  - debian: libxext6  # X11 library providing basic extensions like input/output, fonts, and display extensions.
+    rhel: libXext   
+  - debian: libxcursor1  # X11 library that provides support for managing mouse cursors.
+    rhel: libXcursor   
+  - debian: libxau6  # X11 library used to manage authentication for X11 connections.
+    rhel: libXau   
+  - debian: libxtst6  # X11 library providing extensions for simulating user input and event handling.
+    rhel: libXtst   
+  - debian: xkb-data  # Data files for X11's keyboard configuration system.
+    rhel: xkeyboard-config   
+    alpine: xkeyboard-config    
+  - debian: libfreetype6  # Font rendering library for handling TrueType fonts.
+    rhel: freetype   
+  - debian: libfontenc1  # X11 library providing support for font encoding.
+    rhel: fontconfig
+  - debian: libxcb1  # Library for interacting with the X protocol, providing connection support.
+    rhel: libxcb   
+  - debian: libxshmfence1  # X11 library for synchronization between threads and hardware fences.
+    rhel: libxshmfence   
+    alpine: libxshmfence    
+  - debian: libpixman-1-0  # 2D graphics library used for compositing and rendering.
+    rhel: pixman   
+    alpine: pixman    
+  - debian: libgbm1  # Provides support for the Generic Buffer Management (GBM) for graphics hardware.
+    rhel: mesa-libgbm   
+    alpine: mesa-gbm    
+  - debian: libvulkan1  # Vulkan graphics API library for high-performance graphics and compute.
+    rhel: mesa-vulkan-drivers     
+    alpine: mesa-vulkan-ati
+  - debian: libglu1-mesa  # OpenGL utility library for rendering 3D objects.
+    rhel: mesa-libGLU   
+    alpine: mesa-gl
+  - debian: libgl1-mesa-dri  # Direct Rendering Infrastructure (DRI) for Mesa, enabling hardware acceleration.
+    rhel: mesa-dri-drivers   
+    alpine: mesa-dri-gallium
+  - debian: libxfont2  # X11 library for managing bitmap and TrueType fonts.
+    rhel: libXfont2   
+    alpine: libxfont2    
+  - debian: libxdmcp6  # Library for managing X11 Display Manager Control Protocol (XDMCP) communication.
+    rhel: libXdmcp   
+  - debian: libwebp7  # Image format library for WebP support, enabling lossless and lossy compression.
+    rhel: libwebp   
+    alpine: libwebp    
+  - ubuntu: libjpeg-turbo8  # JPEG image codec for faster encoding and decoding.
+    rhel: libjpeg-turbo   
+    alpine: libjpeg-turbo    
+
+  # ===============================
+  # System Utilities and Libraries
+  # ===============================
+  - alpine: bash
+  - alpine: shadow
+  - debian: zlib1g  # Compression library used for various compression algorithms.
+    rhel: zlib   
+    alpine: zlib    
+  - debian: libdrm-dev  # Development library for interacting with Direct Rendering Manager (DRM).
+    rhel: libdrm   
+  - debian: libtasn1-6  # Library for parsing and generating ASN.1 (Abstract Syntax Notation One) encoded data.
+    rhel: libtasn1   
+  - debian: libpam0g  # Pluggable Authentication Modules (PAM) library for managing authentication.
+    rhel: pam   
+  - debian: libp11-kit0  # Library for handling PKCS#11 cryptographic tokens.
+    rhel: p11-kit   
+  - debian: libgomp1  # GNU Offloading and Multi Processing Library for parallel computing.
+    rhel: libgomp   
+    alpine: libgomp    
+  - debian: libgnutls30  # Library for Secure Socket Layer (SSL) and Transport Layer Security (TLS) protocols.
+    rhel: gnutls   
+  - debian: libgcrypt20  # Cryptographic library used for implementing secure encryption algorithms.
+    rhel: libgcrypt   
+  - debian: procps  # Set of utilities for monitoring system processes (e.g., ps, top).
+    rhel: procps-ng   
+  - debian: libstdc++6  # GNU Standard C++ Library for compiling C++ programs.
+    rhel: libstdc++   
+    alpine: libstdc++    
+  - debian: iproute2  # Networking utilities for configuring network interfaces, routes, and traffic.
+    rhel: iproute   
+    alpine: iproute2-minimal
+  - debian: ssl-cert  # Manages SSL certificates, typically for securing web servers.
+    rhel: ca-certificates   
+    alpine: ca-certificates    
+  - debian: pciutils  # Utilities for inspecting PCI devices in the system.
+    rhel: pciutils   
+    alpine: pciutils-libs    
+  - debian: perl  # High-level programming language for text processing and automation.
+    rhel: perl   
+    alpine: perl    
+  - debian: libyaml-tiny-perl  # Perl library for handling YAML (YAML Ain't Markup Language) data.
+    rhel: perl-YAML-Tiny   
+    alpine: perl-yaml-tiny
+  - debian: libtry-tiny-perl  # Perl library for exception handling and error recovery.
+    rhel: perl-Try-Tiny   
+    alpine: perl-try-tiny
+  - debian: libswitch-perl  # Perl library for providing switch-like functionality.
+    rhel: perl-Switch   
+    alpine: perl-switch
+  - debian: libscalar-list-utils-perl  # Perl module for scalar and list manipulation.
+    rhel: perl-Scalar-List-Utils   
+  - debian: liblist-moreutils-perl  # Perl module for advanced list manipulation functions.
+    rhel: perl-List-MoreUtils   
+    alpine: perl-list-moreutils
+  - debian: libhash-merge-simple-perl  # Perl module for merging hashes efficiently.
+    rhel: perl-Hash-Merge-Simple   
+    alpine: perl-hash-merge-simple
+  - debian: libdatetime-perl  # Perl module for working with date and time.
+    rhel: perl-DateTime   
+    alpine: perl-datetime
+
+  # ============================================
+  # Display & Desktop Environment Packages
+  # ============================================
+  - debian: xfce4  # XFCE desktop environment package that provides a lightweight graphical interface.
+    alpine: xfce4    
+  - debian: thunar  # File manager for XFCE, providing graphical file browsing and manipulation.
+    rhel: Thunar   
+    alpine: thunar    
+  - debian: xfce4-terminal  # Terminal emulator for XFCE desktop, allowing command-line operations.
+    rhel: xfce-polkit
+    alpine: xfce4-terminal    
+  - debian: xfconf  # XFCE's configuration management library to handle settings and preferences.
+    rhel: xfwm4-themes
+  - debian: xfce4  # XFCE desktop environment package, same as above.
+    rhel: xfdesktop
+  - debian: tumbler  # Thumbnailer service for generating file previews.
+    alpine: tumbler    
+  - debian: tumbler-common  # Common files for the tumbler thumbnailer service.
+  - debian: tumbler-plugins-extra  # Additional plugins for tumbler to generate thumbnails for more file types.
+
+  # ====================================
+  # X11 and Display Server Packages
+  # ====================================
+  - alpine: xkbcomp
+  - debian: x11-apps  # Provides a set of basic X11 utilities for interacting with the X Window System.
+  - debian: x11-common  # Core utilities and files for the X11 window system.
+  - debian: x11-utils  # X11 utilities for interacting with the X server and managing windows.
+    rhel: xorg-x11-utils   
+  - debian: x11-xkb-utils  # Tools for configuring X11's keyboard layout and input methods.
+    rhel: xkeyboard-config   
+    alpine: xkeyboard-config    
+  - debian: x11-xserver-utils  # Utility tools for managing X11 display servers.
+    rhel: xorg-x11-server-utils   
+  - debian: xdg-utils  # Set of scripts for integrating with desktop environments and the X11 system.
+    rhel: xdg-utils   
+    alpine: xdg-utils    
+  - debian: xfonts-base  # Base set of X11 fonts, used for text rendering in the X server.
+  - debian: xserver-common  # Common files and configuration for the X11 server.
+    rhel: xorg-x11-server-common   
+  - debian: xserver-xorg-core  # Core server for the X Window System, handling the graphical display.
+    rhel: xorg-x11-server-Xorg   
+  - debian: xserver-xorg-video-amdgpu  # X11 video driver for AMD graphics cards.
+    alpine: xf86-video-amdgpu    
+  - debian: xserver-xorg-video-ati  # X11 video driver for ATI graphics cards.
+    alpine: xf86-video-ati    
+  - debian: xserver-xorg-video-intel  # X11 video driver for Intel graphics cards.
+    alpine: xf86-video-intel    
+  - debian: xserver-xorg-video-qxl  # X11 video driver for the QEMU virtual display.
+    alpine: xf86-video-qxl    
+  - debian: xutils  # A collection of X11 utilities for interacting with the X server.
+    rhel: xorg-x11-utils   
+  - debian: libx11-6  # Core X11 library for interacting with the X Window System.
+    rhel: libX11   
+  - debian: xssstate  # Utility for managing X11 screen saver states (used in graphical sessions).
+    rhel: https://kojipkgs.fedoraproject.org//vol/fedora_koji_archive06/packages/xssstate/1.1/18.fc35/x86_64/xssstate-1.1-18.fc35.x86_64.rpm  
+
+  # ================================
+  # Virtualization and Remote Access
+  # ================================
+  - alpine: mcookie
+  - debian: virtualgl  # Software for accelerating OpenGL rendering in virtualized environments.
+    rhel: VirtualGL   
+    alpine: virtualgl    
+  - ubuntu: libjpeg-turbo8  # JPEG image codec for faster encoding and decoding.
+    rhel: libjpeg-turbo   
+    alpine: libjpeg-turbo

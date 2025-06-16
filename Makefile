@@ -1,4 +1,11 @@
-.PHONY: jammy kali noble rocky-9 alma-9 bookworm sid alpine-3
+.PHONY: jammy kali noble rocky-9 alma-9 bookworm sid alpine-3 packages
+
+# development
+format:
+	@shfmt -l -w .
+
+packages:
+	@python ./hack/packages.py $(shell pwd)/packages.yaml $(shell pwd)/.packages/
 
 # ALPINE
 alpine-3:
@@ -35,6 +42,3 @@ rocky-9:
 alma-9:
 	@docker compose build --build-arg IMAGE=almalinux:9 --build-arg SRC=alma-9 --build-arg RHEL=true
 	@docker compose up
-
-format:
-	@shfmt -l -w .
