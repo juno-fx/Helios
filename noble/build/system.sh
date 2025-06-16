@@ -21,12 +21,8 @@ curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
 apt update
 
 apt install --no-install-recommends -y \
-  $(cat /tmp/lists/debian.list) \
-  $(cat /tmp/lists/ubuntu.list) \
-	neofetch \
-	xubuntu-default-settings \
-	xubuntu-icon-theme \
-	ubuntu-wallpapers
+	$(cat /tmp/lists/ubuntu.list) \
+	neofetch
 
 apt remove -y xubuntu-wallpapers
 

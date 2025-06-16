@@ -13,8 +13,8 @@ dnf config-manager --set-enabled devel
 # install system
 dnf update -y
 dnf install -y --allowerasing --setopt=install_weak_deps=False --best \
-  $(cat /tmp/lists/rhel.list) \
-  fastfetch
+	$(cat /tmp/lists/rhel.list) \
+	fastfetch
 
 # handle background
 mv -v /usr/share/backgrounds/rocky-default-9-onyx-mountains.png /tmp/background.png

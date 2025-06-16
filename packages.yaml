@@ -178,6 +178,9 @@ packages:
     alpine: tumbler    
   - debian: tumbler-common  # Common files for the tumbler thumbnailer service.
   - debian: tumbler-plugins-extra  # Additional plugins for tumbler to generate thumbnails for more file types.
+  - ubuntu: xubuntu-default-settings
+  - ubuntu: xubuntu-icon-theme
+  - ubuntu: ubuntu-wallpapers
 
   # ====================================
   # X11 and Display Server Packages
