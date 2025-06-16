@@ -5,7 +5,28 @@ ARG RHEL=false
 
 FROM ${IMAGE} AS distro
 
+# https://github.com/kasmtech/KasmVNC/tree/release/1.3.4
+ENV KASMVNC_COMMIT="1.3.4"
+ENV KASMBINS_RELEASE="1.15.0"
+ENV HELIOS_VERSION="0.0.0"
 
+# generate install lists
+FROM python:alpine AS lists
+
+WORKDIR /work
+
+COPY hack/packages.py ./
+COPY packages.yaml ./
+
+RUN pip install pyyaml --break-system-packages \
+    && python3 /work/packages.py /work/packages.yaml /work/lists/
+
+# generate the snake oil certificate
+FROM ubuntu AS certs
+
+RUN apt update && apt install -y ssl-cert
+
+# s6 init system
 FROM alpine AS s6
 
 # install init system
@@ -44,10 +65,6 @@ RUN /novnc.sh
 # kasm build environment
 FROM distro AS kasm-build
 
-# https://github.com/kasmtech/KasmVNC/tree/e647af5e281735d1c7fc676ca089201aeae7130a
-ENV KASMVNC_COMMIT="e647af5e281735d1c7fc676ca089201aeae7130a"
-ENV KASMBINS_RELEASE="1.15.0"
-
 # pull in args for the tag
 ARG SRC
 
@@ -81,18 +98,14 @@ RUN ./package.sh
 COPY --from=novnc /tmp/kasmweb.version /build-out/opt/helios/kasmweb.version
 
 
-# generate the snake oil certificate
-FROM ubuntu AS snake-oil
-RUN apt update && apt install -y ssl-cert
-
-
 # base image
 FROM distro AS base-image
 
-ENV HELIOS_VERSION="0.0.0"
-
 # pull in args for the tag
 ARG SRC
+
+# grab package lists
+COPY --from=lists /work/lists/ /tmp/lists/
 
 # build our base image
 COPY --chmod=777 ${SRC}/build/system.sh /tmp/
@@ -121,8 +134,8 @@ COPY ${SRC}/root/ /
 RUN chmod -R 7777 /etc/s6-overlay/s6-rc.d/
 
 # this is to ensure that the snake oil certificate is available for Kasm
-COPY --from=snake-oil /etc/ssl/certs/ssl-cert-snakeoil.pem /etc/ssl/certs/ssl-cert-snakeoil.pem
-COPY --from=snake-oil /etc/ssl/private/ssl-cert-snakeoil.key /etc/ssl/private/ssl-cert-snakeoil.key
+COPY --from=certs /etc/ssl/certs/ssl-cert-snakeoil.pem /etc/ssl/certs/ssl-cert-snakeoil.pem
+COPY --from=certs /etc/ssl/private/ssl-cert-snakeoil.key /etc/ssl/private/ssl-cert-snakeoil.key
 
 # add license file
 COPY LICENSE /LICENSE

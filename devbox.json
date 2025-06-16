@@ -4,6 +4,13 @@
     "shfmt@latest",
     "gnumake@latest",
     "docker@latest",
-    "docker-compose@latest"
-  ]
+    "docker-compose@latest",
+    "python@latest"
+  ],
+  "shell": {
+    "init_hook": [
+      ". $VENV_DIR/bin/activate",
+      "uv pip install pyyaml"
+    ]
+  }
 }
