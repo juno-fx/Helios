@@ -6,7 +6,7 @@ Optimized Kasm Desktops for general use
 - [Overview](#overview)
 - [Features](#features)
 - [Kasm Setup](#kasm-setup)
-- [Distros](#distros)
+- [Distros](#-distros-overview)
   - Alpine
     - [Alpine (3)](#alpine-3)
   - Debian
@@ -43,31 +43,43 @@ Optimized Kasm Desktops for general use
         - [Workflow](#workflow)
 - [Acknowledgements](#acknowledgements)
 
-## Overview
+## 🚀 Overview
 
-Helios provides base images for multiple key Linux distributions, optimized to be as small as possible to reduce pull 
-times, minimize attack surface and reduce data transfer costs. These images are designed to be lightweight, efficient, 
-and ready for use in various environments such as Docker, Kubernetes, and more. Some key points about Helios:
+Helios provides base images for multiple key Linux distributions, optimized to be as small as possible to:
 
-- **Base Images**: Helios containers are meant to be used as a base image for Kasm compatible deployments.
-- **Extremely Minimal Desktops**: The images are designed to be as minimal as possible. No additional software should ever be added the these images. Instead, you should use the `FROM` instruction in your Dockerfile to build on top of Helios images.
+- Reduce pull times  
+- Minimize the attack surface  
+- Lower data transfer costs  
 
-## Features
+These images are lightweight, efficient, and ready to use across environments like Docker, Kubernetes, and more.
 
-- **Lightweight**: Minimal resource usage for efficient performance.
-- **WebRTC Support**: Seamless audio and video streaming capabilities. (Non-RHEL distros)
-- **Multi-Monitor Support**: Enhanced productivity with multiple displays.
-- **Audio Support**: High-quality audio streaming for a better user experience.
-- **VirtualGL Support**: Hardware-accelerated graphics for 3D applications is supported using `vglrun`.
+Some key points about Helios:
 
-## Kasm Setup
+- **Base Images**: Designed as base images for Kasm-compatible deployments.  
+- **Extremely Minimal Desktops**: Images are intentionally minimal; avoid adding software directly. Instead, extend via the `FROM` instruction in your Dockerfile.
 
-We try our best to keep the latest version of Kasm installed so we get all the latest features and bug fixes.
+---
 
-- **Kasm VNC**: [1.3.4](https://github.com/kasmtech/KasmVNC/tree/release/1.3.4)
-- **Kasm Web Client**: [bed156c565f7646434563d2deddd3a6c945b7727](https://github.com/kasmtech/noVNC/tree/bed156c565f7646434563d2deddd3a6c945b7727)
-- **Kasm Binaries**: 1.15.0
-- **Linuxserver.io KClient**: [master](https://github.com/linuxserver/kclient/commits/master/)
+## ✨ Features
+
+- **Lightweight**: Minimal resource usage for efficient performance.  
+- **WebRTC Support**: Seamless audio and video streaming (available on non-RHEL distros).  
+- **Multi-Monitor Support**: Enhanced productivity with multiple displays.  
+- **Audio Support**: High-quality audio streaming for improved user experience.  
+- **VirtualGL Support**: Hardware-accelerated 3D graphics using `vglrun`.
+
+---
+
+## ⚙️ Kasm Setup
+
+We maintain the latest versions of Kasm components to ensure access to the newest features and bug fixes:
+
+- **Kasm VNC**: [v1.3.4](https://github.com/kasmtech/KasmVNC/tree/release/1.3.4)  
+- **Kasm Web Client**: [Commit bed156c](https://github.com/kasmtech/noVNC/tree/bed156c565f7646434563d2deddd3a6c945b7727)  
+- **Kasm Binaries**: v1.15.0  
+- **Linuxserver.io KClient**: [Latest master branch](https://github.com/linuxserver/kclient/commits/master/)
+
+---
 
 ## 🐧 Distros Overview
 
