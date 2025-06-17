@@ -69,67 +69,74 @@ We try our best to keep the latest version of Kasm installed so we get all the l
 - **Kasm Binaries**: 1.15.0
 - **Linuxserver.io KClient**: [master](https://github.com/linuxserver/kclient/commits/master/)
 
-## Distros
+## 🐧 Distros Overview
+
+Explore the supported Linux distributions with their versions, image sizes, and X Server details.
+
+---
 
 ### Alpine
 
-#### [Alpine (3)](https://hub.docker.com/_/alpine/tags?name=3)
+#### [Alpine 3](https://hub.docker.com/_/alpine/tags?name=3)
 
-- Size: 1.16 GB
-- X Server: 1.20.14 (Custom)
+- **Size:** 1.16 GB  
+- **X Server:** 1.20.14 (Custom)
 
-### Debian
+---
+
+### Debian Family
 
 #### [Debian 12 (Bookworm)](https://hub.docker.com/_/debian/tags?name=bookworm)
 
-- Size: 1.67 GB
-- X Server: 21.1.4 (Custom)
+- **Size:** 1.67 GB  
+- **X Server:** 21.1.4 (Custom)
 
 #### [Debian Rolling (Trixie/Sid)](https://hub.docker.com/_/debian/tags?name=sid)
 
-- Size: 1.72 GB
-- X Server: 21.1.4 (Custom)
+- **Size:** 1.72 GB  
+- **X Server:** 21.1.4 (Custom)
 
 #### [Kali Linux (Rolling Release)](https://hub.docker.com/r/kalilinux/kali-rolling)
 
 > [!TIP]  
-> We don't install any default Kali tools in this image. Please follow the instructions in the [Kali Linux Docker Image documentation](https://www.kali.org/docs/containers/official-kalilinux-docker-images/) to install them.
+> No default Kali tools are installed in this image. Please refer to the [Kali Linux Docker Image documentation](https://www.kali.org/docs/containers/official-kalilinux-docker-images/) for installing them.
 
-- Size: 1.72 GB (This does not include the Kali tools which make the image much larger)
-- X Server: 21.1.4 (Custom)
+- **Size:** 1.72 GB (Excludes Kali tools which increase image size)  
+- **X Server:** 21.1.4 (Custom)
 
-### Ubuntu
+---
+
+### Ubuntu Variants
 
 #### [Ubuntu 24.04 (Noble)](https://hub.docker.com/_/ubuntu/tags?name=noble)
 
-- Size: 1.46 GB
-- X Server: 21.1.4 (Custom)
-
+- **Size:** 1.46 GB  
+- **X Server:** 21.1.4 (Custom)
 
 #### [Ubuntu 22.04 (Jammy)](https://hub.docker.com/_/ubuntu/tags?name=jammy)
 
-- Size: 1.34 GB
-- X Server: 21.1.4 (Custom)
+- **Size:** 1.34 GB  
+- **X Server:** 21.1.4 (Custom)
 
+---
 
-### RHEL
+### Red Hat Ecosystem
 
-#### [Rocky Linux (9)](https://hub.docker.com/_/rockylinux/tags?name=9)
-
-> [!WARNING]  
-> Currently WebRTC is not supported on Rocky Linux due to upstream limitations with Kasm. This may change in the future.
-
-- Size: 1.86 GB
-- X Server: 1.20.14 (Custom)
-
-
-#### [Alma Linux (9)](https://hub.docker.com/_/almalinux/tags?name=9)
+#### [Rocky Linux 9](https://hub.docker.com/_/rockylinux/tags?name=9)
 
 > [!WARNING]  
-> Currently WebRTC is not supported on Alma Linux due to upstream limitations with Kasm. This may change in the future.
+> WebRTC is currently **not supported** on Rocky Linux due to upstream Kasm limitations. This may change in the future.
 
-- Size: 1.61 GB 
-- X Server: 1.20.14 (Custom)
+- **Size:** 1.86 GB  
+- **X Server:** 1.20.14 (Custom)
+
+#### [Alma Linux 9](https://hub.docker.com/_/almalinux/tags?name=9)
+
+> [!WARNING]  
+> WebRTC is currently **not supported** on Alma Linux due to upstream Kasm limitations. This may change in the future.
+
+- **Size:** 1.61 GB  
+- **X Server:** 1.20.14 (Custom)
 
 ## Versioning
 
