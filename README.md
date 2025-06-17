@@ -27,7 +27,7 @@ Optimized Kasm Desktops for general use
         - [Kubernetes](#kubernetes)
 - [Customizing Helios](#customizing-helios)
     - [Using Unified Package Management](#-unified-package-management)
-    - [Using FROM](#using-from)
+    - [Using FROM](#%EF%B8%8F-using-from)
     - [Event Hooks](#event-hooks)
         - [Using FROM](#using-from-1)
         - [Mounting](#mounting)
@@ -390,7 +390,7 @@ You can then push your custom image to a private registry and deploy it in Kasm-
 
 ---
 
-### ✅ Benefits
+#### ✅ Benefits
 
 - 🚀 **Quick Start**: Leverage prebuilt, tested base images to speed up your container builds.
 - 🔄 **Consistency**: Builds start from a known, reliable foundation, reducing surprises.
@@ -398,41 +398,51 @@ You can then push your custom image to a private registry and deploy it in Kasm-
 - 📦 **Compatibility**: Seamlessly integrate with Kasm and other container orchestration platforms.
 
 
-### Event Hooks
+### ⚙️ Event Hooks
 
-Helios uses the [s6 overlay](https://github.com/just-containers/s6-overlay) init system from [just-containers](https://github.com/just-containers).
-This allows us to tap into the boot sequence of the container and run custom scripts and even custom services. This is
-heavily inspired by the incredible team at [Linuxserver IO](https://www.linuxserver.io/).
+Helios uses the [s6 overlay](https://github.com/just-containers/s6-overlay) init system from [just-containers](https://github.com/just-containers).  
+This allows us to hook into the container boot sequence to run custom scripts and services. The design is heavily inspired by the excellent work from [Linuxserver IO](https://www.linuxserver.io/).
 
 > [!TIP]  
-> The init hook executes before all else. So the user is not present yet on the system, but you have full access to the environment variables and the filesystem.
+> The init hook executes **before** the user environment is fully set up, but you have full access to environment variables and the filesystem.
 
-Custom services are executed via the `/etc/helios/services.d` directory. You can add your own custom services by overriding
-the `/etc/helios/services.d/custom.sh` file in your Dockerfile or by mounting it into the container. There you can launch 
-your own custom services that will run in the background.
+---
 
-#### Using FROM
+#### 🛠️ Custom Services
 
-As mentioned above, you can use the `FROM` instruction to add in your custom init scripts and services.
+Custom services are managed through the `/etc/helios/services.d` directory. You can add your own by either:
+
+- Overriding `/etc/helios/services.d/custom.sh` in your Dockerfile  
+- Mounting your scripts into the container
+
+These services will run in the background as part of the container lifecycle.
+
+---
+
+#### 🏗️ Using `FROM`
+
+You can extend Helios images by adding your custom init scripts and services in your Dockerfile:
 
 ```dockerfile
 FROM helios:v0.0.0-noble
 
-# custom init script
+# Custom init script
 COPY ./my-custom-init.sh /etc/helios/init.d/my-custom-init.sh
 
-# custom service
+# Custom service
 COPY ./my-custom-service.sh /etc/helios/services.d/custom.sh
 
-# custom idle script
-COPY ./my-custom-service.sh /etc/helios/idle.d/custom.sh
+# Custom idle script
+COPY ./my-custom-idle.sh /etc/helios/idle.d/custom.sh
 ```
 
-#### Mounting
+---
 
-Finally, you can dynamically mount the scripts via docker or kubernetes mounts by just mapping the scripts to the
-`/etc/helios/init.d` or `/etc/helios/services.d` directories. This allows you to have custom scripts and services without
-the need to rebuild the image. This is useful for testing and development purposes.
+#### 🔌 Mounting Scripts Dynamically
+
+Alternatively, mount scripts at runtime via Docker or Kubernetes volume mounts. This lets you add or update scripts without rebuilding the image — great for development and testing.
+
+Example Docker run command:
 
 ```shell
 docker run -d \
@@ -443,7 +453,7 @@ docker run -d \
   helios:v0.0.0-noble
 ```
 
-You can achieve the same a number of ways in Kubernetes. For example, you can use a ConfigMap to mount the scripts into the container.
+Example Kubernetes ConfigMap and Deployment snippet to mount the scripts:
 
 ```yaml
 apiVersion: v1
@@ -451,60 +461,78 @@ kind: ConfigMap
 metadata:
   name: my-helios-config
 data:
-    my-custom-idle.sh: |
-        #!/bin/sh
-        echo "Helios has hit the idle timeout!"
-      
-    my-custom-init.sh: |
-        #!/bin/sh
-        echo "Hello from my custom init script!"
-    
-    my-custom-service.sh: |
-        #!/bin/bash
-        
-        set -e
-        
-        echo
-        echo "Helios Custom Service Initialization"
-        echo
-        /path/to/my/custom/script.sh
-        /path/to/my/other/custom/script.sh
-        sleep infinity
+  my-custom-idle.sh: |
+    #!/bin/sh
+    echo "Helios has hit the idle timeout!"
+  
+  my-custom-init.sh: |
+    #!/bin/sh
+    echo "Hello from my custom init script!"
+  
+  my-custom-service.sh: |
+    #!/bin/bash
+
+    set -e
+
+    echo
+    echo "Helios Custom Service Initialization"
+    echo
+    /path/to/my/custom/script.sh
+    /path/to/my/other/custom/script.sh
+    sleep infinity
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: my-helios-deployment
 spec:
-    replicas: 1
-    selector:
-        matchLabels:
-           app: my-helios-app
-    template:
-        metadata:
-           labels:
-               app: my-helios-app
-        spec:
-           containers:
-           - name: helios-container
-             image: helios:v0.0.0-noble
-             ports:
-               - containerPort: 3000
-             volumeMounts:
-              - name: custom-scripts
-                mountPath: /etc/helios/init.d/my-custom-init.sh
-                subPath: my-custom-init.sh
-              - name: custom-services
-                mountPath: /etc/helios/services.d/custom.sh
-                subPath: my-custom-service.sh
-              - name: custom-idle
-                mountPath: /etc/helios/idle.d/custom.sh
-                subPath: my-custom-idle.sh
-           volumes:
-           - name: custom-scripts
-             configMap:
-               name: my-helios-config
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-helios-app
+  template:
+    metadata:
+      labels:
+        app: my-helios-app
+    spec:
+      containers:
+      - name: helios-container
+        image: helios:v0.0.0-noble
+        ports:
+          - containerPort: 3000
+        volumeMounts:
+          - name: custom-scripts
+            mountPath: /etc/helios/init.d/my-custom-init.sh
+            subPath: my-custom-init.sh
+          - name: custom-services
+            mountPath: /etc/helios/services.d/custom.sh
+            subPath: my-custom-service.sh
+          - name: custom-idle
+            mountPath: /etc/helios/idle.d/custom.sh
+            subPath: my-custom-idle.sh
+      volumes:
+        - name: custom-scripts
+          configMap:
+            name: my-helios-config
+        - name: custom-services
+          configMap:
+            name: my-helios-config
+        - name: custom-idle
+          configMap:
+            name: my-helios-config
 ```
+
+---
+
+#### ✅ Benefits
+
+- 🔄 **Flexible Initialization**: Run custom scripts and services at different points in the container lifecycle.  
+- ⚡ **Extensibility**: Easily add or override functionality without modifying core images.  
+- 🚧 **Rapid Development**: Test changes by mounting scripts without rebuilding images.  
+- 🛠️ **Compatibility**: Leverages widely adopted `s6-overlay`, ensuring robust process supervision.  
+- 🔍 **Transparency**: Clear, maintainable hook system inspired by best practices in container init systems.
+
+
 
 
 ## Contributing
