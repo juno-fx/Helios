@@ -30,8 +30,8 @@ curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
 apt update
 
 apt install --no-install-recommends -y \
-  $(cat /tmp/lists/debian.list) \
-  neofetch
+	$(cat /tmp/lists/debian.list) \
+	neofetch
 
 rm -rfv /usr/share/backgrounds/*
 

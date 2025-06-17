@@ -21,8 +21,8 @@ curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
 apt update
 
 apt install --no-install-recommends -y \
-  $(cat /tmp/lists/debian.list) \
-  fastfetch \
+	$(cat /tmp/lists/debian.list) \
+	fastfetch \
 	gcc \
 	g++ \
 	python3-dev \
