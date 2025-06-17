@@ -373,6 +373,8 @@ This example installs the complete set of packages for a RHEL-based image (inclu
 - ♻️ **Reusability**: Define shared groups (`common`, `debian`, etc.) and reuse across distros
 - 🔍 **Transparency**: Final package lists are explicitly generated and easy to inspect
 
+---
+
 ### 🏗️ Using `FROM`
 
 Helios images can be used as a base in your own Dockerfiles with the `FROM` instruction.
@@ -397,6 +399,7 @@ You can then push your custom image to a private registry and deploy it in Kasm-
 - 🔧 **Customizability**: Easily extend Helios images to fit your specific application or environment needs.
 - 📦 **Compatibility**: Seamlessly integrate with Kasm and other container orchestration platforms.
 
+---
 
 ### ⚙️ Event Hooks
 
@@ -533,7 +536,7 @@ spec:
 - 🔍 **Transparency**: Clear, maintainable hook system inspired by best practices in container init systems.
 
 
-
+---
 
 ## Contributing
 
@@ -567,6 +570,10 @@ common
 └── root <- Distro specific rootfs
 ```
 
+### Package Changes
+
+We recommend you follow the [Unified Package Management System](#-unified-package-management).
+
 ### Build Order
 
 1. `common/build/novnc.sh` is run to build the noVNC client. (This is standard across all distros)
@@ -595,19 +602,6 @@ For example, you can reference the `common/root/etc/kasm/kasmvnc.conf` file to c
 You can modify the distro specific configuration files in the `<distro>/root` directory to customize the resulting rootfs
 for that specific distro. For example, you can reference the `<distro>/root/etc/skel/.bashrc` file to change the default
 settings for the shell on that specific distro.
-
-### Custom Dependencies
-
-If you would like to pre-install different packages, you can modify the `<distro>/build/system.sh` file to add the packages
-you want to install. For example, the Kali Linux image doesn't ship with any of the Kali tools by default. You can add them
-to the `system.sh` file to have them pre-installed in the image.
-
-```shell
-...
-apt-get update
-apt-get install -y kali-linux-headless
-...
-```
 
 ### Development Workflow
 
