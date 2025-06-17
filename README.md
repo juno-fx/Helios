@@ -30,7 +30,7 @@ Some key points about Helios:
   - RHEL  
     - [Rocky Linux 9](#rocky-linux-9)  
     - [Alma Linux 9](#alma-linux-9)
-- 🏷️ [Versioning](#versioning)
+- 🏷️ [Versioning](#%EF%B8%8F-versioning)
 - ⚡ [Usage](#usage)  
   - Deployment  
     - [`Docker`](#docker)  
