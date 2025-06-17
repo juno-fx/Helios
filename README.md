@@ -42,6 +42,8 @@ Some key points about Helios:
   - [Event Hooks](#%EF%B8%8F-event-hooks)  
     - [Using `FROM`](#%EF%B8%8F-using-from-1)  
     - [Mounting Scripts Dynamically](#-mounting-scripts-dynamically)
+- 🤝 [Contributing](CONTRIBUTING.md)
+  - 📜 [Code of Conduct](CODE_OF_CONDUCT.md)
 - 🙏 [Acknowledgements](#acknowledgements)
 
 ---
