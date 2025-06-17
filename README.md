@@ -13,36 +13,41 @@ Some key points about Helios:
 - **Base Images**: Designed as base images for Kasm-compatible deployments.  
 - **Extremely Minimal Desktops**: Images are intentionally minimal; avoid adding software directly. Instead, extend via the `FROM` instruction in your Dockerfile.
 
-## Table of Contents
+## 📚 Table of Contents
 
-- [Features](#-features)
-- [Kasm Setup](#%EF%B8%8F-kasm-setup)
-- [Distros](#-distros-overview)
-  - Alpine
-    - [Alpine (3)](#alpine-3)
-  - Debian
-    - [Debian 12 (Bookworm)](#debian-12-bookworm)
-    - [Debian Rolling (Trixie/Sid)](#debian-rolling-trixie-sid)
-    - [Kali Linux (Rolling Release)](#kali-linux-rolling-release)
-  - Ubuntu
-    - [Ubuntu 24.04 (Noble)](#ubuntu-2404-noble)
-    - [Ubuntu 22.04 (Jammy)](#ubuntu-2204-jammy)
-  - RHEL
-    - [Rocky Linux (9)](#rocky-linux-9)
-    - [Alma Linux (9)](#alma-linux-9)
-- [Versioning](#versioning)
-- [Usage](#usage)
-    - [Deployment](#deployment)
-        - [Docker](#docker)
-        - [Docker Compose](#docker-compose)
-        - [Kubernetes](#kubernetes)
-- [Customizing Helios](#customizing-helios)
-    - [Using Unified Package Management](#-unified-package-management)
-    - [Using FROM](#%EF%B8%8F-using-from)
-    - [Event Hooks](#%EF%B8%8F-event-hooks)
-        - [Using FROM](#%EF%B8%8F-using-from-1)
-        - [Mounting](#-mounting-scripts-dynamically)
-- [Contributing](#contributing)
+- 🚀 [Features](#✨-features)  
+- ⚙️ [Kasm Setup](#⚙️-kasm-setup)  
+
+- 🐧 [Distros Overview](#🐧-distros-overview)  
+  - Alpine  
+    - [Alpine 3](#alpine-3)  
+  - Debian  
+    - [Debian 12 (Bookworm)](#debian-12-bookworm)  
+    - [Debian Rolling (Trixie/Sid)](#debian-rolling-trixie-sid)  
+    - [Kali Linux (Rolling Release)](#kali-linux-rolling-release)  
+  - Ubuntu  
+    - [Ubuntu 24.04 (Noble)](#ubuntu-2404-noble)  
+    - [Ubuntu 22.04 (Jammy)](#ubuntu-2204-jammy)  
+  - RHEL  
+    - [Rocky Linux 9](#rocky-linux-9)  
+    - [Alma Linux 9](#alma-linux-9)  
+
+- 🏷️ [Versioning](#versioning)  
+
+- ⚡ [Usage](#usage)  
+  - Deployment  
+    - [`Docker`](#docker)  
+    - [`Docker Compose`](#docker-compose)  
+    - [`Kubernetes`](#kubernetes)  
+
+- 🛠️ [Customizing Helios](#customizing-helios)  
+  - [Unified Package Management](#-unified-package-management)  
+  - [Using `FROM`](#%EF%B8%8F-using-from)  
+  - [Event Hooks](#%EF%B8%8F-event-hooks)  
+    - [Using `FROM`](#%EF%B8%8F-using-from-1)  
+    - [Mounting Scripts Dynamically](#-mounting-scripts-dynamically)  
+
+- 🤝 [Contributing](#contributing)  
     - [Build Process](#build-process)
     - [Repository Layout](#repository-layout)
     - [Build Order](#build-order)
@@ -52,7 +57,8 @@ Some key points about Helios:
     - [Development Workflow](#development-workflow)
         - [Pre-requisites](#pre-requisites)
         - [Workflow](#workflow)
-- [Acknowledgements](#acknowledgements)
+
+- 🙏 [Acknowledgements](#acknowledgements)
 
 ---
 
