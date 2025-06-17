@@ -26,6 +26,7 @@ Optimized Kasm Desktops for general use
         - [Docker Compose](#docker-compose)
         - [Kubernetes](#kubernetes)
 - [Customizing Helios](#customizing-helios)
+    - [Using Unified Package Management](#-unified-package-management)
     - [Using FROM](#using-from)
     - [Event Hooks](#event-hooks)
         - [Using FROM](#using-from-1)
@@ -372,10 +373,11 @@ This example installs the complete set of packages for a RHEL-based image (inclu
 - ♻️ **Reusability**: Define shared groups (`common`, `debian`, etc.) and reuse across distros
 - 🔍 **Transparency**: Final package lists are explicitly generated and easy to inspect
 
-### Using FROM
+### 🏗️ Using `FROM`
 
-You can use the `FROM` instruction in your Dockerfile to build on top of Helios images. For example, if you want to build
-on top of the Ubuntu 24.04 image, you can do the following:
+Helios images can be used as a base in your own Dockerfiles with the `FROM` instruction.
+
+For example, to build on top of the Ubuntu 24.04 Helios image:
 
 ```dockerfile
 FROM helios:v0.0.0-noble
@@ -384,7 +386,17 @@ RUN apt-get update && \
     apt-get install -y htop
 ```
 
-You can then push it to a private registry and use it in your Kasm compatible deployments.
+You can then push your custom image to a private registry and deploy it in Kasm-compatible environments.
+
+---
+
+### ✅ Benefits
+
+- 🚀 **Quick Start**: Leverage prebuilt, tested base images to speed up your container builds.
+- 🔄 **Consistency**: Builds start from a known, reliable foundation, reducing surprises.
+- 🔧 **Customizability**: Easily extend Helios images to fit your specific application or environment needs.
+- 📦 **Compatibility**: Seamlessly integrate with Kasm and other container orchestration platforms.
+
 
 ### Event Hooks
 
