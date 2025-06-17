@@ -16,8 +16,7 @@ Some key points about Helios:
 ## 📚 Table of Contents
 
 - 🚀 [Features](#✨-features)  
-- ⚙️ [Kasm Setup](#⚙️-kasm-setup)  
-
+- ⚙️ [Kasm Setup](#⚙️-kasm-setup)
 - 🐧 [Distros Overview](#🐧-distros-overview)  
   - Alpine  
     - [Alpine 3](#alpine-3)  
@@ -30,23 +29,19 @@ Some key points about Helios:
     - [Ubuntu 22.04 (Jammy)](#ubuntu-2204-jammy)  
   - RHEL  
     - [Rocky Linux 9](#rocky-linux-9)  
-    - [Alma Linux 9](#alma-linux-9)  
-
-- 🏷️ [Versioning](#versioning)  
-
+    - [Alma Linux 9](#alma-linux-9)
+- 🏷️ [Versioning](#versioning)
 - ⚡ [Usage](#usage)  
   - Deployment  
     - [`Docker`](#docker)  
     - [`Docker Compose`](#docker-compose)  
-    - [`Kubernetes`](#kubernetes)  
-
+    - [`Kubernetes`](#kubernetes)
 - 🛠️ [Customizing Helios](#customizing-helios)  
   - [Unified Package Management](#-unified-package-management)  
   - [Using `FROM`](#%EF%B8%8F-using-from)  
   - [Event Hooks](#%EF%B8%8F-event-hooks)  
     - [Using `FROM`](#%EF%B8%8F-using-from-1)  
-    - [Mounting Scripts Dynamically](#-mounting-scripts-dynamically)  
-
+    - [Mounting Scripts Dynamically](#-mounting-scripts-dynamically)
 - 🤝 [Contributing](#contributing)  
     - [Build Process](#build-process)
     - [Repository Layout](#repository-layout)
@@ -57,7 +52,6 @@ Some key points about Helios:
     - [Development Workflow](#development-workflow)
         - [Pre-requisites](#pre-requisites)
         - [Workflow](#workflow)
-
 - 🙏 [Acknowledgements](#acknowledgements)
 
 ---
@@ -152,42 +146,50 @@ Explore the supported Linux distributions with their versions, image sizes, and 
 - **Size:** 1.61 GB  
 - **X Server:** 1.20.14 (Custom)
 
-## Versioning
+## 🏷️ Versioning
 
-Helios ships its own version that is independent of the underlying distro version. The version is in the format 
-`v0.0.0-noble`, where `noble` is the codename of the underlying distro. This allows us to track changes and updates to 
-Helios independently of the underlying distro. Some further examples of the versioning scheme are:
+Helios uses its own versioning scheme independent of the underlying distro versions. The format is: `v0.0.0-codename` where `codename` represents the underlying distro. This allows tracking Helios changes separately from distro updates.
 
-- `v0.0.0-bookworm` for Debian 12 (Bookworm)
-- `v0.0.0-alpine-3` for Alpine (3)
-- `v0.0.0-noble` for Ubuntu 24.04
-- `v0.0.0-jammy` for Ubuntu 22.04
-- `v0.0.0-kali` for Kali Linux
-- `v0.0.0-rocky-9` for Rocky Linux
-- `v0.0.0-alma-9` for Alma Linux
+### Examples
 
-Helios also ships `unstable` builds which are built directly off of the `main` branch. These builds are meant for
-testing and development purposes only. They are not meant for production use and may contain bugs or incomplete features.
+| Helios Version    | Distro               |
+|-------------------|----------------------|
+| `v0.0.0-bookworm` | Debian 12 (Bookworm) |
+| `v0.0.0-alpine-3` | Alpine (3)           |
+| `v0.0.0-noble`    | Ubuntu 24.04         |
+| `v0.0.0-jammy`    | Ubuntu 22.04         |
+| `v0.0.0-kali`     | Kali Linux           |
+| `v0.0.0-rocky-9`  | Rocky Linux          |
+| `v0.0.0-alma-9`   | Alma Linux           |
 
-- `unstable-bookworm` for the latest unstable build of Debian 12
-- `unstable-alpine-3` for the latest unstable build of Alpine 3
-- `unstable-noble` for the latest unstable build of Ubuntu 24.04
-- `unstable-jammy` for the latest unstable build of Ubuntu 22.04
-- `unstable-kali` for the latest unstable build of Kali Linux
-- `unstable-rocky-9` for the latest unstable build of Rocky Linux
-- `unstable-alma-9` for the latest unstable build of Alma Linux
+---
 
-Helios also ships a `testing` tag which is built from the `testing` branch. This branch is meant for testing new 
-features and changes before they are merged into the `main` branch. The `testing` tag is meant to be used for testing 
-purposes only and may contain bugs or incomplete features.
+### Additional Tags
 
-- `testing-noble` for the latest testing build of Ubuntu 24.04
-- `testing-bookworm` for the latest testing build of Debian 12
-- `testing-alpine-3` for the latest testing build of Alpine 3
-- `testing-jammy` for the latest testing build of Ubuntu 22.04
-- `testing-kali` for the latest testing build of Kali Linux
-- `testing-rocky-9` for the latest testing build of Rocky Linux
-- `testing-alma-9` for the latest testing build of Alma Linux
+- **Unstable builds** (from the `main` branch): Intended for testing and development only. These builds **may contain bugs or incomplete features**.
+
+  Examples:
+  - `unstable-bookworm` (Debian 12)
+  - `unstable-alpine-3` (Alpine 3)
+  - `unstable-noble` (Ubuntu 24.04)
+  - `unstable-jammy` (Ubuntu 22.04)
+  - `unstable-kali` (Kali Linux)
+  - `unstable-rocky-9` (Rocky Linux)
+  - `unstable-alma-9` (Alma Linux)
+
+- **Testing builds** (from the `testing` branch): For testing new features before merging into `main`. Also **may contain bugs or incomplete features**.
+
+  Examples:
+  - `testing-noble` (Ubuntu 24.04)
+  - `testing-bookworm` (Debian 12)
+  - `testing-alpine-3` (Alpine 3)
+  - `testing-jammy` (Ubuntu 22.04)
+  - `testing-kali` (Kali Linux)
+  - `testing-rocky-9` (Rocky Linux)
+  - `testing-alma-9` (Alma Linux)
+
+
+
 
 
 ## Usage
