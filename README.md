@@ -1,11 +1,22 @@
-# Helios
-Optimized Kasm Desktops for general use
+# 🚀 Helios
+
+Helios provides base images for multiple key Linux distributions, optimized to be as small as possible to:
+
+- Reduce pull times  
+- Minimize the attack surface  
+- Lower data transfer costs  
+
+These images are lightweight, efficient, and ready to use across environments like Docker, Kubernetes, and more.
+
+Some key points about Helios:
+
+- **Base Images**: Designed as base images for Kasm-compatible deployments.  
+- **Extremely Minimal Desktops**: Images are intentionally minimal; avoid adding software directly. Instead, extend via the `FROM` instruction in your Dockerfile.
 
 ## Table of Contents
 
-- [Overview](#overview)
-- [Features](#features)
-- [Kasm Setup](#kasm-setup)
+- [Features](#-features)
+- [Kasm Setup](#%EF%B8%8F-kasm-setup)
 - [Distros](#-distros-overview)
   - Alpine
     - [Alpine (3)](#alpine-3)
@@ -42,21 +53,6 @@ Optimized Kasm Desktops for general use
         - [Pre-requisites](#pre-requisites)
         - [Workflow](#workflow)
 - [Acknowledgements](#acknowledgements)
-
-## 🚀 Overview
-
-Helios provides base images for multiple key Linux distributions, optimized to be as small as possible to:
-
-- Reduce pull times  
-- Minimize the attack surface  
-- Lower data transfer costs  
-
-These images are lightweight, efficient, and ready to use across environments like Docker, Kubernetes, and more.
-
-Some key points about Helios:
-
-- **Base Images**: Designed as base images for Kasm-compatible deployments.  
-- **Extremely Minimal Desktops**: Images are intentionally minimal; avoid adding software directly. Instead, extend via the `FROM` instruction in your Dockerfile.
 
 ---
 
