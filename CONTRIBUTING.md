@@ -58,10 +58,11 @@ We recommend you follow the [Unified Package Management System](README.md#-unifi
    > We do apply a helios.patch to the kclient that removes the fileserver functionality as well as automatically enable audio by default.
 
 8. `common/build/package.sh` is run in the build stage to generate the rootfs containing, kclient, KasmVNC server, custom X server, and noVNC client.
-9. `<distro>/root` is then copied into a fresh image with all distro specific files and configurations.
-10. We then copy the packaged rootfs from the build stage to a fresh flattened image which "installs" Kasm
-11. `<distro>/build/system.sh` is run to install the distro specific packages and dependencies to finalize the deliverable image.
+9. `<distro>/build/system.sh` is run to install the distro specific packages and dependencies.
+10. `common/build/system.sh` is run to install the packages and dependencies common to all distros to finalize the deliverable image.
+11. We then copy the packaged rootfs from the build stage to a fresh flattened image which "installs" Kasm
 12. `common/root` is copied into the image to provide the common rootfs files.
+13. `<distro>/root` is then copied into a fresh image with all distro specific files and configurations.
 
 ### Shared Configuration Changes
 

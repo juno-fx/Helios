@@ -10,6 +10,8 @@ on:
       - README.md
       - Makefile
       - .bumpversion.toml
+      - CONTRIBUTING.md
+      - CODE_OF_CONDUCT.md
 
 jobs:
   build:
