@@ -110,6 +110,8 @@ COPY --from=lists /work/lists/ /tmp/lists/
 # build our base image
 COPY --chmod=777 ${SRC}/build/system.sh /tmp/
 RUN /tmp/system.sh
+COPY --chmod=777 common/build/system.sh /tmp/
+RUN /tmp/system.sh
 
 # install init system
 COPY --from=s6 /s6 /
