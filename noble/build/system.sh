@@ -24,6 +24,9 @@ apt install --no-install-recommends -y \
 	$(cat /tmp/lists/ubuntu.list) \
 	neofetch
 
+# backwards compat for neofetch
+ln -sf /bin/neofetch /bin/fastfetch
+
 apt remove -y xubuntu-wallpapers
 
 # handle background

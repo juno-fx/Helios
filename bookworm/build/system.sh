@@ -33,6 +33,9 @@ apt install --no-install-recommends -y \
 	$(cat /tmp/lists/debian.list) \
 	neofetch
 
+# backwards compat for neofetch
+ln -sf /bin/neofetch /bin/fastfetch
+
 rm -rfv /usr/share/backgrounds/*
 
 # remove duplicate sources
