@@ -80,7 +80,7 @@ vncserver $DISPLAY \
 	4901 \
 	"${HOME}/.vnc/self.pem" \
 	"${HOME}/.vnc/self.pem" \
-	"${USER}:${VNC_PW}" >/dev/null &
+	"${USER}:${VNC_PW}" &
 HOME=/var/run/pulse pulseaudio --start
 HOME=/var/run/pulse no_proxy=127.0.0.1 ffmpeg \
 	-v verbose \
@@ -94,7 +94,7 @@ HOME=/var/run/pulse no_proxy=127.0.0.1 ffmpeg \
 	-b:a 128k \
 	-ac 1 \
 	-muxdelay 0.001 \
-	http://127.0.0.1:8081/kasmaudio >/dev/null 2>&1 &
+	http://127.0.0.1:8081/kasmaudio 2>&1 &
 
 # enter a while loop and wait for the curl command to return success
 tries=0
