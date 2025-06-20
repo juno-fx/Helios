@@ -7,6 +7,7 @@ FROM ${IMAGE} AS distro
 
 # https://github.com/kasmtech/KasmVNC/tree/release/1.3.4
 ENV KASMVNC_COMMIT="1.3.4"
+ENV KASMBINS_RELEASE="1.15.0"
 ENV HELIOS_VERSION="0.0.0"
 
 # generate install lists

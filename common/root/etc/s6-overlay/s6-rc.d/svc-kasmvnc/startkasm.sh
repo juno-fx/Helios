@@ -64,9 +64,30 @@ vncserver $DISPLAY \
 	-DLP_ClipDelay=0 \
 	-disableBasicAuth
 
+# Audio
+/opt/helios/kasmbins/kasm_websocket_relay/kasm_audio_out-linux \
+	kasmaudio \
+	8081 \
+	4901 \
+	"${USER}:${VNC_PW}" >/dev/null &
+HOME=/var/run/pulse pulseaudio --start
+HOME=/var/run/pulse no_proxy=127.0.0.1 ffmpeg \
+	-v verbose \
+	-f pulse \
+	-fragment_size "${PULSEAUDIO_FRAGMENT_SIZE:-2000}" \
+	-ar 44100 \
+	-i default \
+	-f mpegts \
+	-correct_ts_overflow 0 \
+	-codec:a mp2 \
+	-b:a 128k \
+	-ac 1 \
+	-muxdelay 0.001 \
+	http://127.0.0.1:8081/kasmaudio >/dev/null 2>&1 &
+
 # enter a while loop and wait for the curl command to return success
 tries=0
-echo "Waiting for KasmVNC to start..."
+echo "Waiting for KasmVNC to stabilize..."
 while [ $tries -le 15 ]; do
 	response=$(curl -I http://127.0.0.1:6901 2>/dev/null | head -n 1 | cut -d$' ' -f2)
 	if [ "$response" == "404" ]; then
@@ -82,9 +103,3 @@ while [ $tries -le 15 ]; do
 	tries=$(($tries + 1))
 	sleep .5
 done
-
-# Show KasmVNC Logs
-#tail \
-#  -f $HOME/.vnc/*${DISPLAY}.log \
-#  -f /var/log/nginx/*.log \
-#  -f /var/log/audio/*.log

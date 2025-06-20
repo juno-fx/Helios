@@ -5,9 +5,6 @@ set -e
 echo "Linking to custom kasmvnc config"
 ln -sf /etc/helios/kasmvnc.yaml /usr/local/etc/kasmvnc/kasmvnc.yaml
 
-chown -R root:101 /etc/ssl/private/ssl-cert-snakeoil.key
-chown -R root:root /etc/ssl/certs/ssl-cert-snakeoil.pem
-
 if [ -z ${DRINODE+x} ]; then
 	DRINODE="/dev/dri/renderD128"
 fi

@@ -60,11 +60,10 @@ else
 	echo "$USER:$PASSWORD" | chpasswd
 fi
 
-if ! getent group ssl-cert >/dev/null; then
-	usermod -aG 101 "$USER"
-else
-	usermod -aG ssl-cert "$USER"
-fi
+SSL_GID=$(stat -c '%g' "/etc/ssl/private")
+usermod -aG "$SSL_GID" "$USER"
+SNAKE_GID=$(stat -c '%g' "/etc/ssl/private/ssl-cert-snakeoil.key")
+usermod -aG "$SNAKE_GID" "$USER"
 
 # setup permissions
 mkdir -p /var/run/pulse
