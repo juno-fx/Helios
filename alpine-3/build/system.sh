@@ -19,6 +19,7 @@ mkdir -pv /usr/share/fonts/cascadia-code
 cd /tmp
 wget https://github.com/microsoft/cascadia-code/releases/download/v2407.24/CascadiaCode-2407.24.zip
 unzip CascadiaCode-2407.24.zip
+mkfontdir
 mv -v otf/static/* /usr/share/fonts/cascadia-code/
 rm -rfv /tmp/* /var/cache/apk/*
 fc-cache -f -v

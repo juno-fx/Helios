@@ -53,6 +53,7 @@ packages:
     rhel: libXfixes   
   - debian: libxext6  # X11 library providing basic extensions like input/output, fonts, and display extensions.
     rhel: libXext   
+  - rhel: xorg-x11-fonts-100dpi
   - debian: libxcursor1  # X11 library that provides support for managing mouse cursors.
     rhel: libXcursor   
   - debian: libxau6  # X11 library used to manage authentication for X11 connections.
