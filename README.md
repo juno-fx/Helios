@@ -63,8 +63,7 @@ Some key points about Helios:
 We maintain the latest versions of Kasm components to ensure access to the newest features and bug fixes:
 
 - **Kasm VNC**: [v1.3.4](https://github.com/kasmtech/KasmVNC/tree/release/1.3.4)  
-- **Kasm Web Client**: [Commit bed156c](https://github.com/kasmtech/noVNC/tree/bed156c565f7646434563d2deddd3a6c945b7727)  
-- **Kasm Binaries**: v1.15.0  
+- **Kasm Web Client**: [Commit bed156c](https://github.com/kasmtech/noVNC/tree/bed156c565f7646434563d2deddd3a6c945b7727)
 - **Linuxserver.io KClient**: [Latest master branch](https://github.com/linuxserver/kclient/commits/master/)
 
 ---
