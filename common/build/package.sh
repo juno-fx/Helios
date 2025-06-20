@@ -40,15 +40,4 @@ ln -sf /usr/local/share/kasmvnc /build-out/usr/share/kasmvnc
 ln -sf /usr/local/etc/kasmvnc /build-out/etc/kasmvnc
 ln -sf /usr/local/lib/kasmvnc /build-out/usr/lib/kasmvncserver
 
-# install kasmbins
-mkdir -p /build-out/opt/helios/kasmbins
-curl -s https://kasm-ci.s3.amazonaws.com/kasmbins-amd64-${KASMBINS_RELEASE}.tar.gz | tar xzvf - -C /build-out/opt/helios/kasmbins/
-rm -rfv \
-	/build-out/opt/helios/kasmbins/kasm_gamepad_server \
-	/build-out/opt/helios/kasmbins/kasm_printer_service \
-	/build-out/opt/helios/kasmbins/kasm_upload_server \
-	/build-out/opt/helios/kasmbins/kasm_webcam_server
-chmod +x /build-out/opt/helios/kasmbins/*
-
 echo "KasmVNC Version: ${KASMVNC_COMMIT}" >/build-out/opt/helios/kasmvnc.version
-echo "Kasm Bins Version: ${KASMBINS_RELEASE}" >/build-out/opt/helios/kasmbins.version
