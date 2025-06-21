@@ -2,6 +2,9 @@
 
 set -e
 
+# Incase of loop, remove the healthz file and force a fresh start
+rm -rfv /tmp/.healthz /tmp/.X1-lock
+
 echo "Linking to custom kasmvnc config"
 ln -sf /etc/helios/kasmvnc.yaml /usr/local/etc/kasmvnc/kasmvnc.yaml
 

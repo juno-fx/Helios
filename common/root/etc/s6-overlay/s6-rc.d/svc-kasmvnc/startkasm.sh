@@ -2,9 +2,6 @@
 
 set -e
 
-# Incase of loop, remove the healthz file and force a fresh start
-rm -rfv /tmp/.healthz
-
 # Lang
 if [ ! -z ${LC_ALL+x} ]; then
 	export LANGUAGE="${LC_ALL%.UTF-8}"
@@ -46,6 +43,9 @@ if [[ -f "$HOME/.kasmpasswd" ]]; then
 	rm -rfv "$HOME/.kasmpasswd"
 fi
 ln -sf "$VNC_LOCATION/.kasmpasswd" "$HOME/.kasmpasswd"
+
+# safety catch incase of server reboot with state intact
+vncserver -kill $DISPLAY || echo "No Zombie VNC Server Found"
 
 echo "Starting KasmVNC"
 # Start KasmVNC

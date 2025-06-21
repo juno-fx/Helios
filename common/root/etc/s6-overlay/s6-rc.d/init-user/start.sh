@@ -2,9 +2,6 @@
 
 set -e
 
-# just to wait for the other services to finish
-sleep .25
-
 if [ -z "$USER" ]; then
 	echo "No user configured"
 	exit 1
@@ -44,7 +41,7 @@ else
 		echo "Creating home directory for $USER"
 		useradd -u "$UID" -g "$GID" -m -s /bin/bash "$USER"
 
-		mkdir -p "$HOME/Desktop" "$HOME/Downloads"
+		mkdir -p "/home/$USER/Desktop" "/home/$USER/Downloads"
 		chown -R "$USER:$GID" "/home/$USER"
 	else
 		echo "Home directory for $USER already exists"
