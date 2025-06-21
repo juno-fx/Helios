@@ -1,4 +1,5 @@
 [Configuration]
+BackgroundMode=TERMINAL_BACKGROUND_TRANSPARENT
 RunCustomCommand=TRUE
 FontName=Cascadia Code 12
 MiscAlwaysShowTabs=FALSE
@@ -29,4 +30,5 @@ MiscNewTabAdjacent=FALSE
 MiscSearchDialogOpacity=100
 MiscShowUnsafePasteDialog=TRUE
 CustomCommand=/bin/bash
+BackgroundDarkness=0.750000
 
