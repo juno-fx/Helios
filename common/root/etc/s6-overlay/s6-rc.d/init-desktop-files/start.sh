@@ -3,10 +3,13 @@
 set -e
 
 echo "Loading Desktop files"
-paths=$(echo $DESKTOP_FILES | sed "s/\"//g")
-for i in ${paths//:/ }
-do
-    filename=$(basename "$i")
-    ln -sf /usr/share/applications/$filename $i
+paths="${DESKTOP_FILES//\"/ }"
+count=0
+for i in ${paths//:/ }; do
+	ln -sf "$i" "/usr/share/applications/$(basename $i)" || continue
+	count=$(expr $count + 1)
 done
-echo "Loading Desktop files"
+echo "Loaded $count Desktop Files"
+echo "Refreshing Desktop File Cache"
+update-desktop-database
+echo "Desktop Cache Refreshed"
