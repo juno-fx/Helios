@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-sleep 5
-
 # NodeJS wrapper
 cd /opt/helios/kclient
 chown -R "${USER}:${USER}" /opt/helios/kclient /opt/helios
