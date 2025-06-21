@@ -6,7 +6,7 @@ echo "Loading Desktop files"
 paths="${DESKTOP_FILES//\"/ }"
 count=0
 for i in ${paths//:/ }; do
-	ln -sf "$i" "/usr/share/applications/$(basename $i)" || continue
+	ln -sfn "$i" "/usr/share/applications/$(basename $i)" || continue
 	count=$(expr $count + 1)
 done
 echo "Loaded $count Desktop Files"
