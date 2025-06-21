@@ -32,6 +32,8 @@ Some key points about Helios:
     - [Alma Linux 9](#alma-linux-9)
 - 🏷️ [Versioning](#%EF%B8%8F-versioning)
 - ⚡ [Usage](#usage)  
+  - [Environment Variables](#environment-variables)
+  - [Ports](#ports)
   - Deployment  
     - [`Docker`](#docker)  
     - [`Docker Compose`](#docker-compose)  
