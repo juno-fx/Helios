@@ -13,6 +13,7 @@ services:
     environment:
       - USER=helios
       - UID=5040
+#      - DESKTOP_FILES="/desktops/*.desktop:/tmp/*.desktop"
 #      - IDLE_TIME=1
 #      - PASSWORD=password
 #      - PREFIX=/custom/prefix

@@ -3,11 +3,9 @@
 # trigger custom init scripts
 set -e
 
-echo
-echo
+cat /opt/helios/header.txt
 echo "Helios Version $HELIOS_VERSION"
 cat /opt/helios/*.version
-echo
 
 chmod +x /etc/helios/init.d/*.sh
 
@@ -21,6 +19,3 @@ for script in /etc/helios/init.d/*.sh; do
 done
 
 chmod +x /etc/helios/services.d/custom.sh
-
-echo
-echo
