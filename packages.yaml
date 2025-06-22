@@ -170,6 +170,7 @@ packages:
   - debian: thunar  # File manager for XFCE, providing graphical file browsing and manipulation.
     rhel: Thunar   
     alpine: thunar
+  - ubuntu: xubuntu-icon-theme
   - rhel: xfwm4-themes
   - rhel: xfdesktop
   - debian: tumbler-common  # Common files for the tumbler thumbnailer service.
