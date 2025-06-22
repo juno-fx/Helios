@@ -165,22 +165,16 @@ packages:
   # ============================================
   # Display & Desktop Environment Packages
   # ============================================
-  - alpine: elementary-icon-theme
-    debian: elementary-icon-theme
-    ubuntu: xubuntu-icon-theme
-  - ubuntu: xubuntu-default-settings
   - debian: xfce4  # XFCE desktop environment package that provides a lightweight graphical interface.
     alpine: xfce4
   - debian: thunar  # File manager for XFCE, providing graphical file browsing and manipulation.
     rhel: Thunar   
     alpine: thunar
-  - debian: xfce4-terminal  # Terminal emulator for XFCE desktop, allowing command-line operations.
-    rhel: xfce-polkit
-    alpine: xfce4-terminal
   - rhel: xfwm4-themes
   - rhel: xfdesktop
   - debian: tumbler-common  # Common files for the tumbler thumbnailer service.
   - debian: tumbler-plugins-extra  # Additional plugins for tumbler to generate thumbnails for more file types.
+  - ubuntu: ubuntu-wallpapers
 
   # ====================================
   # X11 and Display Server Packages
