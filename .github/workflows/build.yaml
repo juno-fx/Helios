@@ -12,6 +12,7 @@ on:
       - .bumpversion.toml
       - CONTRIBUTING.md
       - CODE_OF_CONDUCT.md
+      - screenshot.png
 
 jobs:
   build:

@@ -3,7 +3,7 @@
 <channel name="xsettings" version="1.0">
   <property name="Net" type="empty">
     <property name="ThemeName" type="string" value="Orchis-Orange-Dark-Compact"/>
-    <property name="IconThemeName" type="string" value="elementary-xfce-dark"/>
+    <property name="IconThemeName" type="string" value="elementary"/>
     <property name="DoubleClickTime" type="empty"/>
     <property name="DoubleClickDistance" type="empty"/>
     <property name="DndDragThreshold" type="empty"/>

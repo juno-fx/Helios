@@ -24,30 +24,21 @@ apt install --no-install-recommends -y \
 	$(cat /tmp/lists/ubuntu.list) \
 	neofetch
 
+# ubuntu icon hack
+rm -rf /usr/share/icons/elementary
+ln -sf /usr/share/icons/elementary-xfce-darker /usr/share/icons/elementary
+
 # backwards compat for neofetch
 ln -sf /bin/neofetch /bin/fastfetch
 
-apt remove -y xubuntu-wallpapers
-
 # handle background
-mv -v /usr/share/backgrounds/warty-final-ubuntu.png /tmp/background.png
 rm -rfv /usr/share/backgrounds/*
-mv -v /tmp/background.png /usr/share/backgrounds/
 
 # remove screensaver and lock screen
 rm -f /etc/xdg/autostart/xscreensaver.desktop
 
 # configure vgl
 /opt/VirtualGL/bin/vglserver_config +glx +s +f +t
-
-# install font
-mkdir -pv /usr/share/fonts/cascadia-code
-cd /tmp
-wget https://github.com/microsoft/cascadia-code/releases/download/v2407.24/CascadiaCode-2407.24.zip
-unzip CascadiaCode-2407.24.zip
-mv -v otf/static/* /usr/share/fonts/cascadia-code/
-rm -rfv /tmp/*
-fc-cache -f -v
 
 # run clean up
 apt clean -y
