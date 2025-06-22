@@ -9,6 +9,7 @@ jobs:
       - self-hosted
     steps:
       - name: delete branch
+        if: ${{ github.event.ref_type == 'branch' && !contains(fromJson('["Juno-Bootstrap", "Genesis-Deployment", "Orion-Deployment"]'), github.event.repository.name) }}
         uses: SvanBoxel/delete-merged-branch@main
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_PASS }}
