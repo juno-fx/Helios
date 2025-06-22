@@ -5,7 +5,7 @@
     <property name="screen0" type="empty">
       <property name="monitorVNC-0" type="empty">
         <property name="workspace0" type="empty">
-          <property name="last-image" type="string" value="/usr/share/backgrounds/background.png"/>
+          <property name="last-image" type="string" value="/usr/share/backgrounds/background.jpg"/>
           <property name="color-style" type="int" value="0"/>
           <property name="image-style" type="int" value="5"/>
           <property name="rgba1" type="array">
@@ -16,24 +16,24 @@
           </property>
         </property>
         <property name="workspace1" type="empty">
-          <property name="last-image" type="string" value="/usr/share/backgrounds/background.png"/>
+          <property name="last-image" type="string" value="/usr/share/backgrounds/background.jpg"/>
           <property name="color-style" type="int" value="0"/>
           <property name="image-style" type="int" value="5"/>
         </property>
         <property name="workspace2" type="empty">
-          <property name="last-image" type="string" value="/usr/share/backgrounds/background.png"/>
+          <property name="last-image" type="string" value="/usr/share/backgrounds/background.jpg"/>
           <property name="color-style" type="int" value="0"/>
           <property name="image-style" type="int" value="5"/>
         </property>
         <property name="workspace3" type="empty">
-          <property name="last-image" type="string" value="/usr/share/backgrounds/background.png"/>
+          <property name="last-image" type="string" value="/usr/share/backgrounds/background.jpg"/>
           <property name="color-style" type="int" value="0"/>
           <property name="image-style" type="int" value="5"/>
         </property>
       </property>
       <property name="monitorVNC-1" type="empty">
         <property name="workspace0" type="empty">
-          <property name="last-image" type="string" value="/usr/share/backgrounds/background.png"/>
+          <property name="last-image" type="string" value="/usr/share/backgrounds/background.jpg"/>
           <property name="color-style" type="int" value="0"/>
           <property name="image-style" type="int" value="5"/>
           <property name="rgba1" type="array">
@@ -44,24 +44,24 @@
           </property>
         </property>
         <property name="workspace1" type="empty">
-          <property name="last-image" type="string" value="/usr/share/backgrounds/background.png"/>
+          <property name="last-image" type="string" value="/usr/share/backgrounds/background.jpg"/>
           <property name="color-style" type="empty"/>
           <property name="image-style" type="empty"/>
         </property>
         <property name="workspace2" type="empty">
-          <property name="last-image" type="string" value="/usr/share/backgrounds/background.png"/>
+          <property name="last-image" type="string" value="/usr/share/backgrounds/background.jpg"/>
           <property name="color-style" type="empty"/>
           <property name="image-style" type="empty"/>
         </property>
         <property name="workspace3" type="empty">
-          <property name="last-image" type="string" value="/usr/share/backgrounds/background.png"/>
+          <property name="last-image" type="string" value="/usr/share/backgrounds/background.jpg"/>
           <property name="color-style" type="empty"/>
           <property name="image-style" type="empty"/>
         </property>
       </property>
       <property name="monitorVNC-2" type="empty">
         <property name="workspace0" type="empty">
-          <property name="last-image" type="string" value="/usr/share/backgrounds/background.png"/>
+          <property name="last-image" type="string" value="/usr/share/backgrounds/background.jpg"/>
           <property name="color-style" type="int" value="0"/>
           <property name="image-style" type="int" value="5"/>
           <property name="rgba1" type="array">
@@ -72,17 +72,17 @@
           </property>
         </property>
         <property name="workspace1" type="empty">
-          <property name="last-image" type="string" value="/usr/share/backgrounds/background.png"/>
+          <property name="last-image" type="string" value="/usr/share/backgrounds/background.jpg"/>
           <property name="color-style" type="empty"/>
           <property name="image-style" type="empty"/>
         </property>
         <property name="workspace2" type="empty">
-          <property name="last-image" type="string" value="/usr/share/backgrounds/background.png"/>
+          <property name="last-image" type="string" value="/usr/share/backgrounds/background.jpg"/>
           <property name="color-style" type="empty"/>
           <property name="image-style" type="empty"/>
         </property>
         <property name="workspace3" type="empty">
-          <property name="last-image" type="string" value="/usr/share/backgrounds/background.png"/>
+          <property name="last-image" type="string" value="/usr/share/backgrounds/background.jpg"/>
           <property name="color-style" type="empty"/>
           <property name="image-style" type="empty"/>
         </property>

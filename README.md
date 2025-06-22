@@ -83,7 +83,7 @@ Explore the supported Linux distributions with their versions, image sizes, and 
 
 #### [Alpine 3](https://hub.docker.com/_/alpine/tags?name=3)
 
-- **Size:** 1.21 GB  
+- **Size:** 1.2 GB  
 - **X Server:** 1.20.14 (Custom)
 
 ---
