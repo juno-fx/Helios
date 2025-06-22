@@ -174,7 +174,6 @@ packages:
   - rhel: xfdesktop
   - debian: tumbler-common  # Common files for the tumbler thumbnailer service.
   - debian: tumbler-plugins-extra  # Additional plugins for tumbler to generate thumbnails for more file types.
-  - ubuntu: ubuntu-wallpapers
 
   # ====================================
   # X11 and Display Server Packages
