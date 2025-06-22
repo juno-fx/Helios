@@ -7,14 +7,15 @@ cat /opt/helios/header.txt
 echo "Helios Version $HELIOS_VERSION"
 cat /opt/helios/*.version
 
-chmod +x /etc/helios/init.d/*.sh
+chmod +x /etc/helios/init.d/*.sh || echo "Potentially Read-Only Mounts. Skipping chmod."
 
 for script in /etc/helios/init.d/*.sh; do
 	if [ -x "$script" ]; then
 		echo "Running custom init script: $script"
 		"$script"
 	else
-		echo "Skipping non-executable script: $script"
+		printf "Non-executable script: $script\n\tAttempting with bash: /bin/bash $script\n"
+		/bin/bash "$script" || echo "Failed to run: $script"
 	fi
 done
 
