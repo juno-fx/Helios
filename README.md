@@ -1,3 +1,5 @@
+![screenshot](./common/root/usr/share/themes/helios-icon.png)
+
 # 🚀 Helios
 
 ![screenshot](./screenshot.png)
