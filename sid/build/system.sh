@@ -49,15 +49,6 @@ rm -f /etc/xdg/autostart/xscreensaver.desktop
 # configure vgl
 /opt/VirtualGL/bin/vglserver_config +glx +s +f +t
 
-# install font
-mkdir -pv /usr/share/fonts/cascadia-code
-cd /tmp
-wget https://github.com/microsoft/cascadia-code/releases/download/v2407.24/CascadiaCode-2407.24.zip
-unzip CascadiaCode-2407.24.zip
-mv -v otf/static/* /usr/share/fonts/cascadia-code/
-rm -rfv /tmp/*
-fc-cache -f -v
-
 # run clean up
 apt clean -y
 apt autoclean -y
