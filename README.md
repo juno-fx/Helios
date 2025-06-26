@@ -1,8 +1,16 @@
-![screenshot](./common/root/usr/share/themes/helios-icon.png)
+<br />
+<p align="center">
+    <img src="common/root/usr/share/themes/helios-icon.png"/>
+    <p align="center">
+        Containerized Workstations for the Future.
+    </p>
+</p>
 
-# 🚀 Helios
+---
 
 ![screenshot](./screenshot.png)
+
+---
 
 Helios provides base images for multiple key Linux distributions, optimized to be as small as possible to:
 
