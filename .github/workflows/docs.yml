@@ -1,0 +1,17 @@
+name: publish
+on:
+  push:
+    branches:
+      - main
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on:
+      - X64
+    steps:
+      - uses: actions/checkout@v3
+      - run: python3.12 -m venv venv
+      - run: venv/bin/pip install -r requirements.txt
+      - run: venv/bin/mkdocs gh-deploy --force
