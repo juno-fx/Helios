@@ -119,6 +119,22 @@ nav:
                 - build-theme.md
           - Event Hooks:
             - event-hooks.md
+            - Examples:
+                - event-idle.md
+                - event-service.md
+                - event-init.md
+  - Deployment:
+      - Usage:
+          - deploy-usage.md
+      - Environments:
+          - deploy-docker.md
+          - deploy-compose.md
+          - deploy-k8s.md
+  - Contributing:
+    - contributing.md
+    - code-of-conduct.md
+  - acknowledgements.md
+
 
 #  - Plugins:
 #    - VDI:
