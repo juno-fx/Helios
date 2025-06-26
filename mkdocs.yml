@@ -46,9 +46,6 @@ theme:
 
 plugins:
   - literate-nav
-  - gen-files:
-      scripts:
-        - docs/scripts/gen_plugins.py
   - search:
       separator: '[\s\-\.]'  # Better search tokenization
       lang:
@@ -102,6 +99,27 @@ markdown_extensions:
 nav:
   - Welcome:
       - index.md
+  - Building Workstations:
+      - getting-started.md
+      - Customization:
+          - Packages:
+            - package-management.md
+            - Examples:
+                - install-firefox.md
+                - install-htop.md
+          - Filesystem:
+            - rootfs.md
+            - Examples:
+                - install-wallpaper.md
+                - install-logo.md
+          - Build Hooks:
+            - build-hooks.md
+            - Examples:
+                - build-snap.md
+                - build-theme.md
+          - Event Hooks:
+            - event-hooks.md
+
 #  - Plugins:
 #    - VDI:
 #        - 'plugins/VDI/*.md'

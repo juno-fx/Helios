@@ -62,7 +62,7 @@ We recommend you follow the [Unified Package Management System](README.md#-unifi
 10. `common/build/system.sh` is run to install the packages and dependencies common to all distros to finalize the deliverable image.
 11. We then copy the packaged rootfs from the build stage to a fresh flattened image which "installs" Kasm
 12. `common/root` is copied into the image to provide the common rootfs files.
-13. `<distro>/root` is then copied into a fresh image with all distro specific files and configurations.
+13. `<distro[build-hooks.md](docs/build-hooks.md)>/root` is then copied into a fresh image with all distro specific files and configurations.
 
 ### Shared Configuration Changes
 
