@@ -1,0 +1,4 @@
+mkdocs-material
+termynal
+mkdocs-gen-files
+mkdocs-literate-nav

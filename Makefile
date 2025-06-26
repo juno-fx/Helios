@@ -1,4 +1,8 @@
-.PHONY: jammy kali noble rocky-9 alma-9 bookworm sid alpine-3 packages
+.PHONY: docs jammy kali noble rocky-9 alma-9 bookworm sid alpine-3 packages
+
+# documentation
+docs:
+	.venv/bin/mkdocs serve
 
 # development
 format:
