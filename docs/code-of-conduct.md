@@ -20,7 +20,7 @@ include:
 * Focusing on what is best for the community
 * Showing empathy towards other community members
 
-Examples of unacceptable behavior by participants include:
+<span style="color:red">Examples of unacceptable behavior by participants include</span>:
 
 * The use of sexualized language or imagery and unwelcome sexual attention or
 advances
