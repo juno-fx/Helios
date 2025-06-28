@@ -12,6 +12,7 @@ Environment variables are used to configure the Helios container. The following 
 | PASSWORD      | Password set for the user                                                         |          |
 | IDLE_TIME     | Trigger the idle hook after x time                                                |          |
 | DESKTOP_FILES | Paths seperated by ":". For example, `/some/path/1/*.desktop:/some/*/2/*.desktop` |          |
+| PREFIX        | Prefix for URL for use behind a reverse proxy                                     |          |
 
 !!! danger "Desktop File Scraping"
 
@@ -39,6 +40,16 @@ Environment variables are used to configure the Helios container. The following 
     Security is a very important part of any deployment and it isn't a one size fits all solution. Instead of shipping
     Helios with a specific authentication method, we leave it up to the user to implement their own security measures
     that best fit their deployment. This allows for more flexibility and customization in how Helios is used.
+
+## Endpoints
+
+Helios provides 2 endpoints for accessing the desktop:
+
+| Endpoint              | Description                   |
+|-----------------------|-------------------------------|
+| `{PREFIX}/`           | The main interactive endpoint |
+| `{PREFIX}/view-only/` | Locked view only endpoint     |
+
 
 ## Ports
 

@@ -99,6 +99,13 @@ markdown_extensions:
 nav:
   - Welcome:
       - index.md
+  - Deployment:
+      - Usage:
+          - deploy-usage.md
+      - Environments:
+          - deploy-docker.md
+          - deploy-compose.md
+          - deploy-k8s.md
   - Building Workstations:
       - getting-started.md
       - Customization:
@@ -123,13 +130,6 @@ nav:
                 - event-idle.md
                 - event-service.md
                 - event-init.md
-  - Deployment:
-      - Usage:
-          - deploy-usage.md
-      - Environments:
-          - deploy-docker.md
-          - deploy-compose.md
-          - deploy-k8s.md
   - Contributing:
     - contributing.md
     - code-of-conduct.md

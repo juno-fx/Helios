@@ -12,6 +12,8 @@
 
 ---
 
+[Official Documentation](https://juno-fx.github.io/Helios/) 
+
 Helios provides base images for multiple key Linux distributions, optimized to be as small as possible to:
 
 - Reduce pull times  
@@ -43,7 +45,7 @@ Some key points about Helios:
     - [Rocky Linux 9](#rocky-linux-9)  
     - [Alma Linux 9](#alma-linux-9)
 - 🏷️ [Versioning](#%EF%B8%8F-versioning)
-- ⚡ [Usage](Pending merge to main so we can get the doc link.)
+- ⚡ [Usage](https://juno-fx.github.io/Helios/deploy-usage/)
 - 🤝 [Contributing](CONTRIBUTING.md)
 
 ---

@@ -1,3 +1,3 @@
 # Code of Conduct
 
-Pending merge to main so we can get the doc link.
+[Documentation](https://juno-fx.github.io/Helios/code-of-conduct/)
