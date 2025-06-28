@@ -25,8 +25,9 @@ else
 fi
 
 cd /src
-mkdir -p builder/www
+mkdir -p builder/www/view-only
 cp -ax /www/dist/* builder/www/
+cp -ax /www/view-only/dist/* builder/www/view-only/
 make servertarball
 mkdir /build-out
 mkdir -pv /build-out/opt/helios/kclient

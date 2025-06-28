@@ -1,5 +1,5 @@
 diff --git a/index.html b/index.html
-index 2495646..f0ab5d0 100644
+index 2495646..d5021a0 100644
 --- a/index.html
 +++ b/index.html
 @@ -192,7 +192,7 @@
@@ -11,3 +11,39 @@ index 2495646..f0ab5d0 100644
                      <input type="image" alt="Game Mode" src="app/images/gamepad.png"
                          id="noVNC_game_mode_button" class="noVNC_button"
                          title="Game Pointer Mode">
+@@ -210,14 +210,14 @@
+                                 <li class="noVNC_heading">
+                                     <img alt="" src="app/images/settings.svg"> Settings
+                                 </li>
+-                                <li>
++                                <li style="display: none">
+                                     <label class="switch"><input id="noVNC_setting_shared" type="checkbox"> 
+                                         <span class="slider round"></span>
+                                         <span class="slider-label">Shared Mode</span>
+                                     </label>
+                                 </li>
+-                                <li>
+-                                    <label class="switch"><input id="noVNC_setting_view_only" type="checkbox" /> 
++                                <li style="display: none">
++                                    <label class="switch"><input id="noVNC_setting_view_only" type="checkbox" />
+                                         <span class="slider round"></span>
+                                         <span class="slider-label">View Only</span>
+                                     </label>
+@@ -527,7 +527,7 @@
+                 </div>
+ 
+                 <!-- Connection Controls -->
+-                <div class="noVNC_button_div noVNC_hide_on_disconnect" >
++                <div class="noVNC_button_div noVNC_hide_on_disconnect" style="display: none">
+                     <input type="image" alt="Disconnect" src="app/images/disconnect.svg"
+                         id="noVNC_disconnect_button" class="noVNC_button"
+                         title="Disconnect">
+@@ -535,7 +535,7 @@
+                 </div>
+ 
+                 <!-- Connection Controls -->
+-                <div class="noVNC_button_div noVNC_hide_on_connect" id="noVNC_connect_button_2">
++                <div class="noVNC_button_div noVNC_hide_on_connect" id="noVNC_connect_button_2" style="display: none">
+                     <input type="image" alt="Connect" src="app/images/connect.svg"
+                          class="noVNC_button"
+                         title="Connect">
