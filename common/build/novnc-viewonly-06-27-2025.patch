@@ -55,7 +55,7 @@ index 529fdbe..31f3b7a 100644
          // Hide input related buttons in view only mode
          if (UI.rfb.viewOnly) {
 diff --git a/index.html b/index.html
-index 2495646..008e9dc 100644
+index 2495646..1a7ab26 100644
 --- a/index.html
 +++ b/index.html
 @@ -183,7 +183,7 @@
@@ -67,15 +67,6 @@ index 2495646..008e9dc 100644
                      <input type="image" alt="Fullscreen" src="app/images/desktop-regular.svg"
                          id="noVNC_displays_button" class="noVNC_button"
                          style="margin: 10px 3px;"
-@@ -253,7 +253,7 @@
-                                         <span class="slider-label">Translate keyboard shortcuts</span>
-                                     </label>
-                                 </li>
--                                <li>
-+                                <li style="display: none">
-                                     <label class="switch"><input id="noVNC_setting_enable_webrtc" type="checkbox" />
-                                         <span class="slider round"></span>
-                                         <span class="slider-label">Enable WebRTC UDP Transit</span>
 @@ -312,15 +312,15 @@
                                          <option value=60>60</option>
                                      </select>
