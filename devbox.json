@@ -10,7 +10,8 @@
   "shell": {
     "init_hook": [
       ". $VENV_DIR/bin/activate",
-      "uv pip install pyyaml"
+      "uv pip install pyyaml",
+      "uv pip install -r requirements.txt"
     ]
   }
 }

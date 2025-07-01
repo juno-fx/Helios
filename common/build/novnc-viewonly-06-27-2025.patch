@@ -1,0 +1,88 @@
+diff --git a/app/ui.js b/app/ui.js
+index 529fdbe..31f3b7a 100644
+--- a/app/ui.js
++++ b/app/ui.js
+@@ -265,7 +265,7 @@ const UI = {
+         UI.initSetting('framerate', 30);
+         UI.initSetting('compression', 2);
+         UI.initSetting('shared', true);
+-        UI.initSetting('view_only', false);
++        UI.initSetting('view_only', true);
+         UI.initSetting('show_dot', false);
+         UI.initSetting('path', 'websockify');
+         UI.initSetting('repeaterID', '');
+@@ -1479,8 +1479,8 @@ const UI = {
+         UI.rfb.addEventListener("screenregistered", UI.screenRegistered);
+         UI.rfb.translateShortcuts = UI.getSetting('translate_shortcuts');
+         UI.rfb.clipViewport = UI.getSetting('view_clip');
+-        UI.rfb.scaleViewport = UI.getSetting('resize') === 'scale';
+-        UI.rfb.resizeSession = UI.getSetting('resize') === 'remote';
++        UI.rfb.scaleViewport = true;
++        UI.rfb.resizeSession = false;
+         UI.rfb.qualityLevel = parseInt(UI.getSetting('quality'));
+         UI.rfb.dynamicQualityMin = parseInt(UI.getSetting('dynamic_quality_min'));
+         UI.rfb.dynamicQualityMax = parseInt(UI.getSetting('dynamic_quality_max'));
+@@ -1924,10 +1924,9 @@ const UI = {
+     // Apply remote resizing or local scaling
+     applyResizeMode() {
+         if (!UI.rfb) return;
+-        const resize_setting = UI.getSetting('resize');
+-        UI.rfb.clipViewport = resize_setting !== 'off';
+-        UI.rfb.scaleViewport = resize_setting === 'scale';
+-        UI.rfb.resizeSession = resize_setting === 'remote';
++        UI.rfb.clipViewport = true;
++        UI.rfb.scaleViewport = true;
++        UI.rfb.resizeSession = false;
+         UI.rfb.idleDisconnect = UI.getSetting('idle_disconnect');
+         UI.rfb.videoQuality = UI.getSetting('video_quality');
+         UI.rfb.enableWebP = UI.getSetting('enable_webp');
+@@ -2343,7 +2342,7 @@ const UI = {
+     updateViewClip() {
+         if (!UI.rfb) return;
+ 
+-        const scaling = UI.getSetting('resize') === 'scale';
++        const scaling = true;
+ 
+         if (scaling) {
+             // Can't be clipping if viewport is scaled to fit
+@@ -2898,7 +2897,7 @@ const UI = {
+ 
+     updateViewOnly() {
+         if (!UI.rfb) return;
+-        UI.rfb.viewOnly = UI.getSetting('view_only');
++        UI.rfb.viewOnly = true
+ 
+         // Hide input related buttons in view only mode
+         if (UI.rfb.viewOnly) {
+diff --git a/index.html b/index.html
+index 2495646..1a7ab26 100644
+--- a/index.html
++++ b/index.html
+@@ -183,7 +183,7 @@
+                 </div>
+ 
+                 <!-- Add Second Screen -->
+-                <div class="noVNC_button_div noVNC_hidden" >
++                <div class="noVNC_button_div noVNC_hidden" style="display: none">
+                     <input type="image" alt="Fullscreen" src="app/images/desktop-regular.svg"
+                         id="noVNC_displays_button" class="noVNC_button"
+                         style="margin: 10px 3px;"
+@@ -312,15 +312,15 @@
+                                         <option value=60>60</option>
+                                     </select>
+                                 </li>
+-                                <li><hr></li>
+-                                <li>
++                                <li style="display: none"><hr></li>
++                                <li style="display: none">
+                                     <label class="switch">
+                                         <input id="noVNC_setting_view_clip" type="checkbox"> 
+                                         <span class="slider round"></span>
+                                         <span class="slider-label">Clip to Window</span>
+                                     </label>
+                                 </li>
+-                                <li>
++                                <li style="display: none">
+                                     <label for="noVNC_setting_resize">Scaling Mode:</label>
+                                     <select id="noVNC_setting_resize" name="vncResize">
+                                         <option value="off">None</option>

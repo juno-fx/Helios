@@ -8,9 +8,7 @@ network:
     pem_key: /etc/ssl/private/ssl-cert-snakeoil.key
     require_ssl: false
   udp:
-    public_ip: auto
-    port: auto
-    stun_server: auto
+    public_ip: 0.0.0.0
 
 logging:
   log_writer_name: all

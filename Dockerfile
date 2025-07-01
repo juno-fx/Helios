@@ -84,7 +84,7 @@ RUN ./xorg.sh
 COPY --chmod=777 ${SRC}/build/kclient.sh /build/
 RUN ./kclient.sh
 COPY --chmod=777 common/build/kclient.sh /build/
-COPY --chmod=777 common/build/kclient-05-02-2025.patch /build/
+COPY --chmod=777 common/build/kclient-*.patch /build/
 RUN ./kclient.sh
 
 # copy over the built noVNC client
