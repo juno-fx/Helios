@@ -7,9 +7,12 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: helios
+    pre_stop:
+      - command: /etc/helios/shutdown.d/custom.sh
     volumes:
       - /dev/dri:/dev/dri
       - .out/:/mnt/
+      - .home:/home/
     environment:
       - USER=helios
       - UID=5040
