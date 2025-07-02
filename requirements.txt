@@ -1,3 +1,14 @@
-mkdocs-material
-termynal
-mkdocs-literate-nav
+# Core MkDocs
+mkdocs>=1.5.3
+mkdocs-material>=9.5.0
+
+# Required plugins
+mkdocs-literate-nav>=0.6.1
+termynal>=0.12.1
+
+# Additional for Terra only
+mkdocs-gen-files>=0.5.0  # Comment out for Helios
+
+# Optional but recommended
+mkdocs-minify-plugin>=0.7.1  # Minify for production
+mike>=2.0.0  # Version management

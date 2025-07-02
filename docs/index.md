@@ -1,9 +1,6 @@
 # Welcome
 
-<figure markdown="span">
-  ![Orion Logo](assets/logos/helios.png)
-  <figcaption>Containerized Workstations</figcaption>
-</figure>
+<img data-theme-img="helios" alt="Helios Logo">
 
 ## **Helios: Containerized Workstations for the Future**
 

@@ -1,13 +1,14 @@
-site_name: Juno Innovations
-site_description: Official documentation for Juno Innovations Terra platform
-site_url: https://juno-innovations.com  # Add your actual URL
+site_name: Juno Innovations Helios
+site_description: Official documentation for Juno Innovations Helios - Building and customizing workstations
+site_url: https://juno-innovations.com
 repo_url: https://github.com/juno-fx/Helios
 repo_name: juno-fx/Helios
 
 theme:
-  logo: assets/logos/helios.png
-  # Logo is now handled in custom override
-  favicon: assets/logos/favicon.ico
+  logo: assets/logos/helios/helios-logo-W-color.png  # Will need helios-light.png and helios-dark.png
+  favicon: assets/logos/favicon/helios-icon.ico
+  icon:
+    repo: fontawesome/brands/github-alt
   name: material
   features:
     # Navigation
@@ -18,38 +19,48 @@ theme:
     - navigation.sections
     - navigation.path
     - navigation.expand
-    - navigation.instant  # Faster page loads
-    - navigation.instant.prefetch  # Preload on hover
-    - navigation.tracking  # Update URL with active anchor
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.tracking
     # Table of contents
     - toc.follow
     # Search
     - search.suggest
     - search.highlight
-    - search.share  # Share search results
+    - search.share
     # Content
     - content.tabs.link
     - content.code.annotation
     - content.code.copy
-    - content.code.select  # Select code lines
+    - content.code.select
     # UI
     - navigation.footer
     - navigation.top
-    - header.autohide  # Hide header on scroll
+    - header.autohide
   language: en
   palette:
-    # Dark mode (default)
+    # Light mode
+    - scheme: default
+      primary: black
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Dark mode
     - scheme: slate
       primary: black
       accent: orange
-
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  font: false
 
 plugins:
-  - literate-nav
   - search:
-      separator: '[\s\-\.]'  # Better search tokenization
+      separator: '[\s\-\.]'
       lang:
         - en
+  - literate-nav
   - termynal:
       title: zsh
       buttons: macos
@@ -99,13 +110,6 @@ markdown_extensions:
 nav:
   - Welcome:
       - index.md
-  - Deployment:
-      - Usage:
-          - deploy-usage.md
-      - Environments:
-          - deploy-docker.md
-          - deploy-compose.md
-          - deploy-k8s.md
   - Building Workstations:
       - getting-started.md
       - Customization:
@@ -130,37 +134,24 @@ nav:
                 - event-idle.md
                 - event-service.md
                 - event-init.md
+  - Deployment:
+      - Usage:
+          - deploy-usage.md
+      - Environments:
+          - deploy-docker.md
+          - deploy-compose.md
+          - deploy-k8s.md
   - Contributing:
     - contributing.md
     - code-of-conduct.md
   - acknowledgements.md
-
-
-#  - Plugins:
-#    - VDI:
-#        - 'plugins/VDI/*.md'
-#    - Web:
-#        - 'plugins/Web/*.md'
-#    - Networking:
-#        - 'plugins/Networking/*.md'
-#    - Compositing:
-#        - 'plugins/Compositing/*.md'
-#    - Rendering Management:
-#        - 'plugins/Rendering Management/*.md'
-#    - Utility:
-#        - 'plugins/Utility/*.md'
-#    - All Plugins:
-#        - 'plugins/*/*.md'
+  - Related Documentation:
+    - related/related-docs.md
 
 extra:
-  generator: false  # Remove "Made with Material for MkDocs"
-  logos:
-    dark: assets/logos/helios.png  # Logo for dark theme
-    light: assets/logos/helios.png  # Logo for light theme
-    mobile_dark: assets/logos/helios.png  # Optional: smaller logo for mobile
-    mobile_light: assets/logos/helios.png
-  version:
-    provider: mike  # Version management
+  generator: false
+  #version:
+  #  provider: mike  # Uncomment when mike is installed
   social:
     - icon: fontawesome/brands/github-alt
       link: https://github.com/juno-fx/
@@ -168,33 +159,39 @@ extra:
     - icon: fontawesome/brands/linkedin
       link: https://www.linkedin.com/company/juno-innovations/about/
       name: LinkedIn
-    #- icon: fontawesome/brands/twitter
-    #  link: https://twitter.com/junoinnovations
-    #  name: Twitter
     - icon: fontawesome/brands/docker
       link: https://hub.docker.com/u/junoinnovations
       name: Docker Hub
   analytics:
-  #provider: google
-  #property: G-XXXXXXXXXX  # Add your Google Analytics ID
-  consent:
-    title: Cookie consent
-    description: >-
-      We use cookies to recognize your repeated visits and preferences, as well
-      as to measure the effectiveness of our documentation and whether users
-      find what they're searching for. With your consent, you're helping us to
-      make our documentation better.
-    actions:
-      - accept
-      - reject
-      - manage
+    # Uncomment and add your Google Analytics ID when ready
+    #provider: google
+    #property: G-XXXXXXXXXX
+    consent:
+      title: Cookie consent
+      description: >-
+        We use cookies to recognize your repeated visits and preferences, as well
+        as to measure the effectiveness of our documentation and whether users
+        find what they're searching for. With your consent, you're helping us to
+        make our documentation better.
+      actions:
+        - accept
+        - reject
+        - manage
+  # SEO Meta tags
+  meta:
+    - name: description
+      content: Official documentation for Juno Innovations Helios - Building and customizing workstations
+    - name: keywords
+      content: juno, innovations, helios, workstations, customization, docker, kubernetes
+    - name: author
+      content: Juno Innovations
 
-# Footer
 copyright: |
   &copy; 2025 Juno Innovations. All rights reserved. | 
-  <a href="#__consent">Change cookie settings</a>
+  <a href="#__consent">Change cookie settings</a> | 
+  <a href="https://juno-fx.github.io/Orion-Documentation/">Orion Platform</a> | 
+  <a href="https://juno-fx.github.io/Terra-Official-Plugins/">Terra Plugins</a>
 
-# Extra CSS/JS
 extra_css:
   - stylesheets/extra.css
 
