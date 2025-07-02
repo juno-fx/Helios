@@ -10,9 +10,6 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initialize logo switching
   initializeLogoSwitching();
 
-  // Initialize auto theme images
-  initializeAutoThemeImages();
-
   // Initialize smooth scrolling
   initializeSmoothScrolling();
 
@@ -75,7 +72,23 @@ function initializeTheme() {
  */
 function initializeLogoSwitching() {
   const currentTheme = document.body.getAttribute('data-md-color-scheme') || 'slate';
+
+  // Multiple attempts to ensure logos are loaded
   updateLogos(currentTheme);
+
+  // Try again after images might have loaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('readystatechange', function() {
+      if (document.readyState === 'interactive' || document.readyState === 'complete') {
+        updateLogos(currentTheme);
+      }
+    });
+  }
+
+  // Also try on window load
+  window.addEventListener('load', function() {
+    updateLogos(currentTheme);
+  });
 }
 
 function updateLogos(theme) {
@@ -162,42 +175,6 @@ function initializeRelatedDocs() {
       link.appendChild(icon);
     }
   });
-}
-
-/**
- * Auto Theme Images Helper
- */
-function initializeAutoThemeImages() {
-  // Find all images with data-theme-img attribute
-  const themeImages = document.querySelectorAll('img[data-theme-img]');
-
-  themeImages.forEach(img => {
-    const baseName = img.getAttribute('data-theme-img');
-    const currentTheme = document.body.getAttribute('data-md-color-scheme');
-    updateThemeImage(img, baseName, currentTheme);
-  });
-}
-
-function updateThemeImage(img, baseName, theme) {
-  const isDark = theme === 'slate';
-  const suffix = isDark ? '-dark' : '-light';
-
-  // Try both lowercase and capitalized versions
-  const paths = [
-    `/assets/logos/${baseName}/${baseName}${suffix}.png`,
-    `/assets/logos/${baseName.charAt(0).toUpperCase() + baseName.slice(1)}/${baseName}${suffix}.png`,
-    `/assets/logos/${baseName}/${baseName.charAt(0).toUpperCase() + baseName.slice(1)}${suffix}.png`
-  ];
-
-  // Try the first path
-  img.src = paths[0];
-
-  // If needed, you could add error handling to try other paths
-  img.onerror = function() {
-    if (paths[1]) {
-      img.src = paths[1];
-    }
-  };
 }
 
 // Update the updateLogos function to also handle inline images

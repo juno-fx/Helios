@@ -302,10 +302,18 @@ body {
 .md-nav__title,
 .md-nav__link {
   font-family: var(--juno-font-family);
+  text-decoration: none !important;  /* Remove underlines */
 }
 
 .md-nav__title {
   font-weight: var(--juno-font-semibold);
+}
+
+/* Remove underlines from all navigation links */
+.md-nav__link:hover {
+  text-decoration: none !important;
+  background-color: rgba(128, 128, 128, 0.05);
+  border-radius: 0.2rem;
 }
 
 /* Active tab indicator */
@@ -322,17 +330,12 @@ body {
   color: #F2F2F3;
 }
 
-/* Navigation hover states */
-.md-nav__link:hover {
-  background-color: rgba(128, 128, 128, 0.05);
-  border-radius: 0.2rem;
-}
-
 /* Active page indicator */
 .md-nav__link--active {
   font-weight: var(--juno-font-semibold);
   position: relative;
   padding-left: 1rem;
+  text-decoration: none !important;
 }
 
 .md-nav__link--active::before {
@@ -345,6 +348,16 @@ body {
   height: 60%;
   background-color: var(--md-accent-fg-color);
   border-radius: 0 2px 2px 0;
+}
+
+/* Remove underlines from footer navigation (next/previous) */
+.md-footer__link {
+  text-decoration: none !important;
+}
+
+.md-footer__link:hover {
+  text-decoration: none !important;
+  opacity: 0.8;
 }
 
 /* =================================
@@ -568,7 +581,7 @@ textarea:focus-visible {
   color: var(--md-accent-fg-color) !important;
 }
 
-/* Theme-aware inline images */
+/* Theme-aware inline images - Pure CSS Solution */
 .theme-icon-dark,
 .theme-icon-light {
   max-width: 100%;
@@ -576,19 +589,29 @@ textarea:focus-visible {
 }
 
 /* Show/hide based on theme */
-[data-md-color-scheme="default"] .theme-icon-dark {
+[data-md-color-scheme="default"] .theme-icon-dark,
+[data-md-color-scheme="slate"] .theme-icon-light {
   display: none !important;
 }
 
-[data-md-color-scheme="default"] .theme-icon-light {
-  display: inline-block !important;
-}
-
+[data-md-color-scheme="default"] .theme-icon-light,
 [data-md-color-scheme="slate"] .theme-icon-dark {
   display: inline-block !important;
 }
 
-[data-md-color-scheme="slate"] .theme-icon-light {
+/* Faster image switching with both images in HTML */
+.theme-aware-image {
+  position: relative;
+  display: inline-block;
+}
+
+.theme-aware-image img {
+  max-width: 100%;
+  height: auto;
+}
+
+[data-md-color-scheme="default"] .theme-aware-image .dark-only,
+[data-md-color-scheme="slate"] .theme-aware-image .light-only {
   display: none !important;
 }
 

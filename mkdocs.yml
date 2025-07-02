@@ -39,6 +39,13 @@ theme:
     - header.autohide
   language: en
   palette:
+    # Dark mode (default - listed first)
+    - scheme: slate
+      primary: black
+      accent: orange
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
     # Light mode
     - scheme: default
       primary: black
@@ -46,13 +53,6 @@ theme:
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
-    # Dark mode
-    - scheme: slate
-      primary: black
-      accent: orange
-      toggle:
-        icon: material/brightness-4
-        name: Switch to light mode
   font: false
 
 plugins:

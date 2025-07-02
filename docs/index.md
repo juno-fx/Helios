@@ -1,9 +1,9 @@
 # Welcome
 
-<img data-theme-img="helios" alt="Helios Logo">
-
-## **Helios: Containerized Workstations for the Future**
-
+<span class="theme-aware-image">
+  <img src="/assets/logos/helios/helios-light.png" class="light-only" alt="Helios Logo">
+  <img src="/assets/logos/helios/helios-dark.png" class="dark-only" alt="Helios Logo">
+</span>
 
 ## **The Future of Containerized Workstations**
 
