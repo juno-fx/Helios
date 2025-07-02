@@ -106,6 +106,8 @@ nav:
           - deploy-docker.md
           - deploy-compose.md
           - deploy-k8s.md
+      - Persistence:
+          - deploy-session.md
   - Building Workstations:
       - getting-started.md
       - Customization:

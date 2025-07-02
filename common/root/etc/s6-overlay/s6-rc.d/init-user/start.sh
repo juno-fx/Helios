@@ -66,3 +66,4 @@ usermod -aG "$SNAKE_GID" "$USER"
 mkdir -p /var/run/pulse
 chown -R "$UID:root" /var/run/pulse
 chown -R "$UID:$GID" /opt/helios/
+chmod +x /etc/helios/shutdown.d/custom.sh
