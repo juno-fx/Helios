@@ -1,6 +1,13 @@
 /* Juno Innovations Unified Documentation Theme
    ============================================= */
 
+/* Prevent light mode flash on load */
+@media (prefers-color-scheme: light) {
+  body:not([data-md-color-scheme]) {
+    background-color: #242426 !important;
+  }
+}
+
 /* Import Montserrat Font */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;900&display=swap');
 
@@ -531,18 +538,56 @@ body.md-color-scheme-transition::after {
 }
 
 /* =================================
+   LINK STYLING
+   ================================= */
+
+/* Remove underlines from header navigation */
+.md-header a,
+.md-header__nav a,
+.md-tabs__link {
+  text-decoration: none !important;
+}
+
+/* Remove underlines from footer navigation */
+.md-footer a,
+.md-footer__link,
+.md-footer-nav a {
+  text-decoration: none !important;
+}
+
+/* Remove underlines from sidebar navigation */
+.md-nav__link,
+.md-nav__title {
+  text-decoration: none !important;
+}
+
+/* Keep underlines for content links (in documentation body) */
+.md-typeset a:not(.md-button):not(.headerlink):not(.md-source) {
+  text-decoration: underline;
+  text-decoration-color: var(--md-typeset-a-color);
+  text-underline-offset: 0.1em;
+}
+
+.md-typeset a:not(.md-button):not(.headerlink):not(.md-source):hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+/* =================================
    ENHANCEMENTS
    ================================= */
 
-/* Accent color hover states */
-[data-md-color-scheme="default"] a:hover {
+/* Accent color hover states - Updated to work with underlines */
+[data-md-color-scheme="default"] .md-typeset a:not(.md-button):not(.headerlink):not(.md-source):hover {
   color: #1d4ed8 !important;
   text-decoration: underline;
+  text-decoration-thickness: 2px;
 }
 
-[data-md-color-scheme="slate"] a:hover {
+[data-md-color-scheme="slate"] .md-typeset a:not(.md-button):not(.headerlink):not(.md-source):hover {
   color: #fb923c !important;
   text-decoration: underline;
+  text-decoration-thickness: 2px;
 }
 
 /* Smooth scroll behavior */
@@ -582,24 +627,30 @@ textarea:focus-visible {
 }
 
 /* Theme-aware inline images - Pure CSS Solution */
+
+/* First, ensure both image types are hidden by default */
+img.theme-icon-dark,
+img.theme-icon-light,
 .theme-icon-dark,
 .theme-icon-light {
+  display: none !important;
   max-width: 100%;
   height: auto;
 }
 
-/* Show/hide based on theme */
-[data-md-color-scheme="default"] .theme-icon-dark,
-[data-md-color-scheme="slate"] .theme-icon-light {
-  display: none !important;
-}
-
-[data-md-color-scheme="default"] .theme-icon-light,
-[data-md-color-scheme="slate"] .theme-icon-dark {
+/* Dark mode: Show dark icons only */
+body[data-md-color-scheme="slate"] img.theme-icon-dark,
+body[data-md-color-scheme="slate"] .theme-icon-dark {
   display: inline-block !important;
 }
 
-/* Faster image switching with both images in HTML */
+/* Light mode: Show light icons only */
+body[data-md-color-scheme="default"] img.theme-icon-light,
+body[data-md-color-scheme="default"] .theme-icon-light {
+  display: inline-block !important;
+}
+
+/* For the span wrapper method */
 .theme-aware-image {
   position: relative;
   display: inline-block;
@@ -610,18 +661,23 @@ textarea:focus-visible {
   height: auto;
 }
 
-[data-md-color-scheme="default"] .theme-aware-image .dark-only,
-[data-md-color-scheme="slate"] .theme-aware-image .light-only {
+/* Alternative class names */
+img.dark-only,
+img.light-only,
+.dark-only,
+.light-only {
   display: none !important;
 }
 
-/* Also handle picture element for theme switching */
-[data-md-color-scheme="default"] picture img[src*="-dark"] {
-  display: none !important;
+/* Show based on theme with body selector for higher specificity */
+body[data-md-color-scheme="slate"] img.dark-only,
+body[data-md-color-scheme="slate"] .dark-only {
+  display: inline-block !important;
 }
 
-[data-md-color-scheme="slate"] picture img[src*="-light"] {
-  display: none !important;
+body[data-md-color-scheme="default"] img.light-only,
+body[data-md-color-scheme="default"] .light-only {
+  display: inline-block !important;
 }
 
 /* Mobile Responsiveness */

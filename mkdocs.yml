@@ -196,5 +196,6 @@ extra_css:
   - stylesheets/extra.css
 
 extra_javascript:
+  - javascripts/theme-init.js
   - javascripts/extra.js
   - https://unpkg.com/mermaid@10/dist/mermaid.min.js
