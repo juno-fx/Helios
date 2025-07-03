@@ -1,5 +1,5 @@
 .devbox
-.venv
+.home
 .out
 .packages
-.home
+docs

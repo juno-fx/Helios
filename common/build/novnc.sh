@@ -6,6 +6,9 @@ mkdir -p /src /build-out/view-only/
 cd /src
 wget https://github.com/kasmtech/noVNC/tarball/${KASMWEB_COMMIT} -O - | tar --strip-components=1 -xz
 
+# override theming
+cp -v /background.jpg /src/app/images/splash.jpg
+
 # build interactive
 if [ "$RHEL" = "true" ]; then
 	echo "Using RHEL patch for noVNC"

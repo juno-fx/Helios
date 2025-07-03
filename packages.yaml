@@ -37,6 +37,7 @@ packages:
   - common: xfce4-session  # XFCE session manager, responsible for managing user sessions.
   - common: xfce4-settings  # Provides graphical tools for configuring the XFCE desktop environment.
   - common: xfce4-whiskermenu-plugin  # A Whisker menu plugin for the XFCE panel, offering a modern application launcher.
+  - common: xfce4-notifyd  # Notification daemon for XFCE, displaying system notifications.
   - common: pulseaudio  # Sound server for Linux, managing audio playback and recording.
   - common: pulseaudio-utils  # Utility tools for interacting with the PulseAudio sound server.
   - common: file  # Command-line tool to determine the type of files based on content, not file extension.
@@ -165,6 +166,8 @@ packages:
   # ============================================
   # Display & Desktop Environment Packages
   # ============================================
+  - debian: libnotify-bin  # Provides a command-line tool for sending desktop notifications.
+    rhel: libnotify
   - debian: xfce4  # XFCE desktop environment package that provides a lightweight graphical interface.
     alpine: xfce4
   - debian: thunar  # File manager for XFCE, providing graphical file browsing and manipulation.

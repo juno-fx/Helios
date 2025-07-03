@@ -59,6 +59,7 @@ ENV QT_QPA_FONTDIR=/usr/share/fonts
 # Build kasm noVNC client base
 COPY --chmod=777 common/build/novnc.sh /
 COPY --chmod=777 common/build/novnc-*.patch /
+COPY common/root/usr/share/backgrounds/background.jpg /
 RUN /novnc.sh
 
 

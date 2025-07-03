@@ -14,6 +14,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Generate a token
+        id: generate-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.JUNO_CI_APP_ID }}
+          private-key: ${{ secrets.JUNO_CI_APP_PRIVATE_KEY }}
       - name: Checkout CI repository
         uses: actions/checkout@v4
         with:
@@ -24,4 +30,4 @@ jobs:
       - name: Run PR on branch creation
         uses: ./.juno-ci/actions/workflow/pr-on-branch-creation
         with:
-          gh_token: ${{ secrets.GIT_PASS }}
+          gh_token: ${{ steps.generate-token.outputs.token }}
