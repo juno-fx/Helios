@@ -1,3 +1,18 @@
+diff --git a/app/styles/base.css b/app/styles/base.css
+index f0b7eeb..5951440 100644
+--- a/app/styles/base.css
++++ b/app/styles/base.css
+@@ -901,6 +901,10 @@ select:active {
+   background-size: cover;
+ }
+ 
++#noVNC_container > div {
++  overflow: hidden !important;
++}
++
+ #noVNC_keyboardinput {
+   width: 0px;
+   height: 0px;
 diff --git a/app/ui.js b/app/ui.js
 index 529fdbe..94b4652 100644
 --- a/app/ui.js

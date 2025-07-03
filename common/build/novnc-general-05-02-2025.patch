@@ -1,3 +1,27 @@
+diff --git a/app/styles/base.css b/app/styles/base.css
+index f0b7eeb..083e72f 100644
+--- a/app/styles/base.css
++++ b/app/styles/base.css
+@@ -320,7 +320,7 @@ select:active {
+   white-space: pre;
+   border: 1px solid rgba(0, 0, 0, 0.5);
+   background: rgba(0, 0, 0, 0.2);
+-  overflow: auto;
++  overflow: hidden;
+ }
+ 
+ #noVNC_close_error {
+@@ -901,6 +901,10 @@ select:active {
+   background-size: cover;
+ }
+ 
++#noVNC_container > div {
++  overflow: hidden !important;
++}
++
+ #noVNC_keyboardinput {
+   width: 0px;
+   height: 0px;
 diff --git a/index.html b/index.html
 index 2495646..d5021a0 100644
 --- a/index.html
