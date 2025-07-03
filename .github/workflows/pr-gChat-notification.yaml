@@ -22,4 +22,17 @@ jobs:
           webhookUrl: ${{ secrets.GCHAT_PR_SPACE }}
           title: ${{ github.repository }}
           subtitle: ${{ github.head_ref }}
-          additionalSections: '[{"header": "Requested Reviewer", "widgets": [{"decoratedText": {"text": "${{ github.event.requested_reviewer.login }}", "icon": {"knownIcon": "PERSON"}}}]}]'
+          additionalSections: >
+            {
+              "header": "Requested Reviewer",
+              "widgets": [
+                {
+                  "decoratedText": {
+                    "text": "${{ github.event.requested_reviewer && github.event.requested_reviewer.login || github.event.requested_team && github.event.requested_team.name || 'N/A' }}",
+                    "icon": {
+                      "knownIcon": "PERSON"
+                    }
+                  }
+                }
+              ]
+            }
