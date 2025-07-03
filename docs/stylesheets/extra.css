@@ -1,692 +1,141 @@
-/* Juno Innovations Unified Documentation Theme
-   ============================================= */
-
-/* Prevent light mode flash on load */
-@media (prefers-color-scheme: light) {
-  body:not([data-md-color-scheme]) {
-    background-color: #242426 !important;
-  }
-}
-
-/* Import Montserrat Font */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;900&display=swap');
-
-/* CSS Variables for Theme */
-:root {
-  /* Font Family */
-  --juno-font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-
-  /* Font Weights */
-  --juno-font-regular: 400;
-  --juno-font-semibold: 600;
-  --juno-font-black: 900;
-
-  /* Transitions */
-  --juno-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Typography Base */
-body {
-  font-family: var(--juno-font-family);
-}
-
-.md-typeset {
-  font-family: var(--juno-font-family);
-  font-weight: var(--juno-font-regular);
-  line-height: 1.6;
-}
-
-/* Headlines */
-.md-typeset h1 {
-  font-family: var(--juno-font-family);
-  font-weight: var(--juno-font-black);
-  letter-spacing: -0.02em;
-}
-
-.md-typeset h2,
-.md-typeset h3,
-.md-typeset h4,
-.md-typeset h5,
-.md-typeset h6 {
-  font-family: var(--juno-font-family);
-  font-weight: var(--juno-font-semibold);
-  letter-spacing: -0.01em;
-}
-
 /* =================================
-   LIGHT MODE (DEFAULT)
-   ================================= */
-[data-md-color-scheme="default"] {
-  /* Main colors */
-  --md-default-bg-color: #F2F2F3;
-  --md-default-fg-color: #242426;
-  --md-typeset-color: #242426;
-  --md-typeset-a-color: #2563eb;
-  --md-accent-fg-color: #2563eb;
-
-  /* Code blocks */
-  --md-code-bg-color: rgba(36, 36, 38, 0.05);
-  --md-code-fg-color: #242426;
-}
-
-/* Light mode - Keep header dark */
-[data-md-color-scheme="default"] .md-header {
-  background-color: #242426 !important;
-}
-
-[data-md-color-scheme="default"] .md-header__nav,
-[data-md-color-scheme="default"] .md-header__title,
-[data-md-color-scheme="default"] .md-header__button,
-[data-md-color-scheme="default"] .md-header__source {
-  color: #F2F2F3 !important;
-}
-
-/* Light mode - Tabs dark */
-[data-md-color-scheme="default"] .md-tabs {
-  background-color: #1a1a1c !important;
-}
-
-[data-md-color-scheme="default"] .md-tabs__link {
-  color: rgba(242, 242, 243, 0.7) !important;
-}
-
-[data-md-color-scheme="default"] .md-tabs__link:hover,
-[data-md-color-scheme="default"] .md-tabs__link--active {
-  color: #F2F2F3 !important;
-}
-
-/* Light mode - Search */
-[data-md-color-scheme="default"] .md-search__input {
-  background-color: rgba(255, 255, 255, 0.12) !important;
-  color: #F2F2F3 !important;
-}
-
-[data-md-color-scheme="default"] .md-search__input::placeholder {
-  color: rgba(242, 242, 243, 0.5) !important;
-}
-
-[data-md-color-scheme="default"] .md-search__icon {
-  color: rgba(242, 242, 243, 0.7) !important;
-}
-
-/* =================================
-   DARK MODE (SLATE)
-   ================================= */
-[data-md-color-scheme="slate"] {
-  /* Main colors */
-  --md-default-bg-color: #242426;
-  --md-default-fg-color: #F2F2F3;
-  --md-typeset-color: #F2F2F3;
-  --md-typeset-a-color: #ff8c42;
-  --md-accent-fg-color: #ff8c42;
-
-  /* Code blocks */
-  --md-code-bg-color: rgba(242, 242, 243, 0.05);
-  --md-code-fg-color: #F2F2F3;
-}
-
-/* Dark mode - Header with better contrast */
-[data-md-color-scheme="slate"] .md-header {
-  background-color: #1a1a1c !important;
-}
-
-[data-md-color-scheme="slate"] .md-header__nav,
-[data-md-color-scheme="slate"] .md-header__title,
-[data-md-color-scheme="slate"] .md-header__button,
-[data-md-color-scheme="slate"] .md-header__source {
-  color: #F2F2F3 !important;
-}
-
-/* Dark mode - Tabs even darker */
-[data-md-color-scheme="slate"] .md-tabs {
-  background-color: #141416 !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-[data-md-color-scheme="slate"] .md-tabs__link {
-  color: rgba(242, 242, 243, 0.7) !important;
-}
-
-[data-md-color-scheme="slate"] .md-tabs__link:hover,
-[data-md-color-scheme="slate"] .md-tabs__link--active {
-  color: #F2F2F3 !important;
-}
-
-/* Dark mode - Search */
-[data-md-color-scheme="slate"] .md-search__input {
-  background-color: rgba(255, 255, 255, 0.12) !important;
-  color: #F2F2F3 !important;
-}
-
-[data-md-color-scheme="slate"] .md-search__input::placeholder {
-  color: rgba(242, 242, 243, 0.5) !important;
-}
-
-[data-md-color-scheme="slate"] .md-search__icon {
-  color: rgba(242, 242, 243, 0.7) !important;
-}
-
-/* =================================
-   CODE BLOCK STYLING
+   LIGHT MODE TEXT COLOR FIXES
    ================================= */
 
-/* Light mode - light code blocks with dark text */
-[data-md-color-scheme="default"] .md-typeset pre {
-  background-color: #ffffff !important;
-  color: #242426 !important;
-  border: 1px solid rgba(36, 36, 38, 0.12);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-[data-md-color-scheme="default"] .md-typeset pre code {
-  background-color: transparent !important;
+/* Ensure main content text is dark in light mode */
+[data-md-color-scheme="default"] .md-content {
   color: #242426 !important;
 }
 
-/* Inline code in light mode */
-[data-md-color-scheme="default"] .md-typeset code:not(pre code) {
-  background-color: rgba(36, 36, 38, 0.08) !important;
+[data-md-color-scheme="default"] .md-typeset {
   color: #242426 !important;
-  padding: 0.1em 0.3em;
-  border-radius: 0.2rem;
 }
 
-/* Dark mode code blocks */
-[data-md-color-scheme="slate"] .md-typeset pre {
-  background-color: #1a1a1c !important;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #F2F2F3 !important;
+[data-md-color-scheme="default"] .md-typeset p,
+[data-md-color-scheme="default"] .md-typeset li,
+[data-md-color-scheme="default"] .md-typeset td,
+[data-md-color-scheme="default"] .md-typeset th {
+  color: #242426 !important;
 }
 
-[data-md-color-scheme="slate"] .md-typeset pre code {
-  background-color: transparent !important;
-  color: #F2F2F3 !important;
-}
-
-/* Inline code in dark mode */
-[data-md-color-scheme="slate"] .md-typeset code:not(pre code) {
-  background-color: rgba(242, 242, 243, 0.08) !important;
-  color: #F2F2F3 !important;
-  padding: 0.1em 0.3em;
-  border-radius: 0.2rem;
-}
-
-/* Syntax highlighting for light mode */
-[data-md-color-scheme="default"] .highlight {
-  background-color: #ffffff !important;
-}
-
-/* Light mode syntax highlighting colors */
-[data-md-color-scheme="default"] .highlight .c,
-[data-md-color-scheme="default"] .highlight .cm,
-[data-md-color-scheme="default"] .highlight .c1,
-[data-md-color-scheme="default"] .highlight .cs { color: #6a737d !important; }
-[data-md-color-scheme="default"] .highlight .k,
-[data-md-color-scheme="default"] .highlight .kd,
-[data-md-color-scheme="default"] .highlight .kn,
-[data-md-color-scheme="default"] .highlight .kp,
-[data-md-color-scheme="default"] .highlight .kr,
-[data-md-color-scheme="default"] .highlight .kt { color: #d73a49 !important; }
-[data-md-color-scheme="default"] .highlight .s,
-[data-md-color-scheme="default"] .highlight .sb,
-[data-md-color-scheme="default"] .highlight .sc,
-[data-md-color-scheme="default"] .highlight .sd,
-[data-md-color-scheme="default"] .highlight .s2,
-[data-md-color-scheme="default"] .highlight .se,
-[data-md-color-scheme="default"] .highlight .sh,
-[data-md-color-scheme="default"] .highlight .si,
-[data-md-color-scheme="default"] .highlight .sx,
-[data-md-color-scheme="default"] .highlight .s1 { color: #032f62 !important; }
-[data-md-color-scheme="default"] .highlight .nf,
-[data-md-color-scheme="default"] .highlight .nb { color: #6f42c1 !important; }
-[data-md-color-scheme="default"] .highlight .m,
-[data-md-color-scheme="default"] .highlight .mf,
-[data-md-color-scheme="default"] .highlight .mh,
-[data-md-color-scheme="default"] .highlight .mi,
-[data-md-color-scheme="default"] .highlight .il,
-[data-md-color-scheme="default"] .highlight .mo,
-[data-md-color-scheme="default"] .highlight .mb,
-[data-md-color-scheme="default"] .highlight .mx { color: #005cc5 !important; }
-
-/* Dark mode syntax highlighting colors */
-[data-md-color-scheme="slate"] .highlight {
-  background-color: #1a1a1c !important;
-}
-
-[data-md-color-scheme="slate"] .highlight .c,
-[data-md-color-scheme="slate"] .highlight .cm,
-[data-md-color-scheme="slate"] .highlight .c1,
-[data-md-color-scheme="slate"] .highlight .cs { color: #8b949e !important; }
-[data-md-color-scheme="slate"] .highlight .k,
-[data-md-color-scheme="slate"] .highlight .kd,
-[data-md-color-scheme="slate"] .highlight .kn,
-[data-md-color-scheme="slate"] .highlight .kp,
-[data-md-color-scheme="slate"] .highlight .kr,
-[data-md-color-scheme="slate"] .highlight .kt { color: #ff7b72 !important; }
-[data-md-color-scheme="slate"] .highlight .s,
-[data-md-color-scheme="slate"] .highlight .sb,
-[data-md-color-scheme="slate"] .highlight .sc,
-[data-md-color-scheme="slate"] .highlight .sd,
-[data-md-color-scheme="slate"] .highlight .s2,
-[data-md-color-scheme="slate"] .highlight .se,
-[data-md-color-scheme="slate"] .highlight .sh,
-[data-md-color-scheme="slate"] .highlight .si,
-[data-md-color-scheme="slate"] .highlight .sx,
-[data-md-color-scheme="slate"] .highlight .s1 { color: #a5d6ff !important; }
-[data-md-color-scheme="slate"] .highlight .nf,
-[data-md-color-scheme="slate"] .highlight .nb { color: #d2a8ff !important; }
-[data-md-color-scheme="slate"] .highlight .m,
-[data-md-color-scheme="slate"] .highlight .mf,
-[data-md-color-scheme="slate"] .highlight .mh,
-[data-md-color-scheme="slate"] .highlight .mi,
-[data-md-color-scheme="slate"] .highlight .il,
-[data-md-color-scheme="slate"] .highlight .mo,
-[data-md-color-scheme="slate"] .highlight .mb,
-[data-md-color-scheme="slate"] .highlight .mx { color: #79c0ff !important; }
-
-/* =================================
-   LOGO SWITCHING
-   ================================= */
-.md-header__button.md-logo img {
-  transition: opacity 0.3s ease;
-}
-
-/* Hide light logo in dark mode */
-[data-md-color-scheme="slate"] .md-header__button.md-logo img[src$="-light.png"],
-[data-md-color-scheme="slate"] .md-header__button.md-logo img[src$="-light.svg"] {
-  display: none;
-}
-
-/* Hide dark logo in light mode */
-[data-md-color-scheme="default"] .md-header__button.md-logo img[src$="-dark.png"],
-[data-md-color-scheme="default"] .md-header__button.md-logo img[src$="-dark.svg"] {
-  display: none;
-}
-
-/* =================================
-   NAVIGATION
-   ================================= */
-.md-nav__title,
-.md-nav__link {
-  font-family: var(--juno-font-family);
-  text-decoration: none !important;  /* Remove underlines */
-}
-
-.md-nav__title {
-  font-weight: var(--juno-font-semibold);
-}
-
-/* Remove underlines from all navigation links */
-.md-nav__link:hover {
-  text-decoration: none !important;
-  background-color: rgba(128, 128, 128, 0.05);
-  border-radius: 0.2rem;
-}
-
-/* Active tab indicator */
-.md-tabs__link--active {
-  border-bottom: 2px solid var(--md-accent-fg-color);
-}
-
-/* Sidebar navigation colors */
+/* Fix sidebar text in light mode */
 [data-md-color-scheme="default"] .md-sidebar {
+  color: #242426 !important;
+}
+
+[data-md-color-scheme="default"] .md-sidebar__scrollwrap {
+  color: #242426 !important;
+}
+
+[data-md-color-scheme="default"] .md-nav__item {
+  color: #242426 !important;
+}
+
+[data-md-color-scheme="default"] .md-nav__link {
+  color: #242426 !important;
+}
+
+[data-md-color-scheme="default"] .md-nav__link:hover {
+  color: #242426 !important;
+}
+
+/* Ensure headings are dark in light mode */
+[data-md-color-scheme="default"] h1,
+[data-md-color-scheme="default"] h2,
+[data-md-color-scheme="default"] h3,
+[data-md-color-scheme="default"] h4,
+[data-md-color-scheme="default"] h5,
+[data-md-color-scheme="default"] h6 {
+  color: #242426 !important;
+}
+
+/* Fix any elements that might have inherited white color */
+[data-md-color-scheme="default"] .md-main,
+[data-md-color-scheme="default"] .md-main * {
   color: #242426;
 }
 
-[data-md-color-scheme="slate"] .md-sidebar {
-  color: #F2F2F3;
+/* Exceptions for elements that should stay light */
+[data-md-color-scheme="default"] .md-header *,
+[data-md-color-scheme="default"] .md-tabs *,
+[data-md-color-scheme="default"] .md-footer * {
+  color: #F2F2F3 !important;
 }
 
-/* Active page indicator */
-.md-nav__link--active {
-  font-weight: var(--juno-font-semibold);
-  position: relative;
-  padding-left: 1rem;
-  text-decoration: none !important;
-}
-
-.md-nav__link--active::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 3px;
-  height: 60%;
-  background-color: var(--md-accent-fg-color);
-  border-radius: 0 2px 2px 0;
-}
-
-/* Remove underlines from footer navigation (next/previous) */
-.md-footer__link {
-  text-decoration: none !important;
-}
-
-.md-footer__link:hover {
-  text-decoration: none !important;
-  opacity: 0.8;
+/* Links should use accent color */
+[data-md-color-scheme="default"] .md-typeset a {
+  color: #2563eb !important;
 }
 
 /* =================================
-   FOOTER
-   ================================= */
-.md-footer {
-  border-top: 1px solid rgba(128, 128, 128, 0.2);
-}
-
-.md-footer-meta {
-  background-color: var(--md-default-bg-color);
-  color: var(--md-default-fg-color);
-}
-
-/* Light mode - Keep footer dark like header */
-[data-md-color-scheme="default"] .md-footer {
-  background-color: #242426 !important;
-  color: #F2F2F3 !important;
-}
-
-[data-md-color-scheme="default"] .md-footer-meta {
-  background-color: #1a1a1c !important;
-  color: #F2F2F3 !important;
-}
-
-[data-md-color-scheme="default"] .md-footer a {
-  color: #F2F2F3 !important;
-}
-
-[data-md-color-scheme="default"] .md-footer a:hover {
-  color: #ff8c42 !important; /* Use orange for hover in footer */
-}
-
-/* Dark mode footer */
-[data-md-color-scheme="slate"] .md-footer {
-  background-color: #1a1a1c !important;
-  color: #F2F2F3 !important;
-}
-
-[data-md-color-scheme="slate"] .md-footer-meta {
-  background-color: #141416 !important;
-  color: #F2F2F3 !important;
-}
-
-[data-md-color-scheme="slate"] .md-footer a {
-  color: #F2F2F3 !important;
-}
-
-[data-md-color-scheme="slate"] .md-footer a:hover {
-  color: #ff8c42 !important;
-}
-
-/* =================================
-   THEME TRANSITIONS
-   ================================= */
-/* Disable all transitions by default */
-* {
-  transition: none !important;
-}
-
-/* Only transition color-related properties on theme change */
-body.md-color-scheme-transition,
-body.md-color-scheme-transition *,
-body.md-color-scheme-transition *::before,
-body.md-color-scheme-transition *::after {
-  transition: background-color 0.25s ease-in-out,
-              color 0.25s ease-in-out,
-              border-color 0.25s ease-in-out,
-              fill 0.25s ease-in-out,
-              stroke 0.25s ease-in-out !important;
-}
-
-/* Prevent layout shift during transition */
-.md-header,
-.md-tabs,
-.md-sidebar,
-.md-content {
-  will-change: background-color, color;
-}
-
-/* Optional: Add a subtle fade overlay during transition */
-body.md-color-scheme-transition::after {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: transparent;
-  pointer-events: none;
-  z-index: 9999;
-  animation: themeFade 0.25s ease-in-out;
-}
-
-@keyframes themeFade {
-  0%, 100% { opacity: 0; }
-  50% { opacity: 0.03; }
-}
-
-/* =================================
-   UTILITIES
+   CODE BLOCK FIXES
    ================================= */
 
-/* Related Documentation Section */
-.related-docs {
-  margin: 1rem 0;
-  padding: 1.5rem;
-  border-radius: 0.4rem;
-  background-color: rgba(128, 128, 128, 0.05);
-  border: 1px solid rgba(128, 128, 128, 0.1);
+/* Force code blocks to have white background in light mode */
+[data-md-color-scheme="default"] pre,
+[data-md-color-scheme="default"] code {
+  background-color: #ffffff !important;
+  color: #242426 !important;
 }
 
-/* Light mode related docs */
-[data-md-color-scheme="default"] .related-docs {
-  background-color: rgba(36, 36, 38, 0.03);
-  border-color: rgba(36, 36, 38, 0.1);
+[data-md-color-scheme="default"] .highlight,
+[data-md-color-scheme="default"] .codehilite {
+  background-color: #ffffff !important;
 }
 
-/* Dark mode related docs */
-[data-md-color-scheme="slate"] .related-docs {
-  background-color: rgba(255, 255, 255, 0.03);
-  border-color: rgba(255, 255, 255, 0.1);
-}
-
-.related-docs h3 {
-  margin-top: 0 !important;
-  margin-bottom: 0.5rem;
-  font-size: 1.3rem;
-}
-
-.related-docs ul {
-  margin: 0.5rem 0;
-}
-
-.related-docs li {
-  margin: 0.3rem 0;
-}
-
-.related-docs p {
-  margin-bottom: 0;
-}
-
-/* Make the "Best for" text stand out */
-.related-docs strong {
-  color: var(--md-accent-fg-color);
-}
-
-/* Code Blocks */
-.md-typeset code,
-.md-typeset pre {
-  font-family: 'JetBrains Mono', 'Fira Code', 'Roboto Mono', monospace;
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(128, 128, 128, 0.1);
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(128, 128, 128, 0.3);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(128, 128, 128, 0.5);
-}
-
-/* =================================
-   LINK STYLING
-   ================================= */
-
-/* Remove underlines from header navigation */
-.md-header a,
-.md-header__nav a,
-.md-tabs__link {
-  text-decoration: none !important;
-}
-
-/* Remove underlines from footer navigation */
-.md-footer a,
-.md-footer__link,
-.md-footer-nav a {
-  text-decoration: none !important;
-}
-
-/* Remove underlines from sidebar navigation */
-.md-nav__link,
-.md-nav__title {
-  text-decoration: none !important;
-}
-
-/* Keep underlines for content links (in documentation body) */
-.md-typeset a:not(.md-button):not(.headerlink):not(.md-source) {
-  text-decoration: underline;
-  text-decoration-color: var(--md-typeset-a-color);
-  text-underline-offset: 0.1em;
-}
-
-.md-typeset a:not(.md-button):not(.headerlink):not(.md-source):hover {
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-}
-
-/* =================================
-   ENHANCEMENTS
-   ================================= */
-
-/* Accent color hover states - Updated to work with underlines */
-[data-md-color-scheme="default"] .md-typeset a:not(.md-button):not(.headerlink):not(.md-source):hover {
-  color: #1d4ed8 !important;
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-}
-
-[data-md-color-scheme="slate"] .md-typeset a:not(.md-button):not(.headerlink):not(.md-source):hover {
-  color: #fb923c !important;
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-}
-
-/* Smooth scroll behavior */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Selection colors */
-[data-md-color-scheme="default"] ::selection {
-  background-color: rgba(37, 99, 235, 0.2);
+[data-md-color-scheme="default"] .highlight *:not(.highlight .c):not(.highlight .cm):not(.highlight .c1):not(.highlight .cs) {
   color: #242426;
 }
 
-[data-md-color-scheme="slate"] ::selection {
-  background-color: rgba(255, 140, 66, 0.2);
-  color: #F2F2F3;
+/* Terminal/console style code blocks */
+[data-md-color-scheme="default"] .language-bash .highlight,
+[data-md-color-scheme="default"] .language-console .highlight,
+[data-md-color-scheme="default"] .language-terminal .highlight {
+  background-color: #f5f5f5 !important;
 }
 
-/* Focus styles for accessibility */
-a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible {
-  outline: 2px solid var(--md-accent-fg-color);
-  outline-offset: 2px;
+[data-md-color-scheme="default"] .language-bash pre,
+[data-md-color-scheme="default"] .language-console pre,
+[data-md-color-scheme="default"] .language-terminal pre {
+  background-color: #f5f5f5 !important;
 }
 
-/* Copy button styling */
-.md-clipboard {
-  color: var(--md-default-fg-color--light) !important;
-  transition: color 0.2s;
-}
+/* =================================
+   THEME-AWARE IMAGES - CLEAN FIX
+   ================================= */
 
-.md-clipboard:hover {
-  color: var(--md-accent-fg-color) !important;
-}
+/* Remove all previous image display rules and replace with these */
 
-/* Theme-aware inline images - Pure CSS Solution */
-
-/* First, ensure both image types are hidden by default */
-img.theme-icon-dark,
-img.theme-icon-light,
-.theme-icon-dark,
-.theme-icon-light {
-  display: none !important;
-  max-width: 100%;
-  height: auto;
-}
-
-/* Dark mode: Show dark icons only */
-body[data-md-color-scheme="slate"] img.theme-icon-dark,
-body[data-md-color-scheme="slate"] .theme-icon-dark {
-  display: inline-block !important;
-}
-
-/* Light mode: Show light icons only */
-body[data-md-color-scheme="default"] img.theme-icon-light,
-body[data-md-color-scheme="default"] .theme-icon-light {
-  display: inline-block !important;
-}
-
-/* For the span wrapper method */
-.theme-aware-image {
-  position: relative;
-  display: inline-block;
-}
-
+/* For span wrapper method - your current approach */
 .theme-aware-image img {
+  display: none !important;
   max-width: 100%;
   height: auto;
 }
 
-/* Alternative class names */
-img.dark-only,
-img.light-only,
-.dark-only,
-.light-only {
+/* Light mode: show only light images */
+body[data-md-color-scheme="default"] .theme-aware-image img.light-only {
+  display: inline-block !important;
+}
+
+/* Dark mode: show only dark images */
+body[data-md-color-scheme="slate"] .theme-aware-image img.dark-only {
+  display: inline-block !important;
+}
+
+/* For standalone theme icons (if you use them) */
+img.theme-icon-dark,
+img.theme-icon-light {
   display: none !important;
+  max-width: 100%;
+  height: auto;
 }
 
-/* Show based on theme with body selector for higher specificity */
-body[data-md-color-scheme="slate"] img.dark-only,
-body[data-md-color-scheme="slate"] .dark-only {
+body[data-md-color-scheme="default"] img.theme-icon-light {
   display: inline-block !important;
 }
 
-body[data-md-color-scheme="default"] img.light-only,
-body[data-md-color-scheme="default"] .light-only {
+body[data-md-color-scheme="slate"] img.theme-icon-dark {
   display: inline-block !important;
 }
 
-/* Mobile Responsiveness */
-@media screen and (max-width: 768px) {
-  .md-typeset h1 {
-    font-size: 1.8rem;
-  }
-
-  .md-typeset h2 {
-    font-size: 1.4rem;
-  }
-}
