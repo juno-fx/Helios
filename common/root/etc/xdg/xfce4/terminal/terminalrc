@@ -29,6 +29,6 @@ MiscSlimTabs=FALSE
 MiscNewTabAdjacent=FALSE
 MiscSearchDialogOpacity=100
 MiscShowUnsafePasteDialog=TRUE
-CustomCommand=/bin/bash
+CustomCommand=/bin/zsh
 BackgroundDarkness=0.750000
 

@@ -13,7 +13,8 @@ EOL
 sed -i '/locale/d' /etc/dpkg/dpkg.cfg.d/excludes
 apt update
 apt upgrade -y
-apt install -y gnupg curl wget
+apt install -y gnupg curl wget software-properties-common
+add-apt-repository ppa:mozillateam/ppa -y
 wget -q -O- https://packagecloud.io/dcommander/virtualgl/gpgkey |
 	gpg --dearmor >/etc/apt/trusted.gpg.d/VirtualGL.gpg
 echo "deb [signed-by=/etc/apt/trusted.gpg.d/VirtualGL.gpg] https://packagecloud.io/dcommander/virtualgl/any/ any main" >/etc/apt/sources.list.d/virtualgl.list
@@ -30,6 +31,8 @@ mv /usr/share/icons/elementary-xfce-darker /usr/share/icons/elementary
 
 # backwards compat for neofetch
 ln -sf /bin/neofetch /bin/fastfetch
+
+apt remove -y xubuntu-wallpapers software-properties-common
 
 # handle background
 rm -rfv /usr/share/backgrounds/*

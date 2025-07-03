@@ -14,7 +14,10 @@ packages:
   # Common packages across all distributions
   # ====================================
   - common: curl
+  - common: zsh
+  - common: htop
   - common: sassc
+  - common: mousepad
   - common: dbus-x11  # Provides D-Bus message bus system for communication between applications in a GUI environment.
   - common: xauth  # Handles authentication for X11 sessions, enabling secure access to the X server.
   - common: unzip  # Tool for extracting compressed .zip archive files.
@@ -41,6 +44,13 @@ packages:
   - common: pulseaudio-utils  # Utility tools for interacting with the PulseAudio sound server.
   - common: file  # Command-line tool to determine the type of files based on content, not file extension.
   - common: tumbler  # Thumbnailer service for creating previews of files in the file manager.
+  - noble: firefox
+    jammy: firefox
+    debian: firefox-esr
+    kali: firefox-esr
+    alpine: firefox
+    sid: firefox-esr
+    rhel: firefox
 
   # ========================================
   # Graphics and Multimedia Packages
