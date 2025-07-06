@@ -2,3 +2,5 @@
 .venv
 .out
 .packages
+.home
+.idea

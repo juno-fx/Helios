@@ -13,6 +13,9 @@ on:
       - CONTRIBUTING.md
       - CODE_OF_CONDUCT.md
       - screenshot.png
+      - docs/**
+      - mkdocs.yml
+      - .idea/**
 
 jobs:
   build:

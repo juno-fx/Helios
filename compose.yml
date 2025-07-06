@@ -7,10 +7,13 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: helios
+    pre_stop:
+      - command: /etc/helios/shutdown.d/custom.sh
     volumes:
       - /dev/dri:/dev/dri
       - /dev/kfd:/dev/kfd  # for AMD GPU's
       - .out/:/mnt/
+      - .home:/home/
     environment:
       - USER=helios
       - UID=5040

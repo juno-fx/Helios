@@ -1,0 +1,141 @@
+/* =================================
+   LIGHT MODE TEXT COLOR FIXES
+   ================================= */
+
+/* Ensure main content text is dark in light mode */
+[data-md-color-scheme="default"] .md-content {
+  color: #242426 !important;
+}
+
+[data-md-color-scheme="default"] .md-typeset {
+  color: #242426 !important;
+}
+
+[data-md-color-scheme="default"] .md-typeset p,
+[data-md-color-scheme="default"] .md-typeset li,
+[data-md-color-scheme="default"] .md-typeset td,
+[data-md-color-scheme="default"] .md-typeset th {
+  color: #242426 !important;
+}
+
+/* Fix sidebar text in light mode */
+[data-md-color-scheme="default"] .md-sidebar {
+  color: #242426 !important;
+}
+
+[data-md-color-scheme="default"] .md-sidebar__scrollwrap {
+  color: #242426 !important;
+}
+
+[data-md-color-scheme="default"] .md-nav__item {
+  color: #242426 !important;
+}
+
+[data-md-color-scheme="default"] .md-nav__link {
+  color: #242426 !important;
+}
+
+[data-md-color-scheme="default"] .md-nav__link:hover {
+  color: #242426 !important;
+}
+
+/* Ensure headings are dark in light mode */
+[data-md-color-scheme="default"] h1,
+[data-md-color-scheme="default"] h2,
+[data-md-color-scheme="default"] h3,
+[data-md-color-scheme="default"] h4,
+[data-md-color-scheme="default"] h5,
+[data-md-color-scheme="default"] h6 {
+  color: #242426 !important;
+}
+
+/* Fix any elements that might have inherited white color */
+[data-md-color-scheme="default"] .md-main,
+[data-md-color-scheme="default"] .md-main * {
+  color: #242426;
+}
+
+/* Exceptions for elements that should stay light */
+[data-md-color-scheme="default"] .md-header *,
+[data-md-color-scheme="default"] .md-tabs *,
+[data-md-color-scheme="default"] .md-footer * {
+  color: #F2F2F3 !important;
+}
+
+/* Links should use accent color */
+[data-md-color-scheme="default"] .md-typeset a {
+  color: #2563eb !important;
+}
+
+/* =================================
+   CODE BLOCK FIXES
+   ================================= */
+
+/* Force code blocks to have white background in light mode */
+[data-md-color-scheme="default"] pre,
+[data-md-color-scheme="default"] code {
+  background-color: #ffffff !important;
+  color: #242426 !important;
+}
+
+[data-md-color-scheme="default"] .highlight,
+[data-md-color-scheme="default"] .codehilite {
+  background-color: #ffffff !important;
+}
+
+[data-md-color-scheme="default"] .highlight *:not(.highlight .c):not(.highlight .cm):not(.highlight .c1):not(.highlight .cs) {
+  color: #242426;
+}
+
+/* Terminal/console style code blocks */
+[data-md-color-scheme="default"] .language-bash .highlight,
+[data-md-color-scheme="default"] .language-console .highlight,
+[data-md-color-scheme="default"] .language-terminal .highlight {
+  background-color: #f5f5f5 !important;
+}
+
+[data-md-color-scheme="default"] .language-bash pre,
+[data-md-color-scheme="default"] .language-console pre,
+[data-md-color-scheme="default"] .language-terminal pre {
+  background-color: #f5f5f5 !important;
+}
+
+/* =================================
+   THEME-AWARE IMAGES - CLEAN FIX
+   ================================= */
+
+/* Remove all previous image display rules and replace with these */
+
+/* For span wrapper method - your current approach */
+.theme-aware-image img {
+  display: none !important;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Light mode: show only light images */
+body[data-md-color-scheme="default"] .theme-aware-image img.light-only {
+  display: inline-block !important;
+}
+
+/* Dark mode: show only dark images */
+body[data-md-color-scheme="slate"] .theme-aware-image img.dark-only {
+  display: inline-block !important;
+}
+
+/* For standalone theme icons (if you use them) */
+img.theme-icon-dark,
+img.theme-icon-light {
+  display: none !important;
+  max-width: 100%;
+  height: auto;
+}
+
+body[data-md-color-scheme="default"] img.theme-icon-light {
+  display: inline-block !important;
+}
+
+body[data-md-color-scheme="slate"] img.theme-icon-dark {
+  display: inline-block !important;
+}
+
