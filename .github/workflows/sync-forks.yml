@@ -1,0 +1,57 @@
+name: Sync Helios forks
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync-forks:
+    if: github.repository == 'juno-fx/Helios'
+    runs-on:
+      - X64
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@main
+        with:
+          fetch-depth: 0
+      - name: Generate a GH token
+        id: generate-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.JUNO_CI_APP_ID }}
+          private-key: ${{ secrets.JUNO_CI_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+      # useful references in the README on: https://github.com/actions/create-github-app-token 
+      - name: Get GitHub App User ID
+        id: get-user-id
+        run: echo "user-id=$(gh api "/users/${{ steps.app-token.outputs.app-slug }}[bot]" --jq .id)" >> "$GITHUB_OUTPUT"
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+
+      - name: Sync all Helios forks
+        shell: bash
+        env:
+          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+          TARGET_ORG: juno-fx
+          TARGET_REPOS: "helios-vfx helios-ai"
+        run: |
+          git config user.name '${{ steps.generate-token.outputs.app-slug }}[bot]'
+          git config user.email '${{ steps.get-user-id.outputs.user-id }}+${{ steps.app-token.outputs.app-slug }}[bot]@users.noreply.github.com'
+          # We must ditch all the cred details the checkout action fills in
+          # otherwise this conflicts with our basic auth passed in the remote and fails to push
+          git config --local credential.helper ""
+          git config --local --unset http.https://github.com/.extraheader || true
+          short_sha=$(git rev-parse --short HEAD)
+          for repo in $TARGET_REPOS; do
+            echo "Syncing $repo"
+            git remote remove ${repo} || true
+            git remote add ${repo} https://x-oauth-token:${GH_TOKEN}@github.com/${TARGET_ORG}/${repo}.git
+            git push ${repo} HEAD:sync-${short_sha}
+            gh pr create \
+              --repo ${TARGET_ORG}/${repo} \
+              --base main \
+              --head sync-${short_sha} \
+              --title "Sync with main - ${short_sha} - $(date -Is)" \
+              --body "This PR syncs the latest changes from the main Helios repo, as of ${short_sha}." \
+              --reviewer "juno-fx/desktop"
+          done
