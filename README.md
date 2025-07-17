@@ -95,7 +95,7 @@ Explore the supported Linux distributions with their versions, image sizes, and 
 
 #### [Debian Rolling (Trixie/Sid)](https://hub.docker.com/_/debian/tags?name=sid)
 
-- **Size:** 1.74 GB  
+- **Size:** 1.76 GB  
 - **X Server:** 21.1.4 (Custom)
 
 #### [Kali Linux (Rolling Release)](https://hub.docker.com/r/kalilinux/kali-rolling)
@@ -103,7 +103,7 @@ Explore the supported Linux distributions with their versions, image sizes, and 
 > [!TIP]  
 > No default Kali tools are installed in this image. Please refer to the [Kali Linux Docker Image documentation](https://www.kali.org/docs/containers/official-kalilinux-docker-images/) for installing them.
 
-- **Size:** 1.74 GB (Excludes Kali tools which increase image size)  
+- **Size:** 1.73 GB (Excludes Kali tools which increase image size)  
 - **X Server:** 21.1.4 (Custom)
 
 ---
@@ -129,7 +129,7 @@ Explore the supported Linux distributions with their versions, image sizes, and 
 > [!WARNING]  
 > WebRTC is currently **not supported** on Rocky Linux due to upstream Kasm limitations. This may change in the future.
 
-- **Size:** 1.87 GB  
+- **Size:** 1.88 GB  
 - **X Server:** 1.20.14 (Custom)
 
 #### [Alma Linux 9](https://hub.docker.com/_/almalinux/tags?name=9)
@@ -137,7 +137,7 @@ Explore the supported Linux distributions with their versions, image sizes, and 
 > [!WARNING]  
 > WebRTC is currently **not supported** on Alma Linux due to upstream Kasm limitations. This may change in the future.
 
-- **Size:** 1.61 GB  
+- **Size:** 1.62 GB  
 - **X Server:** 1.20.14 (Custom)
 
 ## 🏷️ Versioning

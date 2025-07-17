@@ -14,6 +14,8 @@ packages:
   # Common packages across all distributions
   # ====================================
   - common: curl
+  - common: nvtop
+  - common: htop
   - common: sassc
   - common: dbus-x11  # Provides D-Bus message bus system for communication between applications in a GUI environment.
   - common: xauth  # Handles authentication for X11 sessions, enabling secure access to the X server.
