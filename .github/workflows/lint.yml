@@ -1,0 +1,16 @@
+name: Lint
+on:
+  push:
+  repository_dispatch:
+    types: [orion_documentation_update]
+jobs:
+  lint:
+    name: Lint
+    runs-on: X64
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run the lint target
+        shell: bash
+        run: |
+          make lint

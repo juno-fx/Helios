@@ -12,3 +12,5 @@ mkdocs-gen-files>=0.5.0  # Comment out for Helios
 # Optional but recommended
 mkdocs-minify-plugin>=0.7.1  # Minify for production
 mike>=2.0.0  # Version management
+
+linkchecker==10.6.0
