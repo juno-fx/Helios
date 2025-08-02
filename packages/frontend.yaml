@@ -1,0 +1,8 @@
+packages:
+  # ====================================
+  # Used for the frontend build on Alpine
+  # ====================================
+  - frontend: cmake
+  - frontend: git
+  - frontend: nodejs
+  - frontend: npm

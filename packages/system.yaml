@@ -1,0 +1,62 @@
+packages:
+  # ===============================
+  # System Utilities and Libraries
+  # ===============================
+  - alpine: coreutils
+  - alpine: bash
+  - alpine: shadow
+  - debian: zlib1g  # Compression library used for various compression algorithms.
+    rhel: zlib   
+    alpine: zlib    
+  - debian: libdrm-dev  # Development library for interacting with Direct Rendering Manager (DRM).
+    rhel: libdrm   
+  - debian: libtasn1-6  # Library for parsing and generating ASN.1 (Abstract Syntax Notation One) encoded data.
+    rhel: libtasn1   
+  - debian: libpam0g  # Pluggable Authentication Modules (PAM) library for managing authentication.
+    rhel: pam   
+  - debian: libp11-kit0  # Library for handling PKCS#11 cryptographic tokens.
+    rhel: p11-kit   
+  - debian: libgomp1  # GNU Offloading and Multi Processing Library for parallel computing.
+    rhel: libgomp   
+    alpine: libgomp    
+  - debian: libgnutls30  # Library for Secure Socket Layer (SSL) and Transport Layer Security (TLS) protocols.
+    rhel: gnutls   
+  - debian: libgcrypt20  # Cryptographic library used for implementing secure encryption algorithms.
+    rhel: libgcrypt   
+  - debian: procps  # Set of utilities for monitoring system processes (e.g., ps, top).
+    rhel: procps-ng   
+  - debian: libstdc++6  # GNU Standard C++ Library for compiling C++ programs.
+    rhel: libstdc++   
+    alpine: libstdc++    
+  - debian: iproute2  # Networking utilities for configuring network interfaces, routes, and traffic.
+    rhel: iproute   
+    alpine: iproute2-minimal
+  - debian: ssl-cert  # Manages SSL certificates, typically for securing web servers.
+    rhel: ca-certificates   
+    alpine: ca-certificates    
+  - debian: pciutils  # Utilities for inspecting PCI devices in the system.
+    rhel: pciutils   
+    alpine: pciutils-libs    
+  - debian: perl  # High-level programming language for text processing and automation.
+    rhel: perl   
+    alpine: perl    
+  - debian: libyaml-tiny-perl  # Perl library for handling YAML (YAML Ain't Markup Language) data.
+    rhel: perl-YAML-Tiny   
+    alpine: perl-yaml-tiny
+  - debian: libtry-tiny-perl  # Perl library for exception handling and error recovery.
+    rhel: perl-Try-Tiny   
+    alpine: perl-try-tiny
+  - debian: libswitch-perl  # Perl library for providing switch-like functionality.
+    rhel: perl-Switch   
+    alpine: perl-switch
+  - debian: libscalar-list-utils-perl  # Perl module for scalar and list manipulation.
+    rhel: perl-Scalar-List-Utils   
+  - debian: liblist-moreutils-perl  # Perl module for advanced list manipulation functions.
+    rhel: perl-List-MoreUtils   
+    alpine: perl-list-moreutils
+  - debian: libhash-merge-simple-perl  # Perl module for merging hashes efficiently.
+    rhel: perl-Hash-Merge-Simple   
+    alpine: perl-hash-merge-simple
+  - debian: libdatetime-perl  # Perl module for working with date and time.
+    rhel: perl-DateTime   
+    alpine: perl-datetime

@@ -1,0 +1,42 @@
+packages:
+  # ====================================
+  # Common packages across all distributions
+  # ====================================
+  - common: curl
+  - common: nvtop
+  - common: htop
+  - common: sassc
+  - common: dbus-x11  # Provides D-Bus message bus system for communication between applications in a GUI environment.
+  - common: xauth  # Handles authentication for X11 sessions, enabling secure access to the X server.
+  - common: unzip  # Tool for extracting compressed .zip archive files.
+  - common: wget  # Command-line tool for downloading files from the web.
+  - common: ca-certificates  # Stores trusted CA (Certificate Authority) certificates for SSL/TLS verification.
+  - common: fuse-overlayfs  # Implements the OverlayFS filesystem on top of FUSE for containerized file systems.
+  - common: util-linux  # Provides essential utilities for system administration, such as fdisk, mount, etc.
+  - common: nginx  # High-performance web server and reverse proxy server.
+  - common: nodejs  # JavaScript runtime built on Chrome's V8 JavaScript engine, often used for web development.
+  - common: openssl  # Toolkit for Secure Sockets Layer (SSL) and Transport Layer Security (TLS) protocols.
+  - common: python3  # Python programming language (version 3), used for scripting and automation tasks.
+  - common: python3-pip  # Python programming language (version 3), used for scripting and automation tasks.
+  - common: python3-dev  # Python programming language (version 3), used for scripting and automation tasks.
+  - common: ffmpeg  # A tool for handling video, audio, and other multimedia files and streams.
+  - common: tar  # Utility to create, extract, and manipulate .tar archive files.
+  - common: git  # Distributed version control system for tracking changes in source code.
+  - common: vim  # Text editor, an improved version of vi, used for programming and system administration.
+  - common: xfce4-terminal  # Terminal emulator for the XFCE desktop environment.
+  - common: xfconf  # Configuration management library for XFCE, handling user preferences and settings.
+  - common: xfwm4  # Window manager for the XFCE desktop environment.
+  - common: xfce4-panel  # Panel for the XFCE desktop environment, providing access to applications and system status.
+  - common: xfce4-session  # XFCE session manager, responsible for managing user sessions.
+  - common: xfce4-settings  # Provides graphical tools for configuring the XFCE desktop environment.
+  - common: xfce4-whiskermenu-plugin  # A Whisker menu plugin for the XFCE panel, offering a modern application launcher.
+  - common: xfce4-notifyd  # Notification daemon for XFCE, displaying system notifications.
+  - common: pulseaudio  # Sound server for Linux, managing audio playback and recording.
+  - common: pulseaudio-utils  # Utility tools for interacting with the PulseAudio sound server.
+  - common: file  # Command-line tool to determine the type of files based on content, not file extension.
+  - common: tumbler  # Thumbnailer service for creating previews of files in the file manager.
+  - common: gcc
+  - common: cmake
+  - common: make
+  - common: xvfb
+  - common: xsel
