@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 mkdir -p /var/log/audio/
 echo "Starting Pulse"
 exec s6-setuidgid "${USER}" \

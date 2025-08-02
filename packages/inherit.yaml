@@ -1,0 +1,12 @@
+inherit:
+  frontend:
+    - frontend
+  ubuntu:
+    - common
+    - debian
+  alpine:
+    - common
+  debian:
+    - common
+  rhel:
+    - common

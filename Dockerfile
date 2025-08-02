@@ -1,30 +1,13 @@
-# heavily refernces https://github.com/linuxserver/docker-baseimage-kasmvnc/blob/master/Dockerfile
 ARG IMAGE=ubuntu:jammy
 ARG SRC=jammy
-ARG RHEL=false
 
 FROM ${IMAGE} AS distro
 
-# https://github.com/kasmtech/KasmVNC/tree/release/1.3.4
-ENV KASMVNC_COMMIT="1.3.4"
-ENV KASMBINS_RELEASE="1.15.0"
 ENV HELIOS_VERSION="0.0.0"
+ENV HELIOS_XVFB_PATCH=21
+ENV SRC=${SRC}
 
-# generate install lists
-FROM python:alpine AS lists
 
-WORKDIR /work
-
-COPY hack/packages.py ./
-COPY packages.yaml ./
-
-RUN pip install pyyaml --break-system-packages \
-    && python3 /work/packages.py /work/packages.yaml /work/lists/
-
-# generate the snake oil certificate
-FROM ubuntu AS certs
-
-RUN apt update && apt install -y ssl-cert
 
 # s6 init system
 FROM alpine AS s6
@@ -47,60 +30,63 @@ ADD https://github.com/just-containers/s6-overlay/releases/download/${S6_VERSION
 RUN tar -C /s6 -Jxpf /tmp/s6-overlay-symlinks-arch.tar.xz
 
 
-FROM node:20 AS novnc
 
-ARG RHEL
+# generate install lists
+FROM python:alpine AS lists
 
-# https://github.com/kasmtech/noVNC/tree/bed156c565f7646434563d2deddd3a6c945b7727
-ENV KASMWEB_COMMIT="bed156c565f7646434563d2deddd3a6c945b7727"
-ENV QT_QPA_PLATFORM=offscreen
-ENV QT_QPA_FONTDIR=/usr/share/fonts
+WORKDIR /work
 
-# Build kasm noVNC client base
-COPY --chmod=777 common/build/novnc.sh /
-COPY --chmod=777 common/build/novnc-*.patch /
-COPY common/root/usr/share/backgrounds/background.jpg /
-RUN /novnc.sh
+COPY hack/packages.py ./
+COPY packages packages
+
+RUN pip install pyyaml --break-system-packages \
+    && python3 /work/packages.py /work/packages/ /work/lists/
 
 
-# kasm build environment
-FROM distro AS kasm-build
+
+# xvfb build stage
+# reference: https://github.com/linuxserver/docker-xvfb/blob/debianbookworm/Dockerfile
+FROM distro AS xvfb
 
 # pull in args for the tag
 ARG SRC
 
-# setup build environment
-WORKDIR /build
-
-# copying individually as to allow for change caching
-# running individually as to keep the cache in case of failure and for debugging
-COPY --chmod=777 ${SRC}/build/kasm.sh /build/
-RUN ./kasm.sh
-COPY --chmod=777 common/build/turbo.sh /build/
-RUN ./turbo.sh
-COPY --chmod=777 common/build/kasm.sh /build/
-RUN ./kasm.sh
-COPY --chmod=777 ${SRC}/build/xorg.sh /build/
-RUN ./xorg.sh
-COPY --chmod=777 ${SRC}/build/kclient.sh /build/
-RUN ./kclient.sh
-COPY --chmod=777 common/build/kclient.sh /build/
-COPY --chmod=777 common/build/kclient-*.patch /build/
-RUN ./kclient.sh
-
-# copy over the built noVNC client
-COPY --from=novnc /build-out /www
-
-# package up the server for distribution
-COPY --chmod=777 common/build/package.sh /build/
-RUN ./package.sh
-
-# copy over build version information
-COPY --from=novnc /tmp/kasmweb.version /build-out/opt/helios/kasmweb.version
+# build xvfb
+COPY patches/${HELIOS_XVFB_PATCH}-xvfb-dri3.patch /tmp/
+COPY --chmod=777 ${SRC}/build/xvfb.sh /tmp/
+RUN /tmp/xvfb.sh
 
 
-# base image
+
+# build selkies frontend
+FROM alpine AS selkies-frontend
+
+ENV SELKIES_VERSION="d4b2c32b65c58329e14d580784d4cbb98cb44564"
+
+# grab package lists
+COPY --from=lists /work/lists/ /tmp/lists/
+
+# build our frontend image
+COPY --chmod=777 common/build/frontend.sh /tmp/frontend.sh
+RUN apk add bash && /tmp/frontend.sh
+
+
+
 FROM distro AS base-image
+
+# version of selkies to clone
+ENV SELKIES_VERSION="d4b2c32b65c58329e14d580784d4cbb98cb44564"
+
+# environment variables
+ENV PREFIX=/
+ENV HTTP_PORT=3000
+ENV DISPLAY=:1
+ENV PERL5LIB=/usr/local/bin
+ENV PULSE_RUNTIME_PATH=/opt/helios/
+ENV NVIDIA_DRIVER_CAPABILITIES=all
+ENV IDLE_TIME=30
+ENV SELKIES_INTERPOSER=/usr/lib/selkies_joystick_interposer.so
+ENV DISABLE_ZINK=false
 
 # pull in args for the tag
 ARG SRC
@@ -114,18 +100,18 @@ RUN /tmp/system.sh
 COPY --chmod=777 common/build/system.sh /tmp/
 RUN /tmp/system.sh
 
+# install selkies backend
+COPY --chmod=777 common/build/backend.sh /tmp/
+RUN /tmp/backend.sh
+
 # install init system
 COPY --from=s6 /s6 /
-COPY --from=kasm-build /build-out/ /
 
-# environment variables
-ENV PREFIX=/
-ENV HTTP_PORT=3000
-ENV DISPLAY=:1
-ENV PERL5LIB=/usr/local/bin
-ENV PULSE_RUNTIME_PATH=/opt/helios/
-ENV NVIDIA_DRIVER_CAPABILITIES=all
-ENV IDLE_TIME=30
+# install custom xvfb (if needed)
+COPY --from=xvfb /build-out/ /
+
+# install selkies frontend
+COPY --from=selkies-frontend /build-out/ /usr/share/selkies/www/
 
 # copy in general custom rootfs changes
 COPY common/root/ /
@@ -135,10 +121,6 @@ COPY ${SRC}/root/ /
 
 # set permissions
 RUN chmod -R 7777 /etc/s6-overlay/s6-rc.d/
-
-# this is to ensure that the snake oil certificate is available for Kasm
-COPY --from=certs /etc/ssl/certs/ssl-cert-snakeoil.pem /etc/ssl/certs/ssl-cert-snakeoil.pem
-COPY --from=certs /etc/ssl/private/ssl-cert-snakeoil.key /etc/ssl/private/ssl-cert-snakeoil.key
 
 # add license file
 COPY LICENSE /LICENSE

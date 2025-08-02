@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+# Enable DRI3 support if detected
+VFBCOMMAND=""
+if ! which nvidia-smi && [ -e "/dev/dri/renderD128" ]; then
+  VFBCOMMAND="-vfbdevice /dev/dri/renderD128"
+fi
+if [ ! -z ${DRINODE+x} ]; then
+  VFBCOMMAND="-vfbdevice ${DRINODE}"
+fi
+DEFAULT_RES="7680x4320"
+if [ ! -z ${MAX_RES+x} ]; then
+  DEFAULT_RES="${MAX_RES}"
+fi
+
+echo "Starting Xvfb..."
+
+# Run Xvfb server with required extensions
+exec s6-setuidgid "${USER}" \
+  /usr/bin/Xvfb \
+    "${DISPLAY}" \
+    -screen 0 "${DEFAULT_RES}x${DISPLAY_CDEPTH}" \
+    -dpi "${DISPLAY_DPI}" \
+    +extension "COMPOSITE" \
+    +extension "DAMAGE" \
+    +extension "GLX" \
+    +extension "RANDR" \
+    +extension "RENDER" \
+    +extension "MIT-SHM" \
+    +extension "XFIXES" \
+    +extension "XTEST" \
+    +iglx \
+    +render \
+    -nolisten "tcp" \
+    -ac \
+    -noreset \
+    -shmem \
+    ${VFBCOMMAND} &
+
+sleep 0.25

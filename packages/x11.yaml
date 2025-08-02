@@ -1,0 +1,39 @@
+packages:
+  # ====================================
+  # X11 and Display Server Packages
+  # ====================================
+  - debian: python3-evdev
+    rhel: python3-libevdev
+    alpine: py3-evdev
+  - alpine: xkbcomp
+  - debian: x11-apps  # Provides a set of basic X11 utilities for interacting with the X Window System.
+  - debian: x11-common  # Core utilities and files for the X11 window system.
+  - debian: x11-utils  # X11 utilities for interacting with the X server and managing windows.
+    rhel: xorg-x11-utils   
+  - debian: x11-xkb-utils  # Tools for configuring X11's keyboard layout and input methods.
+    rhel: xkeyboard-config   
+    alpine: xkeyboard-config    
+  - debian: x11-xserver-utils  # Utility tools for managing X11 display servers.
+    rhel: xorg-x11-server-utils   
+  - debian: xdg-utils  # Set of scripts for integrating with desktop environments and the X11 system.
+    rhel: xdg-utils   
+    alpine: xdg-utils    
+  - debian: xfonts-base  # Base set of X11 fonts, used for text rendering in the X server.
+  - debian: xserver-common  # Common files and configuration for the X11 server.
+    rhel: xorg-x11-server-common   
+  - debian: xserver-xorg-core  # Core server for the X Window System, handling the graphical display.
+    rhel: xorg-x11-server-Xorg   
+  - debian: xserver-xorg-video-amdgpu  # X11 video driver for AMD graphics cards.
+    alpine: xf86-video-amdgpu    
+  - debian: xserver-xorg-video-ati  # X11 video driver for ATI graphics cards.
+    alpine: xf86-video-ati    
+  - debian: xserver-xorg-video-intel  # X11 video driver for Intel graphics cards.
+    alpine: xf86-video-intel    
+  - debian: xserver-xorg-video-qxl  # X11 video driver for the QEMU virtual display.
+    alpine: xf86-video-qxl    
+  - debian: xutils  # A collection of X11 utilities for interacting with the X server.
+    rhel: xorg-x11-utils   
+  - debian: libx11-6  # Core X11 library for interacting with the X Window System.
+    rhel: libX11   
+  - debian: xssstate  # Utility for managing X11 screen saver states (used in graphical sessions).
+    rhel: https://kojipkgs.fedoraproject.org//vol/fedora_koji_archive06/packages/xssstate/1.1/18.fc35/x86_64/xssstate-1.1-18.fc35.x86_64.rpm  
