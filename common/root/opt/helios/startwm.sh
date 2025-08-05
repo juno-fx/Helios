@@ -7,8 +7,11 @@ if which nvidia-smi && [ "${DISABLE_ZINK}" == "false" ]; then
   export GALLIUM_DRIVER=zink
 fi
 
+# set keyboard
+setxkbmap us
+
 if [ -x /usr/bin/xfce4-session ]; then
-	/usr/bin/xfce4-session 2>&1
+	exec dbus-launch --exit-with-session /usr/bin/xfce4-session 2>&1
 else
 	echo "Desktop Environment not found."
 	exit 1

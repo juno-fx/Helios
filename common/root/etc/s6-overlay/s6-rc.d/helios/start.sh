@@ -10,5 +10,5 @@ touch /tmp/.healthz
 
 # Show KasmVNC Logs
 tail \
-	-f $HOME/.vnc/*${DISPLAY}.log \
+	-f /var/log/helios/*.log \
 	-f /var/log/nginx/*.log

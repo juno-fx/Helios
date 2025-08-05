@@ -6,6 +6,10 @@ packages:
     rhel: python3-libevdev
     alpine: py3-evdev
   - alpine: xkbcomp
+  - debian: locales
+  - debian: xkb-data
+    rhel: xkeyboard-config
+    alpine: xkeyboard-config
   - debian: x11-apps  # Provides a set of basic X11 utilities for interacting with the X Window System.
   - debian: x11-common  # Core utilities and files for the X11 window system.
   - debian: x11-utils  # X11 utilities for interacting with the X server and managing windows.
