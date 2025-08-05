@@ -6,11 +6,11 @@ echo "Starting Selkies Service..."
 
 # Default sink setup
 #if [ ! -f '/dev/shm/audio.lock' ]; then
-#  s6-setuidgid "${USER}" with-contenv pactl \
+#  s6-setuidgid "${USER}" pactl \
 #    load-module module-null-sink \
 #    sink_name="output" \
 #    sink_properties=device.description="output"
-#  s6-setuidgid "${USER}" with-contenv pactl \
+#  s6-setuidgid "${USER}" pactl \
 #    load-module module-null-sink \
 #    sink_name="input" \
 #    sink_properties=device.description="input"
@@ -25,6 +25,4 @@ exec s6-setuidgid "${USER}" \
     --addr="localhost" \
     --port="8081" \
     --enable_basic_auth="false" \
-    --mode="websockets" &
-
-echo "Selkies Ready..."
+    --mode="websockets" > /var/log/helios/selkies.log

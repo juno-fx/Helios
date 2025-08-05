@@ -1,5 +1,22 @@
 #!/usr/bin/env bash
 
+# handle a restart if needed
+XVFB_PIDS=$(pgrep Xvfb)
+if [ -n "$XVFB_PIDS" ]; then
+    echo "Xvfb is running with PID(s): $XVFB_PIDS"
+    echo "Stopping Xvfb..."
+    kill $XVFB_PIDS
+
+    # Optional: Wait a bit and ensure they are killed
+    sleep 1
+    if pgrep Xvfb > /dev/null; then
+        echo "Xvfb still running. Forcing termination..."
+        pkill -9 Xvfb
+    else
+        echo "Xvfb stopped successfully."
+    fi
+fi
+
 # Enable DRI3 support if detected
 VFBCOMMAND=""
 if ! which nvidia-smi && [ -e "/dev/dri/renderD128" ]; then
@@ -35,6 +52,4 @@ exec s6-setuidgid "${USER}" \
     -ac \
     -noreset \
     -shmem \
-    ${VFBCOMMAND} &
-
-sleep 0.25
+    ${VFBCOMMAND} > /var/log/helios/xvfb.log

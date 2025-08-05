@@ -57,11 +57,6 @@ else
 	echo "$USER:$PASSWORD" | chpasswd
 fi
 
-SSL_GID=$(stat -c '%g' "/etc/ssl/private")
-usermod -aG "$SSL_GID" "$USER"
-SNAKE_GID=$(stat -c '%g' "/etc/ssl/private/ssl-cert-snakeoil.key")
-usermod -aG "$SNAKE_GID" "$USER"
-
 # setup permissions
 mkdir -p /var/run/pulse
 chown -R "$UID:root" /var/run/pulse
