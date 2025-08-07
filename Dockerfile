@@ -45,7 +45,6 @@ RUN pip install pyyaml --break-system-packages \
 
 
 # xvfb build stage
-# reference: https://github.com/linuxserver/docker-xvfb/blob/debianbookworm/Dockerfile
 FROM distro AS xvfb
 
 # pull in args for the tag
@@ -53,7 +52,8 @@ ARG SRC
 
 # build xvfb
 COPY patches/* /tmp/
-COPY --chmod=777 ${SRC}/build/xvfb.sh /tmp/
+COPY --chmod=777 ${SRC}/build/xvfb-dependencies.sh /tmp/
+COPY --chmod=777 common/build/xvfb.sh /tmp/
 RUN /tmp/xvfb.sh
 
 
@@ -101,7 +101,7 @@ COPY --chmod=777 common/build/system.sh /tmp/
 RUN /tmp/system.sh
 
 # install selkies
-COPY --chmod=777 ${SRC}/build/selkies.sh /tmp/
+COPY --chmod=777 common/build/selkies/*.sh /tmp/
 RUN /tmp/selkies.sh
 
 # clean up package lists
