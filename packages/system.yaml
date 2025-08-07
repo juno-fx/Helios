@@ -1,21 +1,122 @@
 packages:
+  # ====================================
+  # Common packages across all distributions
+  # ====================================
+
+  # Command-line tool for transferring data with URLs (supports HTTP, FTP, etc.).
+  - common: curl
+
+  # NVIDIA GPU monitoring tool providing real-time usage metrics and temperature.
+  - common: nvtop
+
+  # Interactive process viewer and system monitor, similar to 'top' but with a better interface.
+  - common: htop
+
+  # A fast, C implementation of the Sass CSS preprocessor, used for frontend stylesheets.
+  - common: sassc
+
+  # Command-line utility to extract files from .zip archives.
+  - common: unzip
+
+  # Command-line utility for downloading files from the internet via HTTP, HTTPS, FTP, etc.
+  - common: wget
+
+  # Collection of CA certificates trusted by SSL/TLS clients to verify secure connections.
+  - common: ca-certificates
+
+  # FUSE-based OverlayFS implementation, commonly used for container filesystem layering.
+  - common: fuse-overlayfs
+
+  # A set of essential low-level system utilities, including disk partitioning, mounting, and system info.
+  - common: util-linux
+
+  # High-performance HTTP and reverse proxy web server, often used in production environments.
+  - common: nginx
+
+  # Toolkit implementing SSL and TLS protocols for secure communications.
+  - common: openssl
+
+  # Python 3 interpreter for running Python scripts and applications.
+  - common: python3
+
+  # Utility to create, manipulate, and extract tar archive files.
+  - common: tar
+
+  # Distributed version control system for source code management.
+  - common: git
+
+  # Powerful text editor with extensive features, widely used for coding and administration.
+  - common: vim
+
+  # Terminal emulator designed for the XFCE desktop environment.
+  - common: xfce4-terminal
+
+  # Configuration backend library for XFCE, managing desktop environment settings.
+  - common: xfconf
+
+  # Window manager for the XFCE desktop, responsible for window placement and decorations.
+  - common: xfwm4
+
+  # Panel component for XFCE, providing taskbars, launchers, and system trays.
+  - common: xfce4-panel
+
+  # Session manager for XFCE, handling startup and shutdown of user sessions.
+  - common: xfce4-session
+
+  # Provides GUI tools to configure XFCE desktop environment settings.
+  - common: xfce4-settings
+
+  # Plugin for XFCE panel offering a modern and customizable application menu.
+  - common: xfce4-whiskermenu-plugin
+
+  # Notification daemon for XFCE, responsible for displaying popup notifications.
+  - common: xfce4-notifyd
+
+  # Sound server that manages audio input/output on Linux systems.
+  - common: pulseaudio
+
+  # Command-line utilities to interact with the PulseAudio sound server.
+  - common: pulseaudio-utils
+
+  # Tool to determine file types based on file content rather than extension.
+  - common: file
+
+  # Thumbnail generation service used by XFCE file manager and others to show previews.
+  - common: tumbler
+
+  # Provides the 'notify-send' tool to trigger desktop notifications via libnotify.
+  - debian: libnotify-bin
+    rhel: libnotify
+
+  # XFCE desktop environment – lightweight, fast, and suitable for remote/virtual desktops.
+  - debian: xfce4
+
+  # Thunar file manager – the default file manager in XFCE; lightweight and user-friendly.
+  - debian: thunar
+    rhel: Thunar
+
+  # Icon theme used in Xubuntu, provides consistent and modern icon visuals for XFCE desktops on Ubuntu.
+  - ubuntu: xubuntu-icon-theme
+
+  # Theme package for XFWM4, the window manager used in XFCE on RHEL.
+  - rhel: xfwm4-themes
+
+  # XFCE desktop component responsible for drawing and managing the desktop background and icons on RHEL.
+  - rhel: xfdesktop
+
+  # Common files for Tumbler, a D-Bus service that generates thumbnails for file previews in Thunar and other apps.
+  - debian: tumbler-common
+
+  # Extra plugins for Tumbler to support additional file types (e.g., PDFs, videos, RAW images) in thumbnail previews.
+  - debian: tumbler-plugins-extra
+
   # ===============================
   # System Utilities and Libraries
   # ===============================
 
-  # Basic file, shell, and text manipulation utilities (e.g., ls, cp, mv, rm) – essential for shell environments.
-  - alpine: coreutils
-
-  # GNU Bash shell, widely used as the default shell in many Linux distributions.
-  - alpine: bash
-
-  # Provides user account utilities such as useradd, passwd, login – essential for managing users and authentication.
-  - alpine: shadow
-
   # Compression library required by many applications for reading/writing compressed data (e.g., gzip/zlib formats).
   - debian: zlib1g
     rhel: zlib
-    alpine: zlib
 
   # Development files for the Direct Rendering Manager (DRM), used in low-level graphics driver programming.
   - debian: libdrm-dev
@@ -33,9 +134,98 @@ packages:
   - debian: procps
     rhel: procps-ng
 
-  # Development files for the GNU C Library, essential for compiling C/C++ programs that use standard library functions.
-  - alpine: py3-setuptools
+  # ====================================
+  # X11 and Display Server Packages
+  # ====================================
 
-  - alpine: xrandr
-  - alpine: x264-libs
-  - alpine: xrdb
+  # Provides D-Bus message bus system integration for X11, allowing communication between desktop applications.
+  - common: dbus-x11
+
+  # Manages authentication cookies for X11 sessions, enabling secure access to the X server.
+  - common: xauth
+
+  # Command-line utility to access and manipulate the X11 clipboard and selection buffers.
+  - common: xsel
+
+  - debian: xvfb
+    rhel: xorg-x11-server-Xvfb
+
+  # XKB (X Keyboard Extension) library, used for handling keyboard input via X11.
+  - debian: libxkbcommon-x11-0
+
+  # XKB keyboard map compiler, required for defining custom keyboard layouts on Alpine.
+  - alpine: xkbcomp
+
+  # Provides locale definitions for language and regional settings, often required by GUI apps.
+  - debian: locales
+
+  # Keyboard data files for X11, used to define keymaps and layouts.
+  - debian: xkb-data
+    rhel: xkeyboard-config
+
+  # Provides a set of basic X11 utilities for interacting with the X Window System (e.g., xclock, xeyes).
+  - debian: x11-apps
+
+  # Core configuration files and scripts for the X11 window system.
+  - debian: x11-common
+
+  # Utilities for interacting with X11 servers, such as xprop, xdpyinfo, and xwininfo.
+  - debian: x11-utils
+    rhel: xorg-x11-utils
+
+  # Tools for managing X11 keyboard layout and keymap configuration (e.g., setxkbmap).
+  - debian: x11-xkb-utils
+    rhel: xkeyboard-config
+
+  # Utility programs for managing and debugging X11 display servers.
+  - debian: x11-xserver-utils
+    rhel: xorg-x11-server-utils
+
+  # Set of tools for desktop integration in X11 environments (e.g., xdg-open, xdg-mime).
+  - debian: xdg-utils
+    rhel: xdg-utils
+
+  # Base font package for X11, providing default bitmap fonts used by X applications.
+  - debian: xfonts-base
+
+  # Common files used by all X server packages; includes config files and server rules.
+  - debian: xserver-common
+    rhel: xorg-x11-server-common
+
+  # The core X server binary responsible for rendering the graphical interface.
+  - debian: xserver-xorg-core
+    rhel: xorg-x11-server-Xorg
+
+  # Video driver for AMD GPUs in X11 environments.
+  - debian: xserver-xorg-video-amdgpu
+
+  # Video driver for ATI (Radeon) graphics cards in X11.
+  - debian: xserver-xorg-video-ati
+
+  # Intel video driver for use with X11.
+  - debian: xserver-xorg-video-intel
+
+  # Video driver for QEMU virtual displays using the QXL protocol.
+  - debian: xserver-xorg-video-qxl
+
+  # A collection of X11 utilities, often overlaps with x11-utils but includes additional tools.
+  - debian: xutils
+    rhel: xorg-x11-utils
+
+  # Core X11 client library for interacting with X servers.
+  - debian: libx11-6
+    rhel: libX11
+
+  # Utility to check and manage X11 screen saver states, useful in minimal or kiosk setups.
+  - debian: xssstate
+    rhel: https://kojipkgs.fedoraproject.org//vol/fedora_koji_archive06/packages/xssstate/1.1/18.fc35/x86_64/xssstate-1.1-18.fc35.x86_64.rpm
+
+  # ================================
+  # Virtualization and Remote Access
+  # ================================
+
+  # Software for redirecting 3D OpenGL rendering from a server to a client, enabling hardware-accelerated remote desktop sessions.
+  # Commonly used in VNC or other remote desktop setups to allow GPU-accelerated applications to run in virtualized environments.
+  - debian: virtualgl
+    rhel: VirtualGL
+    alpine: virtualgl
