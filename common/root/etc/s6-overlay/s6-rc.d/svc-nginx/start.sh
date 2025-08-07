@@ -6,8 +6,6 @@ set -e
 NGINX_CONFIG=/etc/nginx/sites-available/default
 
 # user passed env vars
-CPORT="${CUSTOM_PORT:-3000}"
-CHPORT="${CUSTOM_HTTPS_PORT:-3001}"
 SFOLDER="${PREFIX:-/}"
 
 if [ -z "$UID" ]; then
@@ -32,14 +30,11 @@ if [ ! -f "/opt/helios/ssl/cert.pem" ]; then
 fi
 
 # modify nginx config
+mkdir -p /etc/nginx/sites-available/
 cp /opt/helios/nginx.conf ${NGINX_CONFIG}
-sed -i "s/3000/$CPORT/g" ${NGINX_CONFIG}
-sed -i "s/3001/$CHPORT/g" ${NGINX_CONFIG}
 sed -i "s|SUBFOLDER|$SFOLDER|g" ${NGINX_CONFIG}
-sed -i "s|REPLACE_HOME|$HOME|g" ${NGINX_CONFIG}
 if [ ! -z ${DISABLE_IPV6+x} ]; then
   sed -i '/listen \[::\]/d' ${NGINX_CONFIG}
 fi
 
-
-/usr/sbin/nginx -c /etc/nginx/sites-available/default
+/usr/sbin/nginx -c ${NGINX_CONFIG}

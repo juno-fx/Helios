@@ -1,4 +1,10 @@
 inherit:
+  selkies-alpine:
+    - selkies
+    - selkies-alpine
+  selkies:
+    - selkies
+    - selkies-non-alpine
   frontend:
     - frontend
   ubuntu:

@@ -21,7 +21,7 @@ curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
 apt update
 
 apt install --no-install-recommends -y \
-	$(cat /tmp/lists/ubuntu.list) \
+	$(cat /lists/ubuntu.list) \
 	neofetch
 
 # ubuntu icon hack

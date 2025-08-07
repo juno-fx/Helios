@@ -7,7 +7,7 @@ set -e
 mkdir -p /build-out
 
 # build dependencies
-apk add $(cat /tmp/lists/frontend.list) \
+apk add $(cat /lists/frontend.list) \
 
 # install selkies front end
 git clone https://github.com/selkies-project/selkies.git /src

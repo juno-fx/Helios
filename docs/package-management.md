@@ -60,10 +60,10 @@ A preprocessing step flattens the data into a list of distro-specific packages, 
 Each distro’s final list is saved as:
 
 ```
-/tmp/lists/<distro>.list
+/lists/<distro>.list
 ```
 
-For example, `/tmp/lists/ubuntu.list` will include packages from:
+For example, `/lists/ubuntu.list` will include packages from:
 - The `common` group
 - The `debian` group
 - Any Ubuntu-specific entries (if present)
@@ -76,7 +76,7 @@ These generated lists are used directly in the image build process. Example from
 
 ```bash
 dnf install -y --allowerasing --setopt=install_weak_deps=False --best \
-  $(cat /tmp/lists/rhel.list) \
+  $(cat /lists/rhel.list) \
   fastfetch
 ```
 
