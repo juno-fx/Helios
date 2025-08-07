@@ -75,15 +75,6 @@ We maintain the latest versions of Kasm components to ensure access to the newes
 
 Explore the supported Linux distributions with their versions, image sizes, and X Server details.
 
----
-
-### Alpine
-
-#### [Alpine 3](https://hub.docker.com/_/alpine/tags?name=3)
-
-- **Size:** 1.15 GB
-
----
 
 ### Debian Family
 
@@ -141,7 +132,6 @@ Helios uses its own versioning scheme independent of the underlying distro versi
 | Helios Version    | Distro               |
 |-------------------|----------------------|
 | `v0.0.0-bookworm` | Debian 12 (Bookworm) |
-| `v0.0.0-alpine-3` | Alpine (3)           |
 | `v0.0.0-noble`    | Ubuntu 24.04         |
 | `v0.0.0-jammy`    | Ubuntu 22.04         |
 | `v0.0.0-kali`     | Kali Linux           |
@@ -156,7 +146,6 @@ Helios uses its own versioning scheme independent of the underlying distro versi
 
   Examples:
   - `unstable-bookworm` (Debian 12)
-  - `unstable-alpine-3` (Alpine 3)
   - `unstable-noble` (Ubuntu 24.04)
   - `unstable-jammy` (Ubuntu 22.04)
   - `unstable-kali` (Kali Linux)
@@ -168,7 +157,6 @@ Helios uses its own versioning scheme independent of the underlying distro versi
   Examples:
   - `testing-noble` (Ubuntu 24.04)
   - `testing-bookworm` (Debian 12)
-  - `testing-alpine-3` (Alpine 3)
   - `testing-jammy` (Ubuntu 22.04)
   - `testing-kali` (Kali Linux)
   - `testing-rocky-9` (Rocky Linux)
