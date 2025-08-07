@@ -19,8 +19,5 @@ mv -v otf/static/* /usr/share/fonts/cascadia-code/
 rm -rfv /tmp/*
 fc-cache -f -v
 
-# set keyboard
-locale-gen en_US.UTF-8
-
 # thunar fix
 mv /usr/bin/thunar /usr/bin/thunar-real

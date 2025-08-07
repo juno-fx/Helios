@@ -81,8 +81,7 @@ Explore the supported Linux distributions with their versions, image sizes, and 
 
 #### [Alpine 3](https://hub.docker.com/_/alpine/tags?name=3)
 
-- **Size:** 1.17 GB  
-- **X Server:** 1.20.14 (Custom)
+- **Size:** 1.15 GB
 
 ---
 
@@ -90,21 +89,18 @@ Explore the supported Linux distributions with their versions, image sizes, and 
 
 #### [Debian 12 (Bookworm)](https://hub.docker.com/_/debian/tags?name=bookworm)
 
-- **Size:** 1.68 GB  
-- **X Server:** 21.1.4 (Custom)
+- **Size:** 1.54 GB  
 
 #### [Debian Rolling (Trixie/Sid)](https://hub.docker.com/_/debian/tags?name=sid)
 
-- **Size:** 1.76 GB  
-- **X Server:** 21.1.4 (Custom)
+- **Size:** 1.65 GB  
 
 #### [Kali Linux (Rolling Release)](https://hub.docker.com/r/kalilinux/kali-rolling)
 
 > [!TIP]  
 > No default Kali tools are installed in this image. Please refer to the [Kali Linux Docker Image documentation](https://www.kali.org/docs/containers/official-kalilinux-docker-images/) for installing them.
 
-- **Size:** 1.73 GB (Excludes Kali tools which increase image size)  
-- **X Server:** 21.1.4 (Custom)
+- **Size:** 1.62 GB (Excludes Kali tools which increase image size) 
 
 ---
 
@@ -112,13 +108,11 @@ Explore the supported Linux distributions with their versions, image sizes, and 
 
 #### [Ubuntu 24.04 (Noble)](https://hub.docker.com/_/ubuntu/tags?name=noble)
 
-- **Size:** 1.45 GB  
-- **X Server:** 21.1.4 (Custom)
+- **Size:** 1.4 GB 
 
 #### [Ubuntu 22.04 (Jammy)](https://hub.docker.com/_/ubuntu/tags?name=jammy)
 
-- **Size:** 1.4 GB  
-- **X Server:** 21.1.4 (Custom)
+- **Size:** 1.29 GB
 
 ---
 
@@ -129,16 +123,14 @@ Explore the supported Linux distributions with their versions, image sizes, and 
 > [!WARNING]  
 > WebRTC is currently **not supported** on Rocky Linux due to upstream Kasm limitations. This may change in the future.
 
-- **Size:** 1.88 GB  
-- **X Server:** 1.20.14 (Custom)
+- **Size:** 1.88 GB
 
 #### [Alma Linux 9](https://hub.docker.com/_/almalinux/tags?name=9)
 
 > [!WARNING]  
 > WebRTC is currently **not supported** on Alma Linux due to upstream Kasm limitations. This may change in the future.
 
-- **Size:** 1.62 GB  
-- **X Server:** 1.20.14 (Custom)
+- **Size:** 1.62 GB
 
 ## 🏷️ Versioning
 

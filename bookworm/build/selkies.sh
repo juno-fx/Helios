@@ -3,6 +3,10 @@
 
 set -e
 
+# install selkies build dependencies
+apt update
+apt install --no-install-recommends -y $(cat /lists/selkies.list)
+
 # move to work directory
 cd /tmp/
 
@@ -12,7 +16,7 @@ tar xf selkies.tar.gz
 cd selkies-*
 sed -i '/cryptography/d' pyproject.toml
 pip install . --break-system-packages
-pip install setuptools --break-system-packages
+pip install --upgrade setuptools --break-system-packages
 
 # setup interposer
 cd addons/js-interposer
@@ -30,5 +34,14 @@ mkdir -p /usr/share/selkies/www
 curl -o /usr/share/selkies/www/icon.png https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/selkies-logo.png && \
 curl -o /usr/share/selkies/www/favicon.ico https://raw.githubusercontent.com/linuxserver/docker-templates/refs/heads/master/linuxserver.io/img/selkies-icon.ico
 
+# clean up pip
+pip cache purge
+
+# remove selkies build dependencies
+apt remove -y $(cat /lists/selkies.list)
+
 # clean up
-rm -rfv /tmp/*
+apt clean -y
+apt autoclean -y
+apt autoremove --purge -y
+rm -rfv /var/lib/{apt,cache,log}/ /etc/systemd /var/lib/apt/lists/* /var/tmp/* /tmp/*

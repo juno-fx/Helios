@@ -2,10 +2,9 @@ packages:
   # ================================
   # Virtualization and Remote Access
   # ================================
-  - alpine: mcookie
-  - debian: virtualgl  # Software for accelerating OpenGL rendering in virtualized environments.
-    rhel: VirtualGL   
-    alpine: virtualgl    
-  - ubuntu: libjpeg-turbo8  # JPEG image codec for faster encoding and decoding.
-    rhel: libjpeg-turbo   
-    alpine: libjpeg-turbo
+
+  # Software for redirecting 3D OpenGL rendering from a server to a client, enabling hardware-accelerated remote desktop sessions.
+  # Commonly used in VNC or other remote desktop setups to allow GPU-accelerated applications to run in virtualized environments.
+  - debian: virtualgl
+    rhel: VirtualGL
+    alpine: virtualgl

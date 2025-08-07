@@ -2,41 +2,96 @@ packages:
   # ====================================
   # Common packages across all distributions
   # ====================================
+
+  # Command-line tool for transferring data with URLs (supports HTTP, FTP, etc.).
   - common: curl
+
+  # NVIDIA GPU monitoring tool providing real-time usage metrics and temperature.
   - common: nvtop
+
+  # Interactive process viewer and system monitor, similar to 'top' but with a better interface.
   - common: htop
+
+  # A fast, C implementation of the Sass CSS preprocessor, used for frontend stylesheets.
   - common: sassc
-  - common: dbus-x11  # Provides D-Bus message bus system for communication between applications in a GUI environment.
-  - common: xauth  # Handles authentication for X11 sessions, enabling secure access to the X server.
-  - common: unzip  # Tool for extracting compressed .zip archive files.
-  - common: wget  # Command-line tool for downloading files from the web.
-  - common: ca-certificates  # Stores trusted CA (Certificate Authority) certificates for SSL/TLS verification.
-  - common: fuse-overlayfs  # Implements the OverlayFS filesystem on top of FUSE for containerized file systems.
-  - common: util-linux  # Provides essential utilities for system administration, such as fdisk, mount, etc.
-  - common: nginx  # High-performance web server and reverse proxy server.
-  - common: nodejs  # JavaScript runtime built on Chrome's V8 JavaScript engine, often used for web development.
-  - common: openssl  # Toolkit for Secure Sockets Layer (SSL) and Transport Layer Security (TLS) protocols.
-  - common: python3  # Python programming language (version 3), used for scripting and automation tasks.
-  - common: python3-pip  # Python programming language (version 3), used for scripting and automation tasks.
-  - common: python3-dev  # Python programming language (version 3), used for scripting and automation tasks.
-  - common: ffmpeg  # A tool for handling video, audio, and other multimedia files and streams.
-  - common: tar  # Utility to create, extract, and manipulate .tar archive files.
-  - common: git  # Distributed version control system for tracking changes in source code.
-  - common: vim  # Text editor, an improved version of vi, used for programming and system administration.
-  - common: xfce4-terminal  # Terminal emulator for the XFCE desktop environment.
-  - common: xfconf  # Configuration management library for XFCE, handling user preferences and settings.
-  - common: xfwm4  # Window manager for the XFCE desktop environment.
-  - common: xfce4-panel  # Panel for the XFCE desktop environment, providing access to applications and system status.
-  - common: xfce4-session  # XFCE session manager, responsible for managing user sessions.
-  - common: xfce4-settings  # Provides graphical tools for configuring the XFCE desktop environment.
-  - common: xfce4-whiskermenu-plugin  # A Whisker menu plugin for the XFCE panel, offering a modern application launcher.
-  - common: xfce4-notifyd  # Notification daemon for XFCE, displaying system notifications.
-  - common: pulseaudio  # Sound server for Linux, managing audio playback and recording.
-  - common: pulseaudio-utils  # Utility tools for interacting with the PulseAudio sound server.
-  - common: file  # Command-line tool to determine the type of files based on content, not file extension.
-  - common: tumbler  # Thumbnailer service for creating previews of files in the file manager.
-  - common: gcc
-  - common: cmake
-  - common: make
+
+  # Provides D-Bus message bus system integration for X11, allowing communication between desktop applications.
+  - common: dbus-x11
+
+  # Manages authentication cookies for X11 sessions, enabling secure access to the X server.
+  - common: xauth
+
+  # Command-line utility to extract files from .zip archives.
+  - common: unzip
+
+  # Command-line utility for downloading files from the internet via HTTP, HTTPS, FTP, etc.
+  - common: wget
+
+  # Collection of CA certificates trusted by SSL/TLS clients to verify secure connections.
+  - common: ca-certificates
+
+  # FUSE-based OverlayFS implementation, commonly used for container filesystem layering.
+  - common: fuse-overlayfs
+
+  # A set of essential low-level system utilities, including disk partitioning, mounting, and system info.
+  - common: util-linux
+
+  # High-performance HTTP and reverse proxy web server, often used in production environments.
+  - common: nginx
+
+  # Toolkit implementing SSL and TLS protocols for secure communications.
+  - common: openssl
+
+  # Python 3 interpreter for running Python scripts and applications.
+  - common: python3
+
+  # Utility to create, manipulate, and extract tar archive files.
+  - common: tar
+
+  # Distributed version control system for source code management.
+  - common: git
+
+  # Powerful text editor with extensive features, widely used for coding and administration.
+  - common: vim
+
+  # Terminal emulator designed for the XFCE desktop environment.
+  - common: xfce4-terminal
+
+  # Configuration backend library for XFCE, managing desktop environment settings.
+  - common: xfconf
+
+  # Window manager for the XFCE desktop, responsible for window placement and decorations.
+  - common: xfwm4
+
+  # Panel component for XFCE, providing taskbars, launchers, and system trays.
+  - common: xfce4-panel
+
+  # Session manager for XFCE, handling startup and shutdown of user sessions.
+  - common: xfce4-session
+
+  # Provides GUI tools to configure XFCE desktop environment settings.
+  - common: xfce4-settings
+
+  # Plugin for XFCE panel offering a modern and customizable application menu.
+  - common: xfce4-whiskermenu-plugin
+
+  # Notification daemon for XFCE, responsible for displaying popup notifications.
+  - common: xfce4-notifyd
+
+  # Sound server that manages audio input/output on Linux systems.
+  - common: pulseaudio
+
+  # Command-line utilities to interact with the PulseAudio sound server.
+  - common: pulseaudio-utils
+
+  # Tool to determine file types based on file content rather than extension.
+  - common: file
+
+  # Thumbnail generation service used by XFCE file manager and others to show previews.
+  - common: tumbler
+
+  # Virtual framebuffer X server that performs graphical operations without physical display hardware.
   - common: xvfb
+
+  # Command-line utility to access and manipulate the X11 clipboard and selection buffers.
   - common: xsel

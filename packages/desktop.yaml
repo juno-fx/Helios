@@ -2,15 +2,31 @@ packages:
   # ============================================
   # Display & Desktop Environment Packages
   # ============================================
-  - debian: libnotify-bin  # Provides a command-line tool for sending desktop notifications.
+
+  # Provides the 'notify-send' tool to trigger desktop notifications via libnotify.
+  - debian: libnotify-bin
     rhel: libnotify
-  - debian: xfce4  # XFCE desktop environment package that provides a lightweight graphical interface.
+
+  # XFCE desktop environment – lightweight, fast, and suitable for remote/virtual desktops.
+  - debian: xfce4
     alpine: xfce4
-  - debian: thunar  # File manager for XFCE, providing graphical file browsing and manipulation.
-    rhel: Thunar   
+
+  # Thunar file manager – the default file manager in XFCE; lightweight and user-friendly.
+  - debian: thunar
+    rhel: Thunar
     alpine: thunar
+
+  # Icon theme used in Xubuntu, provides consistent and modern icon visuals for XFCE desktops on Ubuntu.
   - ubuntu: xubuntu-icon-theme
+
+  # Theme package for XFWM4, the window manager used in XFCE on RHEL.
   - rhel: xfwm4-themes
+
+  # XFCE desktop component responsible for drawing and managing the desktop background and icons on RHEL.
   - rhel: xfdesktop
-  - debian: tumbler-common  # Common files for the tumbler thumbnailer service.
-  - debian: tumbler-plugins-extra  # Additional plugins for tumbler to generate thumbnails for more file types.
+
+  # Common files for Tumbler, a D-Bus service that generates thumbnails for file previews in Thunar and other apps.
+  - debian: tumbler-common
+
+  # Extra plugins for Tumbler to support additional file types (e.g., PDFs, videos, RAW images) in thumbnail previews.
+  - debian: tumbler-plugins-extra

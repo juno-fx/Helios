@@ -52,7 +52,7 @@ FROM distro AS xvfb
 ARG SRC
 
 # build xvfb
-COPY patches/${HELIOS_XVFB_PATCH}-xvfb-dri3.patch /tmp/
+COPY patches/* /tmp/
 COPY --chmod=777 ${SRC}/build/xvfb.sh /tmp/
 RUN /tmp/xvfb.sh
 
@@ -64,7 +64,7 @@ FROM alpine AS selkies-frontend
 ENV SELKIES_VERSION="d4b2c32b65c58329e14d580784d4cbb98cb44564"
 
 # grab package lists
-COPY --from=lists /work/lists/ /tmp/lists/
+COPY --from=lists /work/lists/ /lists/
 
 # build our frontend image
 COPY --chmod=777 common/build/frontend.sh /tmp/frontend.sh
@@ -92,7 +92,7 @@ ENV DISABLE_ZINK=false
 ARG SRC
 
 # grab package lists
-COPY --from=lists /work/lists/ /tmp/lists/
+COPY --from=lists /work/lists/ /lists/
 
 # build our base image
 COPY --chmod=777 ${SRC}/build/system.sh /tmp/
@@ -100,9 +100,12 @@ RUN /tmp/system.sh
 COPY --chmod=777 common/build/system.sh /tmp/
 RUN /tmp/system.sh
 
-# install selkies backend
-COPY --chmod=777 common/build/backend.sh /tmp/
-RUN /tmp/backend.sh
+# install selkies
+COPY --chmod=777 ${SRC}/build/selkies.sh /tmp/
+RUN /tmp/selkies.sh
+
+# clean up package lists
+RUN rm -rf /lists
 
 # install init system
 COPY --from=s6 /s6 /
@@ -115,6 +118,9 @@ COPY --from=selkies-frontend /build-out/ /usr/share/selkies/www/
 
 # copy in general custom rootfs changes
 COPY common/root/ /
+
+# LD_PRELOAD wrapper handlers (selkies hack)
+RUN chmod +x /usr/bin/thunar
 
 # copy in distro specific custom rootfs changes
 COPY ${SRC}/root/ /
