@@ -1,7 +1,7 @@
 #!/bin/bash
 # reference: https://github.com/linuxserver/docker-baseimage-selkies/blob/ubuntunoble/Dockerfile#L179
 
-set -e
+set -ex
 
 dependencies=/tmp/rhel-dependencies.sh
 cleanup=/tmp/rhel-clean.sh
@@ -9,9 +9,12 @@ cleanup=/tmp/rhel-clean.sh
 if command -v apt >/dev/null 2>&1; then
   dependencies=/tmp/debian-dependencies.sh
   cleanup=/tmp/debian-clean.sh
+elif command -v dnf >/dev/null 2>&1; then
+  dependencies=/tmp/rhel-dependencies.sh
+  cleanup=/tmp/rhel-clean.sh
 fi
 
-# hook into distro dependencies
+echo "Using dependencies script: $dependencies"
 bash $dependencies
 
 # move to work directory
@@ -22,6 +25,7 @@ curl -o selkies.tar.gz -L "https://github.com/selkies-project/selkies/archive/${
 tar xf selkies.tar.gz
 cd selkies-*
 sed -i '/cryptography/d' pyproject.toml
+pip install --upgrade pip
 pip install . --break-system-packages
 pip install --upgrade setuptools --break-system-packages
 
