@@ -2,11 +2,7 @@
 
 set -e
 
-# nginx Path
-NGINX_CONFIG=/etc/nginx/sites-available/default
-
-# user passed env vars
-SFOLDER="${PREFIX:-/}"
+NGINX_CONFIG=/opt/helios/nginx.conf
 
 if [ -z "$UID" ]; then
 	echo "No UID configured"
@@ -29,12 +25,5 @@ if [ ! -f "/opt/helios/ssl/cert.pem" ]; then
   chown -R $UID:$GID /opt/helios/ssl
 fi
 
-# modify nginx config
-mkdir -p /etc/nginx/sites-available/
-cp /opt/helios/nginx.conf ${NGINX_CONFIG}
-sed -i "s|SUBFOLDER|$SFOLDER|g" ${NGINX_CONFIG}
-if [ ! -z ${DISABLE_IPV6+x} ]; then
-  sed -i '/listen \[::\]/d' ${NGINX_CONFIG}
-fi
 
 /usr/sbin/nginx -c ${NGINX_CONFIG}

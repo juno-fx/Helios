@@ -134,7 +134,10 @@ RUN chmod -R 7777 /etc/s6-overlay/s6-rc.d/
 # add license file
 COPY LICENSE /LICENSE
 
-EXPOSE 3000
+# nginx
+EXPOSE 8081
+# metrics
+EXPOSE 9081
 
 RUN rm -rf /.hold
 
