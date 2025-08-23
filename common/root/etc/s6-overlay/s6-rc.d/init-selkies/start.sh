@@ -11,9 +11,16 @@ printf "${DISPLAY_SIZEH:-768}" > /run/s6/container_environment/DISPLAY_SIZEH
 printf "${DISPLAY_REFRESH:60}" > /run/s6/container_environment/DISPLAY_REFRESH
 printf "${DISPLAY_DPI:-96}" > /run/s6/container_environment/DISPLAY_DPI
 printf "${DISPLAY_CDEPTH:-24}" > /run/s6/container_environment/DISPLAY_CDEPTH
+printf "${DISPLAY_CDEPTH:-24}" > /run/s6/container_environment/DISPLAY_CDEPTH
 if [[ -z ${NO_GAMEPAD+x} ]]; then
   printf "/usr/lib/selkies_joystick_interposer.so:/opt/lib/libudev.so.1.0.0-fake" > /run/s6/container_environment/LD_PRELOAD
 fi
+#printf DISPLAY=":0" > /run/s6/container_environment/
+printf "128/48000" > /run/s6/container_environment/PIPEWIRE_LATENCY
+printf "/tmp" > /run/s6/container_environment/XDG_RUNTIME_DIR
+printf "/tmp" > /run/s6/container_environment/PIPEWIRE_RUNTIME_DIR
+printf "/tmp/pulse"  > /run/s6/container_environment/PULSE_RUNTIME_PATH
+printf "unix:/tmp/pulse/native" > /run/s6/container_environment/PULSE_SERVER
 
 # JS folder setup
 mkdir -pm1777 /dev/input

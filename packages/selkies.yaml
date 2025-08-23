@@ -18,3 +18,6 @@ packages:
 
   # Utility for managing build automation, typically used to compile and install software from source.
   - selkies: make
+
+  # used to build fake-udev from the games-on-whales/wolf project
+  - selkies: g++

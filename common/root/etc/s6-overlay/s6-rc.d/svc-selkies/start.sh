@@ -19,10 +19,9 @@ echo "Starting Selkies Service..."
 
 echo "Starting Selkies..."
 
-# Start Selkies
-exec s6-setuidgid "${USER}" \
-  selkies \
-    --addr="localhost" \
-    --port="8081" \
-    --enable_basic_auth="false" \
-    --mode="websockets" > /var/log/helios/selkies.log
+# Start Selkies as target user, sourcing environment before exec
+exec s6-setuidgid "${USER}" bash -c '
+  source /opt/gstreamer/gst-env && \
+  exec selkies-gstreamer \
+    --enable_basic_auth="false" > /var/log/helios/selkies.log
+'

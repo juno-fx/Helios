@@ -3,6 +3,7 @@ services:
   helios:
     image: junoinnovations/helios:unstable-jammy
     hostname: "helios"
+    network_mode: host
     build:
       context: .
       dockerfile: Dockerfile
