@@ -1,6 +1,6 @@
 # Custom Init
 
-In this example, we will create a custom init script for Alpine, Debian, and RHEL based images to run a specific command at startup.
+In this example, we will create a custom init script for Debian and RHEL based images to run a specific command at startup.
 
 ## Update `common/root/etc/helios/init.d/`
 
@@ -28,7 +28,7 @@ chmod +x common/root/etc/helios/init.d/custom-init.sh
 To build the image with the custom init script included, you can run the following command:
 
 ```shell
-make alpine-3
+make noble
 ```
 
-This command will build the Alpine 3 image with the custom init script installed. You can replace `alpine-3` with any other distro supported by Helios to build those images with the custom init script as well.
+This command will build the Ubuntu Noble image with the custom init script installed. You can replace `noble` with any other distro supported by Helios to build those images with the custom init script as well.

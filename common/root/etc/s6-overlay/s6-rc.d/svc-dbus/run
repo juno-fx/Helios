@@ -1,0 +1,2 @@
+#!/command/execlineb -S0
+with-contenv /etc/s6-overlay/s6-rc.d/svc-dbus/start.sh

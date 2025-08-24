@@ -1,16 +1,21 @@
 #!/usr/bin/env bash
+
 mkdir -p /var/log/audio/
+chmod -R 777 /opt/helios/
 echo "Starting Pulse"
 exec s6-setuidgid "${USER}" \
 	/usr/bin/pulseaudio \
 	--log-level=0 \
 	--log-target=stderr \
-	--exit-idle-time=-1 >/var/log/audio/error.log 2>&1 &
+	--exit-idle-time=-1 >/var/log/helios/pulse.log 2>&1 &
 
 tries=0
 echo "Waiting for Pulse to stabilize..."
 while [ $tries -le 15 ]; do
-	(pactl list || echo "" >/dev/null) && echo "Ready..." && break
+	if pgrep -x "pulseaudio" >/dev/null; then
+		echo "PulseAudio is running."
+		break
+	fi
 	if [ $tries -eq 15 ]; then
 		echo "Pulse Failed to start"
 		exit 1

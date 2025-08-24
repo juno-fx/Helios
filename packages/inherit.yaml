@@ -1,0 +1,18 @@
+inherit:
+  selkies-rhel:
+    - selkies
+    - selkies-rhel
+  selkies:
+    - selkies
+    - selkies-debian
+  frontend:
+    - frontend
+  ubuntu:
+    - common
+    - debian
+  alpine:
+    - common
+  debian:
+    - common
+  rhel:
+    - common

@@ -49,6 +49,8 @@ else
 	fi
 fi
 
+printf "/home/${USER}" >/run/s6/container_environment/HOME
+
 # set the users password
 if [ -z "$PASSWORD" ]; then
 	echo "No password configured for user $USER, skipping password setup"
@@ -57,13 +59,12 @@ else
 	echo "$USER:$PASSWORD" | chpasswd
 fi
 
-SSL_GID=$(stat -c '%g' "/etc/ssl/private")
-usermod -aG "$SSL_GID" "$USER"
-SNAKE_GID=$(stat -c '%g' "/etc/ssl/private/ssl-cert-snakeoil.key")
-usermod -aG "$SNAKE_GID" "$USER"
-
 # setup permissions
 mkdir -p /var/run/pulse
 chown -R "$UID:root" /var/run/pulse
 chown -R "$UID:$GID" /opt/helios/
 chmod +x /etc/helios/shutdown.d/custom.sh
+
+mkdir -p /tmp/.XDG
+chown "${UID}":root /tmp/.XDG
+chmod 700 /tmp/.XDG

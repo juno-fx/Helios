@@ -1,6 +1,6 @@
 # Add htop
 
-In this example, we will add htop to the package management system and build it into alpine/debian/rhel based images.
+In this example, we will add htop to the package management system and build it into debian/rhel based images.
 
 ---
 
@@ -22,7 +22,7 @@ This maps `htop` to the common package name, which will be used across all distr
 To build the image with htop included, you can run the following command:
 
 ```shell
-make alpine-3
+make noble
 ```
 
-This command will build the Alpine 3 image with htop installed. You can replace `alpine-3` with any other distro supported by Helios to build those images with htop as well.
+This command will build the Ubuntu Noble image with htop installed. You can replace `noble` with any other distro supported by Helios to build those images with htop as well.
