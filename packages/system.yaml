@@ -2,6 +2,10 @@ packages:
   # ====================================
   # Common packages across all distributions
   # ====================================
+  # input debugging
+  - common: evtest
+  # xterm
+  - common: xterm
 
   # Command-line tool for transferring data with URLs (supports HTTP, FTP, etc.).
   - common: curl
@@ -152,6 +156,8 @@ packages:
 
   # XKB (X Keyboard Extension) library, used for handling keyboard input via X11.
   - debian: libxkbcommon-x11-0
+  - debian: libxtst6
+  - debian: libxcb-keysyms1
 
   # XKB keyboard map compiler, required for defining custom keyboard layouts on Alpine.
   - alpine: xkbcomp

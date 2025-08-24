@@ -4,3 +4,6 @@
 .packages
 .home
 .idea
+
+# docs build output
+site/

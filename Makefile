@@ -1,9 +1,27 @@
+SHELL := /bin/bash
+
 .PHONY: docs jammy kali noble rocky-9 alma-9 bookworm sid alpine-3 packages
 
 # documentation
-docs:
+docs: .venv/bin/activate
 	.venv/bin/mkdocs serve
 
+# we use realpath, as some of our runners symlink the storage. linkchecker doesn't like that
+lint-docs: .venv/bin/activate
+	@(grep -q -r '<a href' docs && (echo Please use markdown links instead of href. && exit 1)) || true
+	([[ -d site ]] && rm -rf site/) || true
+	.venv/bin/mkdocs build --strict
+	cp -r site /tmp/site-terra-official-docs
+	@ # This is due to some CI environments providing root as default.
+	@ # linkchecker will drop to the `nobody` user. Depending on the workdir, it might not be able to reach it and will fail.
+	([[ "$$EUID" -eq 0 ]] && chmod -R 655 /tmp/site-terra-official-docs) || true
+	source .venv/bin/activate; linkchecker /tmp/site-terra-official-docs/index.html
+
+# when using devbox, this will already exist and not trigger
+# It's used by the CI, where devbox hook behavior is different
+.venv/bin/activate:
+	python3 -m venv .venv
+	.venv/bin/pip install -r requirements.txt
 # development
 format:
 	@shfmt -l -w .
@@ -50,3 +68,4 @@ rocky-9:
 alma-9:
 	@docker compose build --build-arg IMAGE=almalinux:9 --build-arg SRC=alma-9
 	@docker compose up
+
