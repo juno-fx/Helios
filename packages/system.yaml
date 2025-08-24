@@ -2,6 +2,10 @@ packages:
   # ====================================
   # Common packages across all distributions
   # ====================================
+  # input debugging
+  - common: evtest
+  # xterm
+  - common: xterm
 
   # Command-line tool for transferring data with URLs (supports HTTP, FTP, etc.).
   - common: curl
@@ -38,9 +42,6 @@ packages:
 
   # Python 3 interpreter for running Python scripts and applications.
   - common: python3
-  # needed for v1.6.2 selkies-gstreamer
-  - common: python3-gi
-    # - common: gir1.2-gstreamer-1.0
 
   # Utility to create, manipulate, and extract tar archive files.
   - common: tar
@@ -77,9 +78,6 @@ packages:
 
   # Sound server that manages audio input/output on Linux systems.
   - common: pulseaudio
-  - ubuntu: libpulse0
-    debian: libpulse0
-    rhel: pulseaudio-libs
 
   # Command-line utilities to interact with the PulseAudio sound server.
   - common: pulseaudio-utils
@@ -158,31 +156,8 @@ packages:
 
   # XKB (X Keyboard Extension) library, used for handling keyboard input via X11.
   - debian: libxkbcommon-x11-0
-  - ubuntu: libx11-xcb1
-    debian: libx11-xcb1
-    rhel: libX11-xcb
-  - debian: libxcb-dri3-0
-    ubuntu: libxcb-dri3-0
-    rhel: libxcb
-  - debian: libxkbcommon0
-    ubuntu: libxkbcommon0
-    rhel: libxkbcommon
-  - debian: libxdamage1
-    ubuntu: libxdamage1
-    rhel: libXdamage
-  - ubuntu: libxfixes3
-    debian: libxfixes3
-    rhel: libXfixes
-  - debian: libxv1
-    ubuntu: libxv1
-    rhel: libXv
-  - ubuntu: libxext6
-    debian: libxext6
-    rhel: libXext
-  - ubuntu: libxtst6
-    debian: libxtst6
-    rhel: libXtst
-  - common: qtvirtualkeyboard-plugin
+  - debian: libxtst6
+  - debian: libxcb-keysyms1
 
   # XKB keyboard map compiler, required for defining custom keyboard layouts on Alpine.
   - alpine: xkbcomp

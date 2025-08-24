@@ -49,6 +49,8 @@ else
 	fi
 fi
 
+printf "/home/${USER}" > /run/s6/container_environment/HOME
+
 # set the users password
 if [ -z "$PASSWORD" ]; then
 	echo "No password configured for user $USER, skipping password setup"
@@ -62,3 +64,8 @@ mkdir -p /var/run/pulse
 chown -R "$UID:root" /var/run/pulse
 chown -R "$UID:$GID" /opt/helios/
 chmod +x /etc/helios/shutdown.d/custom.sh
+
+mkdir -p /tmp/.XDG
+chown "${UID}":root /tmp/.XDG
+chmod 700 /tmp/.XDG
+

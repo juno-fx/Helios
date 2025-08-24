@@ -52,7 +52,6 @@ kali:
 	@docker compose up
 
 # UBUNTU
-# Todo: deprecate. 
 jammy:
 	@docker compose build --build-arg IMAGE=ubuntu:jammy --build-arg SRC=jammy
 	@docker compose up

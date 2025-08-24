@@ -6,14 +6,24 @@ set -e
 # make build out
 mkdir -p /build-out
 
-export SELKIES_VERSION="v1.6.2"
+# build dependencies
+apk add $(cat /lists/frontend.list) \
 
-if [ -z "${SELKIES_VERSION}" ]; then
-  echo "SELKIES_VERSION is not set"
-  exit 1
-fi
+# install selkies front end
+git clone https://github.com/selkies-project/selkies.git /src
+cd /src
+git checkout -f ${SELKIES_VERSION}
 
-echo curl -L -o "/build-out/selkies-gstreamer-web_${SELKIES_VERSION}.tar.gz" "https://github.com/selkies-project/selkies/releases/download/${SELKIES_VERSION}/selkies-gstreamer-web_${SELKIES_VERSION}.tar.gz"
-curl -L -o "/build-out/selkies-gstreamer-web_${SELKIES_VERSION}.tar.gz" "https://github.com/selkies-project/selkies/releases/download/${SELKIES_VERSION}/selkies-gstreamer-web_${SELKIES_VERSION}.tar.gz"
-tar -xzf "/build-out/selkies-gstreamer-web_${SELKIES_VERSION}.tar.gz" -C /build-out/ --strip-components=1
-rm "/build-out/selkies-gstreamer-web_${SELKIES_VERSION}.tar.gz"
+# build
+cd addons/gst-web-core
+npm install
+npm run build
+cp dist/selkies-core.js ../selkies-dashboard/src
+cd ../selkies-dashboard
+npm install
+npm run build
+mkdir dist/src dist/nginx
+cp ../universal-touch-gamepad/universalTouchGamepad.js dist/src/
+cp ../gst-web-core/nginx/* dist/nginx/
+cp -r ../gst-web-core/dist/jsdb dist/
+cp -ar dist/* /build-out/

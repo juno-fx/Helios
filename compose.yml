@@ -3,7 +3,6 @@ services:
   helios:
     image: junoinnovations/helios:unstable-jammy
     hostname: "helios"
-    network_mode: host
     build:
       context: .
       dockerfile: Dockerfile
@@ -22,4 +21,4 @@ services:
 #      - PASSWORD=password
 #      - PREFIX=/custom/prefix
     ports:
-      - "8081:8081"
+      - "3000:3000"

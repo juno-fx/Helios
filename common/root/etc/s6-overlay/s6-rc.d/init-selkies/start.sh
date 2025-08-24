@@ -11,18 +11,18 @@ printf "${DISPLAY_SIZEH:-768}" > /run/s6/container_environment/DISPLAY_SIZEH
 printf "${DISPLAY_REFRESH:60}" > /run/s6/container_environment/DISPLAY_REFRESH
 printf "${DISPLAY_DPI:-96}" > /run/s6/container_environment/DISPLAY_DPI
 printf "${DISPLAY_CDEPTH:-24}" > /run/s6/container_environment/DISPLAY_CDEPTH
-printf "${DISPLAY_CDEPTH:-24}" > /run/s6/container_environment/DISPLAY_CDEPTH
+printf "/tmp/.XDG" > /run/s6/container_environment/XDG_RUNTIME_DIR
+
+
 if [[ -z ${NO_GAMEPAD+x} ]]; then
   printf "/usr/lib/selkies_joystick_interposer.so:/opt/lib/libudev.so.1.0.0-fake" > /run/s6/container_environment/LD_PRELOAD
 fi
-#printf DISPLAY=":0" > /run/s6/container_environment/
-printf "128/48000" > /run/s6/container_environment/PIPEWIRE_LATENCY
-printf "/tmp" > /run/s6/container_environment/XDG_RUNTIME_DIR
-printf "/tmp" > /run/s6/container_environment/PIPEWIRE_RUNTIME_DIR
-printf "/tmp/pulse"  > /run/s6/container_environment/PULSE_RUNTIME_PATH
-printf "unix:/tmp/pulse/native" > /run/s6/container_environment/PULSE_SERVER
 
-# JS folder setup
+printf "${LC_ALL%.UTF-8}" > /run/s6/container_environment/LANGUAGE
+printf "${LC_ALL}" > /run/s6/container_environment/LANG
+
+
+# JoyStick (JS) folder setup
 mkdir -pm1777 /dev/input
 touch /tmp/selkies_js.log
 mknod /dev/input/js0 c 13 0
