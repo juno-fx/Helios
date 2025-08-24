@@ -7,11 +7,11 @@ dependencies=/tmp/rhel-dependencies.sh
 cleanup=/tmp/rhel-clean.sh
 
 if command -v apt >/dev/null 2>&1; then
-  dependencies=/tmp/debian-dependencies.sh
-  cleanup=/tmp/debian-clean.sh
+	dependencies=/tmp/debian-dependencies.sh
+	cleanup=/tmp/debian-clean.sh
 elif command -v dnf >/dev/null 2>&1; then
-  dependencies=/tmp/rhel-dependencies.sh
-  cleanup=/tmp/rhel-clean.sh
+	dependencies=/tmp/rhel-dependencies.sh
+	cleanup=/tmp/rhel-clean.sh
 fi
 
 echo "Using dependencies script: $dependencies"
@@ -44,8 +44,8 @@ mv libudev.so.1.0.0-fake /opt/lib/
 
 # why do I need this?
 mkdir -p /usr/share/selkies/www
-curl -o /usr/share/selkies/www/icon.png https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/selkies-logo.png && \
-curl -o /usr/share/selkies/www/favicon.ico https://raw.githubusercontent.com/linuxserver/docker-templates/refs/heads/master/linuxserver.io/img/selkies-icon.ico
+curl -o /usr/share/selkies/www/icon.png https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/selkies-logo.png &&
+	curl -o /usr/share/selkies/www/favicon.ico https://raw.githubusercontent.com/linuxserver/docker-templates/refs/heads/master/linuxserver.io/img/selkies-icon.ico
 
 # clean up pip
 pip cache purge
