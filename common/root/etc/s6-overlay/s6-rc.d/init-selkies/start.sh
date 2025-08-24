@@ -2,25 +2,23 @@
 # reference: https://github.com/linuxserver/docker-baseimage-selkies/blob/ubuntunoble/root/etc/s6-overlay/s6-rc.d/init-selkies-config/run
 
 # set env based on vars
-printf "${GST_DEBUG:-*:1}" > /run/s6/container_environment/GST_DEBUG
-printf "${SELKIES_ENCODER:-x264enc}" > /run/s6/container_environment/SELKIES_ENCODER
-printf "${SELKIES_FRAMERATE:-60}" > /run/s6/container_environment/SELKIES_FRAMERATE
-printf "${SELKIES_ENABLE_RESIZE:-true}" > /run/s6/container_environment/SELKIES_ENABLE_RESIZE
-printf "${DISPLAY_SIZEW:-1024}" > /run/s6/container_environment/DISPLAY_SIZEW
-printf "${DISPLAY_SIZEH:-768}" > /run/s6/container_environment/DISPLAY_SIZEH
-printf "${DISPLAY_REFRESH:60}" > /run/s6/container_environment/DISPLAY_REFRESH
-printf "${DISPLAY_DPI:-96}" > /run/s6/container_environment/DISPLAY_DPI
-printf "${DISPLAY_CDEPTH:-24}" > /run/s6/container_environment/DISPLAY_CDEPTH
-printf "/tmp/.XDG" > /run/s6/container_environment/XDG_RUNTIME_DIR
-
+printf "${GST_DEBUG:-*:1}" >/run/s6/container_environment/GST_DEBUG
+printf "${SELKIES_ENCODER:-x264enc}" >/run/s6/container_environment/SELKIES_ENCODER
+printf "${SELKIES_FRAMERATE:-60}" >/run/s6/container_environment/SELKIES_FRAMERATE
+printf "${SELKIES_ENABLE_RESIZE:-true}" >/run/s6/container_environment/SELKIES_ENABLE_RESIZE
+printf "${DISPLAY_SIZEW:-1024}" >/run/s6/container_environment/DISPLAY_SIZEW
+printf "${DISPLAY_SIZEH:-768}" >/run/s6/container_environment/DISPLAY_SIZEH
+printf "${DISPLAY_REFRESH:60}" >/run/s6/container_environment/DISPLAY_REFRESH
+printf "${DISPLAY_DPI:-96}" >/run/s6/container_environment/DISPLAY_DPI
+printf "${DISPLAY_CDEPTH:-24}" >/run/s6/container_environment/DISPLAY_CDEPTH
+printf "/tmp/.XDG" >/run/s6/container_environment/XDG_RUNTIME_DIR
 
 if [[ -z ${NO_GAMEPAD+x} ]]; then
-  printf "/usr/lib/selkies_joystick_interposer.so:/opt/lib/libudev.so.1.0.0-fake" > /run/s6/container_environment/LD_PRELOAD
+	printf "/usr/lib/selkies_joystick_interposer.so:/opt/lib/libudev.so.1.0.0-fake" >/run/s6/container_environment/LD_PRELOAD
 fi
 
-printf "${LC_ALL%.UTF-8}" > /run/s6/container_environment/LANGUAGE
-printf "${LC_ALL}" > /run/s6/container_environment/LANG
-
+printf "${LC_ALL%.UTF-8}" >/run/s6/container_environment/LANGUAGE
+printf "${LC_ALL}" >/run/s6/container_environment/LANG
 
 # JoyStick (JS) folder setup
 mkdir -pm1777 /dev/input
@@ -52,4 +50,4 @@ echo "{
     }
   ],
   \"start_url\": \"/\"
-}" > /usr/share/selkies/www/manifest.json
+}" >/usr/share/selkies/www/manifest.json

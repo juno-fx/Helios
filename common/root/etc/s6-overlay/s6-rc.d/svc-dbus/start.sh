@@ -5,7 +5,7 @@ mkdir -p /run/dbus
 chown ${USER}:${USER} /run/dbus
 
 exec s6-setuidgid ${USER} \
-  dbus-daemon \
-    --system \
-    --nofork \
-    --nosyslog 
+	dbus-daemon \
+	--system \
+	--nofork \
+	--nosyslog

@@ -13,8 +13,8 @@ Download your favorite logo and replace the `common/root/usr/share/themes/helios
 To build the image with your custom logo included, you can run the following command:
 
 ```shell
-make alpine-3
+make noble
 ```
 
-This command will build the Alpine 3 image with your custom logo. You can replace `alpine-3` with any other distro supported by Helios to build those images with your custom logo as well.
+This command will build the Ubuntu Noble image with your custom logo. You can replace `noble` with any other distro supported by Helios to build those images with your custom logo as well.
 

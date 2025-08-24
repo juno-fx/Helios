@@ -14,10 +14,6 @@ Environment variables are used to configure the Helios container. The following 
 | DESKTOP_FILES | Paths seperated by ":". For example, `/some/path/1/*.desktop:/some/*/2/*.desktop` |          |
 | PREFIX        | Prefix for URL for use behind a reverse proxy                                     |          |
 
-!!! danger "Desktop File Scraping"
-
-    Desktop file scraping isn't supported in Alpine Linux.
-
 !!! info 
 
     The `GID` will match the `UID` if not specified.
@@ -43,18 +39,17 @@ Environment variables are used to configure the Helios container. The following 
 
 ## Endpoints
 
-Helios provides 2 endpoints for accessing the desktop:
+Helios provides 1 endpoint for accessing the desktop:
 
 | Endpoint              | Description                   |
 |-----------------------|-------------------------------|
 | `{PREFIX}/`           | The main interactive endpoint |
-| `{PREFIX}/view-only/` | Locked view only endpoint     |
 
 
 ## Ports
 
 Helios exposes the following ports:
 
-| Port | Description       |
-|------|-------------------|
-| 3000 | HTTP Desktop Port |
+| Port | Description        |
+|------|--------------------|
+| 3000 | HTTPS Desktop Port |
