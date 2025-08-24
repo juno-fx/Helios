@@ -87,7 +87,6 @@ ENV NVIDIA_DRIVER_CAPABILITIES=all
 ENV IDLE_TIME=30
 ENV SELKIES_INTERPOSER=/usr/lib/selkies_joystick_interposer.so
 ENV DISABLE_ZINK=false
-
 ENV LANG="en_US.UTF-8"
 ENV LANGUAGE="en_US:en"
 ENV LC_ALL="en_US.UTF-8"
@@ -103,8 +102,6 @@ COPY --chmod=777 ${SRC}/build/system.sh /tmp/
 RUN /tmp/system.sh
 COPY --chmod=777 common/build/system.sh /tmp/
 RUN /tmp/system.sh
-
-RUN /usr/sbin/locale-gen en_US.UTF-8
 
 # install selkies
 COPY --chmod=777 common/build/selkies/*.sh /tmp/

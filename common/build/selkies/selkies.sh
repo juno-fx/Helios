@@ -25,7 +25,9 @@ curl -o selkies.tar.gz -L "https://github.com/selkies-project/selkies/archive/${
 tar xf selkies.tar.gz
 cd selkies-*
 sed -i '/cryptography/d' pyproject.toml
-pip install --upgrade pip
+wget https://bootstrap.pypa.io/get-pip.py
+python3 get-pip.py --break-system-packages
+python3 -m pip install --upgrade pip --break-system-packages
 pip install . --break-system-packages
 pip install --upgrade setuptools --break-system-packages
 
