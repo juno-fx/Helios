@@ -2,6 +2,15 @@
 
 To streamline cross-distro package management, Helios uses a centralized `packages/system.yaml` system. This allows each logical package to be mapped to its appropriate name for each Linux distribution, while also enabling distros to inherit shared definitions from one or more package groups.
 
+### Migrate from `packages.yaml`
+
+Previously, Helios used a singular `packages.yaml` file which had all packages defined. With new system builds required, it became
+clear that the packaging system can be used to also track build dependencies. The following changes have been made:
+
+- The old `packages.yaml` file has been renamed to `packages/system.yaml`.
+- The `inherit` section has now been pulled out into its own file `packages/inherit.yaml`.
+- Support for custom lists is now supported. i.e. `packages/my-list.yaml`. You then can add this to the `packages/inherit.yaml`.
+
 ---
 
 ## Structure of `packages/system.yaml`
