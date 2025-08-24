@@ -116,6 +116,10 @@ packages:
   # System Utilities and Libraries
   # ===============================
 
+  # libpci
+  - debian: libpci3
+    rhel: pciutils-libs
+
   # Compression library required by many applications for reading/writing compressed data (e.g., gzip/zlib formats).
   - debian: zlib1g
     rhel: zlib
@@ -139,6 +143,14 @@ packages:
   # ====================================
   # X11 and Display Server Packages
   # ====================================
+
+  # vulkan
+  - debian: libvulkan1
+    rhel: vulkan
+
+  # opengl
+  - rhel: libglvnd-opengl
+    debian: libglew-dev
 
   # Provides D-Bus message bus system integration for X11, allowing communication between desktop applications.
   - common: dbus-x11
