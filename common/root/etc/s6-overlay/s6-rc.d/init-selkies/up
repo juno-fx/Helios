@@ -1,0 +1,1 @@
+with-contenv /etc/s6-overlay/s6-rc.d/init-selkies/start.sh

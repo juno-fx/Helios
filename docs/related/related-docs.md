@@ -47,6 +47,7 @@ Welcome to the Juno Innovations documentation ecosystem. Our documentation is or
     - **GitHub Organization:** [github.com/juno-fx](https://github.com/juno-fx/)
     - **Docker Hub:** [hub.docker.com/u/junoinnovations](https://hub.docker.com/u/junoinnovations)
     - **LinkedIn:** [Juno Innovations Company Page](https://www.linkedin.com/company/juno-innovations/about/)
+    - **Discord:** [Discord Community](https://discord.gg/PtM6NzazqH)
 
 ## Need Help?
 

@@ -21,7 +21,7 @@ curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
 apt update
 
 apt install --no-install-recommends -y \
-	$(cat /tmp/lists/ubuntu.list) \
+	$(cat /lists/ubuntu.list) \
 	neofetch
 
 # ubuntu icon hack
@@ -40,8 +40,11 @@ rm -f /etc/xdg/autostart/xscreensaver.desktop
 # configure vgl
 /opt/VirtualGL/bin/vglserver_config +glx +s +f +t
 
+# build locale
+/usr/sbin/locale-gen en_US.UTF-8
+
 # run clean up
 apt clean -y
 apt autoclean -y
 apt autoremove --purge -y
-rm -rfv /var/lib/{apt,cache,log}/ /tmp/* /etc/systemd /var/lib/apt/lists/* /var/tmp/* /tmp/*
+rm -rfv /var/lib/{apt,cache,log}/ /etc/systemd /var/lib/apt/lists/* /var/tmp/* /tmp/*

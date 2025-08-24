@@ -1,0 +1,20 @@
+packages:
+  # ====================================
+  # Selkies Build Packages
+  # ====================================
+
+  # Command-line tool for transferring data with URLs (supports HTTP, FTP, etc.).
+  - selkies: curl
+
+#  # Python package installer used for managing and installing Python packages in build environments.
+#  - selkies: python3-pip
+
+  # Header files and development tools for building Python extensions and native modules.
+  - selkies-debian: python3-dev
+    selkies-rhel: python3-devel
+
+  # GNU Compiler Collection – essential for compiling C/C++ source code during builds.
+  - selkies: gcc
+
+  # Utility for managing build automation, typically used to compile and install software from source.
+  - selkies: make

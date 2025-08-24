@@ -1,6 +1,6 @@
 # Shared Theme
 
-In this example, we will use the `common/build/system.sh` script to build a shared theme into Alpine, Debian, and RHEL based images.
+In this example, we will use the `common/build/system.sh` script to build a shared theme into Debian and RHEL based images.
 
 ## Update `common/build/system.sh`
 
@@ -37,7 +37,7 @@ installs a custom font. You can modify the commands to suit your specific theme 
 To build the image with the shared theme included, you can run the following command:
 
 ```shell
-make alpine-3
+make noble
 ```
 
-This command will build the Alpine 3 image with the shared theme installed. You can replace `alpine-3` with any other distro supported by Helios to build those images with the shared theme as well.
+This command will build the Ubuntu Noble image with the shared theme installed. You can replace `noble` with any other distro supported by Helios to build those images with the shared theme as well.

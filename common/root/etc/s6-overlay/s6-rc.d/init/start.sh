@@ -5,7 +5,6 @@ set -e
 
 cat /opt/helios/header.txt
 echo "Helios Version $HELIOS_VERSION"
-cat /opt/helios/*.version
 
 chmod +x /etc/helios/init.d/*.sh || echo "Potentially Read-Only Mounts. Skipping chmod. Root..."
 chmod +x /etc/helios/init.d/*/entrypoint.sh || echo "Potentially Read-Only Mounts. Skipping chmod. Nested..."
@@ -30,4 +29,6 @@ for script in /etc/helios/init.d/*/entrypoint.sh; do
 	fi
 done
 
+mkdir -p /var/log/helios/
+chmod -R 777 /var/log/helios/
 chmod +x /etc/helios/services.d/custom.sh

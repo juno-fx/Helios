@@ -30,7 +30,7 @@ curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
 apt update
 
 apt install --no-install-recommends -y \
-	$(cat /tmp/lists/debian.list) \
+	$(cat /lists/debian.list) \
 	neofetch
 
 # backwards compat for neofetch
@@ -48,6 +48,9 @@ rm -f /etc/xdg/autostart/xscreensaver.desktop
 
 # remove duplicate sources
 rm -f /etc/apt/sources.list
+
+# build locale
+/usr/sbin/locale-gen en_US.UTF-8
 
 # run clean up
 apt clean -y

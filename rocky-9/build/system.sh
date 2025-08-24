@@ -13,7 +13,7 @@ dnf config-manager --set-enabled devel
 # install system
 dnf update -y
 dnf install -y --allowerasing --setopt=install_weak_deps=False --best \
-	$(cat /tmp/lists/rhel.list) \
+	$(cat /lists/rhel.list) \
 	fastfetch
 
 # handle background
