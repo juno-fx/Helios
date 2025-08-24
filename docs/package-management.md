@@ -1,10 +1,10 @@
 # Package Management
 
-To streamline cross-distro package management, Helios uses a centralized `packages.yaml` system. This allows each logical package to be mapped to its appropriate name for each Linux distribution, while also enabling distros to inherit shared definitions from one or more package groups.
+To streamline cross-distro package management, Helios uses a centralized `packages/system.yaml` system. This allows each logical package to be mapped to its appropriate name for each Linux distribution, while also enabling distros to inherit shared definitions from one or more package groups.
 
 ---
 
-## Structure of `packages.yaml`
+## Structure of `packages/system.yaml`
 
 ### `packages` Section
 
@@ -14,18 +14,16 @@ Each item in the `packages` array defines a **single logical package**, and incl
 packages:
   - debian: mesa-va-drivers        # VA-API support for Debian
     rhel: mesa-va-drivers          # Same package name for RHEL
-    alpine: mesa-va-gallium        # Different package name for Alpine
 
   - debian: libx11-6
     rhel: libX11
-    alpine: libx11
 
   - debian: extra-debian-only-pkg
 ```
 
 This format enables clean mapping between distros for the same logical dependency, and avoids repeating similar entries in multiple places.
 
-### `inherit` Section
+### `packages/inherit.yaml` Section
 
 This section defines which **groups of package mappings** each distro should inherit from.
 
@@ -34,8 +32,6 @@ inherit:
   ubuntu:
     - common
     - debian
-  alpine:
-    - common
   debian:
     - common
   rhel:
@@ -52,7 +48,7 @@ In this example:
 
 ## Package List Generation
 
-A preprocessing step flattens the data into a list of distro-specific packages, combining:
+A preprocessing step flattens the data into a list of packages, combining:
 
 1. All package mappings from the inherited groups
 2. Any mappings explicitly defined for that distro
@@ -60,7 +56,7 @@ A preprocessing step flattens the data into a list of distro-specific packages, 
 Each distro’s final list is saved as:
 
 ```
-/lists/<distro>.list
+/lists/<name>.list
 ```
 
 For example, `/lists/ubuntu.list` will include packages from:

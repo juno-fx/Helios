@@ -41,7 +41,7 @@ To set up your Helios repository, follow these steps:
     <!-- termynal -->
     
     ```shell
-    $ make alpine-3
+    $ make noble
     ```
 
 
@@ -57,6 +57,7 @@ common
 <distro>
 ├── build <- Distro specific build scripts
 └── root <- Distro specific rootfs
-packages.yaml <- Package definitions for the Unified Package Management System
+packages
+└── system.yaml <- Package definitions for the Unified Package Management System
 ```
 
