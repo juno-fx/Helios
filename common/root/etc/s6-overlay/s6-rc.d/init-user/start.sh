@@ -49,7 +49,7 @@ else
 	fi
 fi
 
-printf "/home/${USER}" > /run/s6/container_environment/HOME
+printf "/home/${USER}" >/run/s6/container_environment/HOME
 
 # set the users password
 if [ -z "$PASSWORD" ]; then
@@ -68,4 +68,3 @@ chmod +x /etc/helios/shutdown.d/custom.sh
 mkdir -p /tmp/.XDG
 chown "${UID}":root /tmp/.XDG
 chmod 700 /tmp/.XDG
-

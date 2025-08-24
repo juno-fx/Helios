@@ -1,6 +1,6 @@
 # Custom Idle
 
-In this example, we will create a custom idle script for Alpine, Debian, and RHEL based images to run a specific command when the system is idle.
+In this example, we will create a custom idle script for Debian and RHEL based images to run a specific command when the system is idle.
 
 ## Update `common/root/etc/helios/idle.d/custom.sh`
 
@@ -28,7 +28,7 @@ chmod +x common/root/etc/helios/idle.d/custom.sh
 To build the image with the custom idle script included, you can run the following command:
 
 ```shell
-make alpine-3
+make noble
 ```
 
-This command will build the Alpine 3 image with the custom idle script installed. You can replace `alpine-3` with any other distro supported by Helios to build those images with the custom idle script as well.
+This command will build the Ubuntu Noble image with the custom idle script installed. You can replace `noble` with any other distro supported by Helios to build those images with the custom idle script as well.

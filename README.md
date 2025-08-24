@@ -24,13 +24,13 @@ These images are lightweight, efficient, and ready to use across environments li
 
 Some key points about Helios:
 
-- **Base Images**: Designed as base images for Kasm-compatible deployments.  
+- **Base Images**: Designed as base images for Selkies-compatible deployments.  
 - **Extremely Minimal Desktops**: Images are intentionally minimal; avoid adding software directly. Instead, extend via the `FROM` instruction in your Dockerfile.
 
 ## 📚 Table of Contents
 
 - 🚀 [Features](#✨-features)  
-- ⚙️ [Kasm Setup](#⚙️-kasm-setup)
+- ⚙️ [Selkies Setup](#⚙️-selkies-setup)
 - 🐧 [Distros Overview](#🐧-distros-overview)  
   - Alpine  
     - [Alpine 3](#alpine-3)  
@@ -53,21 +53,17 @@ Some key points about Helios:
 ## ✨ Features
 
 - **Lightweight**: Minimal resource usage for efficient performance.  
-- **WebRTC Support**: Seamless audio and video streaming (available on non-RHEL distros).  
-- **Multi-Monitor Support**: Enhanced productivity with multiple displays.  
-- **Audio Support**: High-quality audio streaming for improved user experience.  
+- **WebRTC Support** (Coming Soon): High performance, low-latency video streaming.
+- **Audio Support** (Coming Soon): High-quality audio streaming for improved user experience.  
 - **VirtualGL Support**: Hardware-accelerated 3D graphics using `vglrun`.
 
 ---
 
-## ⚙️ Kasm Setup
+## ⚙️ Selkies Setup
 
-We maintain the latest versions of Kasm components to ensure access to the newest features and bug fixes:
+We maintain the latest versions of Selkies components to ensure access to the newest features and bug fixes:
 
-- **Kasm VNC**: [v1.3.4](https://github.com/kasmtech/KasmVNC/tree/release/1.3.4)  
-- **Kasm Web Client**: [Commit bed156c](https://github.com/kasmtech/noVNC/tree/bed156c565f7646434563d2deddd3a6c945b7727)  
-- **Kasm Binaries**: v1.15.0  
-- **Linuxserver.io KClient**: [Latest master branch](https://github.com/linuxserver/kclient/commits/master/)
+- **Selkies**: [d4b2c32b65c58329e14d580784d4cbb98cb44564](https://github.com/selkies-project/selkies/tree/d4b2c32b65c58329e14d580784d4cbb98cb44564)
 
 ---
 
@@ -80,9 +76,9 @@ Explore the supported Linux distributions with their versions, image sizes, and 
 
 #### [Debian 12 (Bookworm)](https://hub.docker.com/_/debian/tags?name=bookworm)
 
-- **Size:** 1.54 GB  
+- **Size:** 1.55 GB  
 
-#### [Debian Rolling (Trixie/Sid)](https://hub.docker.com/_/debian/tags?name=sid)
+#### [Debian Rolling (Sid)](https://hub.docker.com/_/debian/tags?name=sid)
 
 - **Size:** 1.65 GB  
 
@@ -91,7 +87,7 @@ Explore the supported Linux distributions with their versions, image sizes, and 
 > [!TIP]  
 > No default Kali tools are installed in this image. Please refer to the [Kali Linux Docker Image documentation](https://www.kali.org/docs/containers/official-kalilinux-docker-images/) for installing them.
 
-- **Size:** 1.62 GB (Excludes Kali tools which increase image size) 
+- **Size:** 1.64 GB (Excludes Kali tools which increase image size) 
 
 ---
 
@@ -115,7 +111,7 @@ Explore the supported Linux distributions with their versions, image sizes, and 
 
 #### [Alma Linux 9](https://hub.docker.com/_/almalinux/tags?name=9)
 
-- **Size:** 1.45 GB
+- **Size:** 1.46 GB
 
 ## 🏷️ Versioning
 

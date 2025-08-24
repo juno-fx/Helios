@@ -1,6 +1,6 @@
 # Add Firefox
 
-In this example, we will add Firefox to the package management system and build it into alpine/debian/rhel based images.
+In this example, we will add Firefox to the package management system and build it into debian/rhel based images.
 
 ---
 
@@ -16,7 +16,6 @@ packages:
     jammy: firefox
     debian: firefox-esr
     kali: firefox-esr
-    alpine: firefox
     sid: firefox-esr
     rhel: firefox
 ```
@@ -28,7 +27,7 @@ We map Firefox to the appropriate package names for each distro. For example, `f
 To build the image with Firefox included, you can run the following command:
 
 ```shell
-make alpine-3
+make noble
 ```
 
-This command will build the Alpine 3 image with Firefox installed. You can replace `alpine-3` with any other distro supported by Helios to build those images with Firefox as well.
+This command will build the Ubuntu Noble image with Firefox installed. You can replace `noble` with any other distro supported by Helios to build those images with Firefox as well.

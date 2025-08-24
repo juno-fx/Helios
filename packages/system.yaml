@@ -2,10 +2,8 @@ packages:
   # ====================================
   # Common packages across all distributions
   # ====================================
-  # input debugging
-  - common: evtest
-  # xterm
-  - common: xterm
+  # keyboard/mouse simulation for x11
+  - common: xdotool
 
   # Command-line tool for transferring data with URLs (supports HTTP, FTP, etc.).
   - common: curl
@@ -145,6 +143,9 @@ packages:
   # Provides D-Bus message bus system integration for X11, allowing communication between desktop applications.
   - common: dbus-x11
 
+  # D-Bus message bus system, used for inter-process communication in Linux environments.
+  - common: dbus
+
   # Manages authentication cookies for X11 sessions, enabling secure access to the X server.
   - common: xauth
 
@@ -164,6 +165,7 @@ packages:
 
   # Provides locale definitions for language and regional settings, often required by GUI apps.
   - debian: locales
+    rhel: glibc-langpack-en
 
   # Keyboard data files for X11, used to define keymaps and layouts.
   - debian: xkb-data
