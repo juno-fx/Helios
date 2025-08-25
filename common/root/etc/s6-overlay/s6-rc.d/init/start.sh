@@ -3,6 +3,7 @@
 # trigger custom init scripts
 set -e
 
+sed -i "s/.*${LC_ALL}/${LC_ALL}/g" /etc/locale.gen
 locale-gen "${LC_ALL}"
 
 cat /opt/helios/header.txt
