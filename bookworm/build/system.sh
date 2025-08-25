@@ -49,9 +49,6 @@ rm -f /etc/xdg/autostart/xscreensaver.desktop
 # remove duplicate sources
 rm -f /etc/apt/sources.list
 
-# build locale
-/usr/sbin/locale-gen en_US.UTF-8
-
 # run clean up
 apt clean -y
 apt autoclean -y
