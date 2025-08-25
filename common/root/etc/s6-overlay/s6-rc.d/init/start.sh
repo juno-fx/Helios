@@ -3,6 +3,8 @@
 # trigger custom init scripts
 set -e
 
+locale-gen "${LC_ALL}"
+
 cat /opt/helios/header.txt
 echo "Helios Version $HELIOS_VERSION"
 

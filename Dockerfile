@@ -87,6 +87,7 @@ ENV NVIDIA_DRIVER_CAPABILITIES=all
 ENV IDLE_TIME=30
 ENV SELKIES_INTERPOSER=/usr/lib/selkies_joystick_interposer.so
 ENV DISABLE_ZINK=false
+ENV LC_ALL="en_US.UTF-8"
 
 # pull in args for the tag
 ARG SRC
