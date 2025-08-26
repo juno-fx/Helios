@@ -135,5 +135,4 @@ EXPOSE 3000
 
 RUN rm -rf /.hold
 
-ENV LC_ALL="en_US.UTF-8"
 CMD ["/init"]
