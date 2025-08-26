@@ -17,6 +17,9 @@ if [[ -z ${NO_GAMEPAD+x} ]]; then
 	printf "/usr/lib/selkies_joystick_interposer.so:/opt/lib/libudev.so.1.0.0-fake" >/run/s6/container_environment/LD_PRELOAD
 fi
 
+printf "${LC_ALL%.UTF-8}" >/run/s6/container_environment/LANGUAGE
+printf "${LC_ALL}" >/run/s6/container_environment/LANG
+
 # JoyStick (JS) folder setup
 mkdir -pm1777 /dev/input
 touch /tmp/selkies_js.log

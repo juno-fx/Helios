@@ -12,7 +12,6 @@ Environment variables are used to configure the Helios container. The following 
 | PASSWORD      | Password set for the user                                                         |          |
 | IDLE_TIME     | Trigger the idle hook after x time                                                |          |
 | DESKTOP_FILES | Paths seperated by ":". For example, `/some/path/1/*.desktop:/some/*/2/*.desktop` |          |
-| LC_ALL | Locale to use. Defaults to en_US.UTF-8 |          |
 | PREFIX        | Prefix for URL for use behind a reverse proxy                                     |          |
 
 !!! info 
