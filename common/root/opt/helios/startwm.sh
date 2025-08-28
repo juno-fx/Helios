@@ -83,7 +83,19 @@ $(gpu_selector_verbose "$chosen")
 EOF
 
 if [ -x /usr/bin/xfce4-session ]; then
-	exec vglrun -d "$chosen" dbus-launch --exit-with-session /usr/bin/xfce4-session 2>&1
+	if [[ -n "$DISABLE_VGL" ]]; then
+		# Run without vglrun if DISABLE_VGL is set
+		echo
+		echo ">>> Running without vglrun as DISABLE_VGL is set <<<"
+		echo
+		exec dbus-launch --exit-with-session /usr/bin/xfce4-session 2>&1
+	else
+		# Default: wrap in vglrun
+		echo
+		echo ">>> Running with vglrun <<<"
+		echo
+		exec vglrun -d "$chosen" dbus-launch --exit-with-session /usr/bin/xfce4-session 2>&1
+	fi
 else
 	echo "Desktop Environment not found."
 	exit 1

@@ -4,15 +4,16 @@
 
 Environment variables are used to configure the Helios container. The following environment variables are available:
 
-| Name          | Value                                                                             | Required |
-|---------------|-----------------------------------------------------------------------------------|----------|
-| USER          | Name of the user                                                                  | X        |
-| UID           | POSIX compliant uid for the user                                                  | X        |
-| GID           | POSIX compliant gid for the user                                                  |          |
-| PASSWORD      | Password set for the user                                                         |          |
-| IDLE_TIME     | Trigger the idle hook after x time                                                |          |
-| DESKTOP_FILES | Paths seperated by ":". For example, `/some/path/1/*.desktop:/some/*/2/*.desktop` |          |
-| PREFIX        | Prefix for URL for use behind a reverse proxy                                     |          |
+| Name          | Value                                                                                                                                | Required |
+|---------------|--------------------------------------------------------------------------------------------------------------------------------------|----------|
+| USER          | Name of the user                                                                                                                     | X        |
+| UID           | POSIX compliant uid for the user                                                                                                     | X        |
+| GID           | POSIX compliant gid for the user                                                                                                     |          |
+| PASSWORD      | Password set for the user                                                                                                            |          |
+| IDLE_TIME     | Trigger the idle hook after x time                                                                                                   |          |
+| DISABLE_VGL   | Disable VirtualGL Wrapper around the entire desktop session. You will need to manually run applications that require it via `vglrun` |          |
+| DESKTOP_FILES | Paths seperated by ":". For example, `/some/path/1/*.desktop:/some/*/2/*.desktop`                                                    |          |
+| PREFIX        | Prefix for URL for use behind a reverse proxy                                                                                        |          |
 
 !!! info 
 
