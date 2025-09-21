@@ -132,6 +132,7 @@ RUN chmod -R 7777 /etc/s6-overlay/s6-rc.d/
 COPY LICENSE /LICENSE
 
 EXPOSE 3000
+EXPOSE 3001
 
 RUN rm -rf /.hold
 
