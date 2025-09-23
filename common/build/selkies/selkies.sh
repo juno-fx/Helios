@@ -21,7 +21,7 @@ bash $dependencies
 cd /tmp/
 
 # download selkies
-curl -o selkies.tar.gz -L "https://github.com/selkies-project/selkies/archive/${SELKIES_VERSION}.tar.gz"
+curl -o selkies.tar.gz -L "${SELKIES_GITHUB_URL}/archive/${SELKIES_VERSION}.tar.gz"
 tar xf selkies.tar.gz
 cd selkies-*
 sed -i '/cryptography/d' pyproject.toml

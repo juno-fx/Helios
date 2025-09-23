@@ -61,7 +61,9 @@ RUN /tmp/xvfb.sh
 # build selkies frontend
 FROM alpine AS selkies-frontend
 
-ENV SELKIES_VERSION="d4b2c32b65c58329e14d580784d4cbb98cb44564"
+# no trailing slashes, <owner>/<name> syntax, avoid trailing .git!
+ENV SELKIES_GITHUB_URL="https://github.com/juno-fx/selkies"
+ENV SELKIES_VERSION="b17ebe8992582795a9225fc9417580bd733a9695"
 
 # grab package lists
 COPY --from=lists /work/lists/ /lists/
@@ -75,7 +77,8 @@ RUN apk add bash && /tmp/frontend.sh
 FROM distro AS base-image
 
 # version of selkies to clone
-ENV SELKIES_VERSION="d4b2c32b65c58329e14d580784d4cbb98cb44564"
+ENV SELKIES_GITHUB_URL="https://github.com/juno-fx/selkies"
+ENV SELKIES_VERSION="b17ebe8992582795a9225fc9417580bd733a9695"
 
 # environment variables
 ENV PREFIX=/

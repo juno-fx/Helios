@@ -10,7 +10,7 @@ mkdir -p /build-out
 apk add $(cat /lists/frontend.list)
 
 # install selkies front end
-git clone https://github.com/selkies-project/selkies.git /src
+git clone "${SELKIES_GITHUB_URL}.git" /src
 cd /src
 git checkout -f ${SELKIES_VERSION}
 

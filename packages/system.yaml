@@ -4,6 +4,8 @@ packages:
   # ====================================
   # keyboard/mouse simulation for x11
   - common: xdotool
+  # clipboard handling
+  - common: xclip
 
   # Command-line tool for transferring data with URLs (supports HTTP, FTP, etc.).
   - common: curl
