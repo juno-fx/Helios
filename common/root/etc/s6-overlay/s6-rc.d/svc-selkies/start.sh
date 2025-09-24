@@ -22,7 +22,7 @@ echo "Starting Selkies..."
 # Start Selkies
 exec s6-setuidgid "${USER}" \
 	selkies \
-	--addr="localhost" \
+	--addr="0.0.0.0" \
 	--port="8081" \
 	--enable_basic_auth="false" \
 	--mode="websockets" >/var/log/helios/selkies.log

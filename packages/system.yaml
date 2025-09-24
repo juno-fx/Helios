@@ -5,6 +5,9 @@ packages:
   # keyboard/mouse simulation for x11
   - common: xdotool
 
+  # Command-line utility to copy and paste text to/from the X11 clipboard.
+  - common: xclip
+
   # Command-line tool for transferring data with URLs (supports HTTP, FTP, etc.).
   - common: curl
 

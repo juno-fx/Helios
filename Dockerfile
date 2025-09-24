@@ -61,7 +61,7 @@ RUN /tmp/xvfb.sh
 # build selkies frontend
 FROM alpine AS selkies-frontend
 
-ENV SELKIES_VERSION="d4b2c32b65c58329e14d580784d4cbb98cb44564"
+ENV SELKIES_VERSION="5e8079aaea2d2c4da2a0ffc477dfd0f2622cb2a7"
 
 # grab package lists
 COPY --from=lists /work/lists/ /lists/
@@ -75,7 +75,7 @@ RUN apk add bash && /tmp/frontend.sh
 FROM distro AS base-image
 
 # version of selkies to clone
-ENV SELKIES_VERSION="d4b2c32b65c58329e14d580784d4cbb98cb44564"
+ENV SELKIES_VERSION="5e8079aaea2d2c4da2a0ffc477dfd0f2622cb2a7"
 
 # environment variables
 ENV PREFIX=/
