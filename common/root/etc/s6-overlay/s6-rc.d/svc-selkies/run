@@ -6,7 +6,7 @@ echo "Starting Selkies Service..."
 
 # Default sink setup
 if [ ! -f '/dev/shm/audio.lock' ]; then
-  until [ -f /opt/pulse/pid ]; do
+  until [ -f "$PULSE_RUNTIME_PATH/pid" ]; do
     sleep .5
   done
   s6-setuidgid "${USER}" with-contenv pactl \

@@ -1,7 +1,8 @@
 #!/usr/bin/with-contenv bash
 
-mkdir /opt/pulse
-chown "${USER}":"${USER}" /opt/pulse
+mkdir "$PULSE_RUNTIME_PATH"
+chmod 700 "$PULSE_RUNTIME_PATH"
+chown "${USER}":"${USER}" "$PULSE_RUNTIME_PATH"
 
 exec s6-setuidgid "${USER}" \
   /usr/bin/pulseaudio \

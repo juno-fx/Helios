@@ -26,7 +26,7 @@ apt install -y gnupg curl wget
 wget -q -O- https://packagecloud.io/dcommander/virtualgl/gpgkey |
 	gpg --dearmor >/etc/apt/trusted.gpg.d/VirtualGL.gpg
 echo "deb [signed-by=/etc/apt/trusted.gpg.d/VirtualGL.gpg] https://packagecloud.io/dcommander/virtualgl/any/ any main" >/etc/apt/sources.list.d/virtualgl.list
-curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+curl -fsSL "https://deb.nodesource.com/setup_$SELKIES_NODE_VERSION.x" | bash -
 apt update
 
 apt install --no-install-recommends -y \

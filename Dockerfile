@@ -82,11 +82,12 @@ ENV PREFIX=/
 ENV HTTP_PORT=3000
 ENV DISPLAY=:1
 ENV PERL5LIB=/usr/local/bin
-ENV PULSE_RUNTIME_PATH=/opt/pulse
+ENV PULSE_RUNTIME_PATH=/tmp/pulse
 ENV NVIDIA_DRIVER_CAPABILITIES=all
 ENV IDLE_TIME=30
 ENV SELKIES_INTERPOSER=/usr/lib/selkies_joystick_interposer.so
 ENV DISABLE_ZINK=false
+ENV SELKIES_NODE_VERSION=22
 
 # pull in args for the tag
 ARG SRC
@@ -126,9 +127,7 @@ RUN chmod +x /usr/bin/thunar
 COPY ${SRC}/root/ /
 
 # set permissions
-RUN chmod -R 7777 /etc/s6-overlay/s6-rc.d/ \
-    && chmod +x /etc/s6-overlay/s6-rc.d/*/run \
-    && chmod +x /etc/s6-overlay/s6-rc.d/*/up
+RUN chmod -R 7777 /etc/s6-overlay/s6-rc.d/
 
 # add license file
 COPY LICENSE /LICENSE

@@ -22,7 +22,7 @@ rm -rfv /usr/share/backgrounds/*
 mv -v /tmp/background.png /usr/share/backgrounds/
 
 # install node
-dnf module install nodejs:20/common -y
+dnf module install "nodejs:$SELKIES_NODE_VERSION/common" -y
 
 # remove screensaver and lock screen
 rm -f /etc/xdg/autostart/xscreensaver.desktop
