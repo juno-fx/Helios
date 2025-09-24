@@ -25,7 +25,7 @@ RUN tar -C /s6 -Jxpf /tmp/s6-overlay-x86_64.tar.xz
 
 # add s6 optional symlinks
 ADD https://github.com/just-containers/s6-overlay/releases/download/${S6_VERSION}/s6-overlay-symlinks-noarch.tar.xz /tmp
-RUN tar -C /s6 -Jxpf /tmp/s6-overlay-symlinks-noarch.tar.xz && unlink /s6/usr/bin/with-contenv
+RUN tar -C /s6 -Jxpf /tmp/s6-overlay-symlinks-noarch.tar.xz
 ADD https://github.com/just-containers/s6-overlay/releases/download/${S6_VERSION}/s6-overlay-symlinks-arch.tar.xz /tmp
 RUN tar -C /s6 -Jxpf /tmp/s6-overlay-symlinks-arch.tar.xz
 
@@ -82,7 +82,7 @@ ENV PREFIX=/
 ENV HTTP_PORT=3000
 ENV DISPLAY=:1
 ENV PERL5LIB=/usr/local/bin
-ENV PULSE_RUNTIME_PATH=/opt/helios/
+ENV PULSE_RUNTIME_PATH=/opt/pulse
 ENV NVIDIA_DRIVER_CAPABILITIES=all
 ENV IDLE_TIME=30
 ENV SELKIES_INTERPOSER=/usr/lib/selkies_joystick_interposer.so
@@ -126,7 +126,9 @@ RUN chmod +x /usr/bin/thunar
 COPY ${SRC}/root/ /
 
 # set permissions
-RUN chmod -R 7777 /etc/s6-overlay/s6-rc.d/
+RUN chmod -R 7777 /etc/s6-overlay/s6-rc.d/ \
+    && chmod +x /etc/s6-overlay/s6-rc.d/*/run \
+    && chmod +x /etc/s6-overlay/s6-rc.d/*/up
 
 # add license file
 COPY LICENSE /LICENSE

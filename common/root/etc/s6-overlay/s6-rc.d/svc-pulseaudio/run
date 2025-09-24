@@ -1,0 +1,10 @@
+#!/usr/bin/with-contenv bash
+
+mkdir /opt/pulse
+chown "${USER}":"${USER}" /opt/pulse
+
+exec s6-setuidgid "${USER}" \
+  /usr/bin/pulseaudio \
+    --log-level=0 \
+    --log-target=stderr \
+    --exit-idle-time=-1 > /dev/null 2>&1

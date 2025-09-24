@@ -1,2 +1,31 @@
-#!/command/execlineb -S0
-with-contenv /etc/s6-overlay/s6-rc.d/svc-selkies/start.sh
+#!/usr/bin/with-contenv bash
+
+set -e
+
+echo "Starting Selkies Service..."
+
+# Default sink setup
+if [ ! -f '/dev/shm/audio.lock' ]; then
+  until [ -f /opt/pulse/pid ]; do
+    sleep .5
+  done
+  s6-setuidgid "${USER}" with-contenv pactl \
+    load-module module-null-sink \
+    sink_name="output" \
+    sink_properties=device.description="output"
+  s6-setuidgid "${USER}" with-contenv pactl \
+    load-module module-null-sink \
+    sink_name="input" \
+    sink_properties=device.description="input"
+  touch /dev/shm/audio.lock
+fi
+
+echo "Starting Selkies..."
+
+# Start Selkies
+exec s6-setuidgid "${USER}" \
+	selkies \
+	--addr="0.0.0.0" \
+	--port="8081" \
+	--enable_basic_auth="false" \
+	--mode="websockets"
