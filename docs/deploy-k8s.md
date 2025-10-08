@@ -10,7 +10,7 @@ An example command to run Helios with GPU support in Kubernetes is:
 
 !!! note "Launch Configuration"
 
-    Be sure the also include all required environment variables as is specified in [Launch Configuration](deploy-usage.md).
+    Be sure to also include all required environment variables as is specified in [Launch Configuration](deploy-usage.md).
 
 ```yaml
 apiVersion: apps/v1
@@ -47,7 +47,7 @@ Create the following deployment with the following content:
 
 !!! note "Launch Configuration"
 
-    Be sure the also include all required environment variables as is specified in [Launch Configuration](deploy-usage.md).
+    Be sure to also include all required environment variables as is specified in [Launch Configuration](deploy-usage.md).
 
 ```yaml
 apiVersion: v1

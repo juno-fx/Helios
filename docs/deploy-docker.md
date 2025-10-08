@@ -11,7 +11,7 @@ An example command to run Helios with GPU support is:
 
 !!! note "Launch Configuration"
 
-    Be sure the also include all required environment variables as is specified in [Launch Configuration](deploy-usage.md).
+    Be sure to also include all required environment variables as is specified in [Launch Configuration](deploy-usage.md).
 
 ```bash
 docker run -d \
@@ -31,7 +31,7 @@ Run the Docker container with the custom scripts mounted. You can use the follow
 
 !!! note "Launch Configuration"
 
-    Be sure the also include all required environment variables as is specified in [Launch Configuration](deploy-usage.md).
+    Be sure to also include all required environment variables as is specified in [Launch Configuration](deploy-usage.md).
 
 ```bash
 docker run -d \

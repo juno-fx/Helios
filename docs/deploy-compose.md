@@ -12,7 +12,7 @@ Create a `docker-compose.yaml` file with the following content:
 
 !!! note "Launch Configuration"
 
-    Be sure the also include all required environment variables as is specified in [Launch Configuration](deploy-usage.md).
+    Be sure to also include all required environment variables as is specified in [Launch Configuration](deploy-usage.md).
 
 ```yaml
 services:
@@ -45,7 +45,7 @@ Create a `compose.yaml` file with the following content:
 
 !!! note "Launch Configuration"
 
-    Be sure the also include all required environment variables as is specified in [Launch Configuration](deploy-usage.md).
+    Be sure to also include all required environment variables as is specified in [Launch Configuration](deploy-usage.md).
 
 ```yaml
 services:

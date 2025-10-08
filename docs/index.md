@@ -26,7 +26,7 @@ experience for both developers and end-users.
 ### **Charging into the Future**
 
 Built and maintained by the same team that brought you Juno Orion, Helios is the next step in the evolution of containerized workstations. Helios is designed 
-to be the go-to solution for developers, scientists, artist, engineers, system administrators, and many others looking for a modern, efficient, and secure desktop 
+to be the go-to solution for developers, scientists, artists, engineers, system administrators, and many others looking for a modern, efficient, and secure desktop 
 environment.
 
 
