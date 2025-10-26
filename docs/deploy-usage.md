@@ -4,16 +4,24 @@
 
 Environment variables are used to configure the Helios container. The following environment variables are available:
 
-| Name          | Value                                                                                                                                | Required |
-|---------------|--------------------------------------------------------------------------------------------------------------------------------------|----------|
-| USER          | Name of the user                                                                                                                     | X        |
-| UID           | POSIX compliant uid for the user                                                                                                     | X        |
-| GID           | POSIX compliant gid for the user                                                                                                     |          |
-| PASSWORD      | Password set for the user                                                                                                            |          |
-| IDLE_TIME     | Trigger the idle hook after x time                                                                                                   |          |
-| DISABLE_VGL   | Disable VirtualGL Wrapper around the entire desktop session. You will need to manually run applications that require it via `vglrun` |          |
-| DESKTOP_FILES | Paths seperated by ":". For example, `/some/path/1/*.desktop:/some/*/2/*.desktop`                                                    |          |
-| PREFIX        | Prefix for URL for use behind a reverse proxy                                                                                        |          |
+| Name              | Value                                                                                                                                    | Required |
+|-------------------|------------------------------------------------------------------------------------------------------------------------------------------|----------|
+| USER              | Name of the user                                                                                                                         | X        |
+| UID               | POSIX compliant uid for the user                                                                                                         | X        |
+| GID               | POSIX compliant gid for the user                                                                                                         |          |
+| PASSWORD          | Password set for the user                                                                                                                |          |
+| IDLE_TIME         | Trigger the idle hook after x time                                                                                                       |          |
+| DISABLE_VGL       | Disable VirtualGL Wrapper around the entire desktop session. You will need to manually run applications that require it via `vglrun`     |          |
+| DESKTOP_FILES     | Paths separated by `:`. For example, `/some/path/1/*.desktop:/some/*/2/*.desktop`                                                        |          |
+| PREFIX            | Prefix for URL for use behind a reverse proxy                                                                                            |          |
+| SELKIES_FRAMERATE | Set framerate as a range (e.g., `15-60`) or a fixed value (e.g., `30`)                                                                   |          |
+
+
+When using the Orion Platform, you can configure them in the [Templates](https://juno-fx.github.io/Orion-Documentation/genesis/workstations/)
+User-related settings are already configured automatically by the platform. The Templates are there to adjust settings such as your framerate.
+
+As we rely on Selkies, many of the environment variables provided by the upstream will be respected.
+You can find official Selkies documentation here: https://selkies-project.github.io/selkies/usage/#command-line-options-and-environment-variables
 
 !!! info 
 
@@ -37,6 +45,8 @@ Environment variables are used to configure the Helios container. The following 
     Security is a very important part of any deployment and it isn't a one size fits all solution. Instead of shipping
     Helios with a specific authentication method, we leave it up to the user to implement their own security measures
     that best fit their deployment. This allows for more flexibility and customization in how Helios is used.
+
+    When using the [Orion Platform](https://juno-fx.github.io/Orion-Documentation/), Authentication and authorization is handled by the product, ensuring the security of your deployment.
 
 ## Endpoints
 
