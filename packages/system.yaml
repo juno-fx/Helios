@@ -5,6 +5,10 @@ packages:
   # keyboard/mouse simulation for x11
   - common: xdotool
 
+  # Video Acceleration API (VA-API) library for hardware-accelerated video processing.
+  - rhel: libva
+    debian: libva2
+
   # Command-line utility to copy and paste text to/from the X11 clipboard.
   - common: xclip
 
