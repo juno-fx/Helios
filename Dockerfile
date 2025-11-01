@@ -4,7 +4,6 @@ ARG SRC=jammy
 FROM ${IMAGE} AS distro
 
 ENV HELIOS_VERSION="0.0.0"
-ENV HELIOS_XVFB_PATCH=21
 ENV SRC=${SRC}
 
 
@@ -41,20 +40,6 @@ COPY packages packages
 
 RUN pip install pyyaml --break-system-packages \
     && python3 /work/packages.py /work/packages/ /work/lists/
-
-
-
-# xvfb build stage
-FROM distro AS xvfb
-
-# pull in args for the tag
-ARG SRC
-
-# build xvfb
-COPY patches/* /tmp/
-COPY --chmod=777 ${SRC}/build/xvfb-dependencies.sh /tmp/
-COPY --chmod=777 common/build/xvfb.sh /tmp/
-RUN /tmp/xvfb.sh
 
 
 
@@ -110,9 +95,6 @@ RUN rm -rf /lists
 
 # install init system
 COPY --from=s6 /s6 /
-
-# install custom xvfb (if needed)
-COPY --from=xvfb /build-out/ /
 
 # install selkies frontend
 COPY --from=selkies-frontend /build-out/ /usr/share/selkies/www/
