@@ -54,7 +54,7 @@ Some key points about Helios:
 
 - **Lightweight**: Minimal resource usage for efficient performance.  
 - **WebRTC Support** (Coming Soon): High performance, low-latency video streaming.
-- **Audio Support** (Coming Soon): High-quality audio streaming for improved user experience.  
+- **Audio Support**: High-quality audio streaming for improved user experience.  
 - **VirtualGL Support**: Hardware-accelerated 3D graphics using `vglrun`.
 
 ---
