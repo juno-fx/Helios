@@ -10,6 +10,13 @@ dnf config-manager --add-repo https://raw.githubusercontent.com/VirtualGL/repo/m
 dnf config-manager --set-enabled crb
 dnf config-manager --set-enabled devel
 
+#PCoIP Repos
+dnf config-manager --add-repo https://dl.anyware.hp.com/g82Ye1S2Gk2eeY1G/pcoip-agent/rpm/el/9/x86_64
+dnf config-manager --add-repo https://dl.anyware.hp.com/g82Ye1S2Gk2eeY1G/pcoip-agent/rpm/el/9/noarch
+dnf config-manager --add-repo https://dl.anyware.hp.com/g82Ye1S2Gk2eeY1G/pcoip-agent/rpm/el/9/SRPMS
+dnf config-manager --setopt="dl.anyware.hp.com_g82Ye1S2Gk2eeY1G_pcoip-agent_rpm_el_9_x86_64.gpgcheck=0" --save
+dnf config-manager --setopt="dl.anyware.hp.com_g82Ye1S2Gk2eeY1G_pcoip-agent_rpm_el_9_noarch.gpgcheck=0" --save
+dnf config-manager --setopt="dl.anyware.hp.com_g82Ye1S2Gk2eeY1G_pcoip-agent_rpm_el_9_SRPMS.gpgcheck=0" --save
 # install system
 dnf update -y
 dnf install -y --allowerasing --setopt=install_weak_deps=False --best \

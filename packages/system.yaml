@@ -256,3 +256,7 @@ packages:
   - debian: virtualgl
     rhel: VirtualGL
     alpine: virtualgl
+
+  # HP Anyware Graphics Agent
+  - rhel: pcoip-agent-graphics
+  

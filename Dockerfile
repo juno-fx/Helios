@@ -8,7 +8,6 @@ ENV HELIOS_XVFB_PATCH=21
 ENV SRC=${SRC}
 
 
-
 # s6 init system
 FROM alpine AS s6
 
@@ -56,26 +55,7 @@ COPY --chmod=777 ${SRC}/build/xvfb-dependencies.sh /tmp/
 COPY --chmod=777 common/build/xvfb.sh /tmp/
 RUN /tmp/xvfb.sh
 
-
-
-# build selkies frontend
-FROM alpine AS selkies-frontend
-
-ENV SELKIES_VERSION="89e39cf7d58c8f7c87ac5922b56b84f745ddeeab"
-
-# grab package lists
-COPY --from=lists /work/lists/ /lists/
-
-# build our frontend image
-COPY --chmod=777 common/build/frontend.sh /tmp/frontend.sh
-RUN apk add bash && /tmp/frontend.sh
-
-
-
 FROM distro AS base-image
-
-# version of selkies to clone
-ENV SELKIES_VERSION="89e39cf7d58c8f7c87ac5922b56b84f745ddeeab"
 
 # environment variables
 ENV PREFIX=/
@@ -101,10 +81,6 @@ RUN /tmp/system.sh
 COPY --chmod=777 common/build/system.sh /tmp/
 RUN /tmp/system.sh
 
-# install selkies
-COPY --chmod=777 common/build/selkies/*.sh /tmp/
-RUN /tmp/selkies.sh
-
 # clean up package lists
 RUN rm -rf /lists
 
@@ -113,9 +89,6 @@ COPY --from=s6 /s6 /
 
 # install custom xvfb (if needed)
 COPY --from=xvfb /build-out/ /
-
-# install selkies frontend
-COPY --from=selkies-frontend /build-out/ /usr/share/selkies/www/
 
 # copy in general custom rootfs changes
 COPY common/root/ /

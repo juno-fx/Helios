@@ -1,0 +1,64 @@
+#!/usr/bin/with-contenv bash
+# https://anyware.hp.com/components/graphics-agent-for-linux/24.07/documentation/administrators-guide/installation-guide/installing-the-agent
+
+set -e
+
+#echo "Setting up the audio for HP Anywhere..."
+
+# Default sink setup
+#if [ ! -f '/dev/shm/audio.lock' ]; then
+#  until [ -f "$PULSE_RUNTIME_PATH/pid" ]; do
+#    sleep .5
+#  done
+#  s6-setuidgid "${USER}" with-contenv pactl \
+#    load-module module-null-sink \
+#    sink_name="output" \
+#    sink_properties=device.description="output"
+#  s6-setuidgid "${USER}" with-contenv pactl \
+#    load-module module-null-sink \
+#    sink_name="input" \
+#    sink_properties=device.description="input"
+#  touch /dev/shm/audio.lock
+#fi
+#
+echo "Starting HP Anywhere..."
+
+# reference systemd equivalent: /usr/lib/systemd/system/pcoip.service
+
+# [Unit]
+# Description=PCoIP Agent
+# Conflicts=lightdm.service sddm.service kdm.service
+# Wants=oddjobd.service libvirtd.service
+# After=libvirtd.service network.target
+# 
+# [Service]
+# Type=simple
+# 
+# User=pcoip
+# Group=pcoip
+# WorkingDirectory=/var/crash/pcoip-agent
+# LimitCORE=infinity
+# 
+# PermissionsStartOnly=true
+# 
+# # Launch the configure script in root mode to configure GDM to run in
+# # headless mode
+# ExecStartPre=-/bin/bash /usr/lib/pcoip-agent/configure-gdm.sh configure
+# 
+# ExecStartPre=-/usr/sbin/logrotate -f /etc/logrotate.d/pcoip-agent
+# 
+# KillMode=mixed
+# TimeoutSec=60
+# 
+# # Start Main
+# ExecStart=/usr/sbin/pcoip-agent
+# 
+# # When we stop pcoip, restore the config files for GDM to their original state
+# ExecStopPost=-/bin/bash /usr/lib/pcoip-agent/configure-gdm.sh restore
+
+
+/bin/bash /usr/lib/pcoip-agent/configure-gdm.sh configure
+
+exec 2>&1
+exec s6-setuidgid pcoip \
+	/usr/sbin/pcoip-agent

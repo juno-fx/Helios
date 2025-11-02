@@ -10,10 +10,10 @@ done
 
 echo "Waiting for Selkies process to start..."
 
-# Loop until a process matching "selkies" appears
+# Loop until a process matching "pcoip-agent" appears
 while true; do
-	if pgrep -f selkies >/dev/null; then
-		echo "Selkies process detected."
+	if pgrep -f pcoip-agent >/dev/null; then
+		echo "pcoip-agent process detected."
 		break
 	fi
 	sleep 0.25
@@ -35,8 +35,6 @@ if [ -z "$GID" ]; then
 	echo "No GID configured, defaulting to matching UID"
 	GID="$UID"
 fi
-
-chmod 777 /tmp/selkies*
 
 # set sane resolution before starting apps
 s6-setuidgid ${USER} xrandr --newmode "1024x768" 63.50 1024 1072 1176 1328 768 771 775 798 -hsync +vsync

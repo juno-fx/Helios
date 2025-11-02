@@ -16,11 +16,11 @@ services:
     environment:
       - USER=helios
       - UID=5040
-#      - DISABLE_VGL=1
-#      - DESKTOP_FILES="/desktops/*.desktop:/tmp/*.desktop"
-#      - IDLE_TIME=1
-#      - PASSWORD=password
-#      - PREFIX=/custom/prefix
+      # ToDo: move this out to a conf file that lets us select a remote license server.
+      # This is temporary, to facilitate testing.
+      - HP_ANYWHERE_REGISTRATION_CODE
     ports:
-      - "3000:3000"
-      - "3001:3001"
+      # https://anyware.hp.com/knowledge/hp-anyware-agents-clients-and-direct-connections
+      - "443:443"
+      - "4172"
+      - "60443"
