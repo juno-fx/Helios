@@ -11,4 +11,4 @@ touch /tmp/.healthz
 # Show KasmVNC Logs
 tail \
 	-f /var/log/helios/*.log \
-	-f /var/log/nginx/*.log
+	-f /var/log/pcoip-agent/*.log
