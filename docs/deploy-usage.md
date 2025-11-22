@@ -4,17 +4,18 @@
 
 Environment variables are used to configure the Helios container. The following environment variables are available:
 
-| Name              | Value                                                                                                                                    | Required |
-|-------------------|------------------------------------------------------------------------------------------------------------------------------------------|----------|
-| USER              | Name of the user                                                                                                                         | X        |
-| UID               | POSIX compliant uid for the user                                                                                                         | X        |
-| GID               | POSIX compliant gid for the user                                                                                                         |          |
-| PASSWORD          | Password set for the user                                                                                                                |          |
-| IDLE_TIME         | Trigger the idle hook after x time                                                                                                       |          |
-| DISABLE_VGL       | Disable VirtualGL Wrapper around the entire desktop session. You will need to manually run applications that require it via `vglrun`     |          |
-| DESKTOP_FILES     | Paths separated by `:`. For example, `/some/path/1/*.desktop:/some/*/2/*.desktop`                                                        |          |
-| PREFIX            | Prefix for URL for use behind a reverse proxy                                                                                            |          |
-| SELKIES_FRAMERATE | Set framerate as a range (e.g., `15-60`) or a fixed value (e.g., `30`)                                                                   |          |
+| Name              | Value                                                                                                                                | Required |
+|-------------------|--------------------------------------------------------------------------------------------------------------------------------------|----------|
+| USER              | Name of the user                                                                                                                     | X        |
+| UID               | POSIX compliant uid for the user                                                                                                     | X        |
+| GID               | POSIX compliant gid for the user                                                                                                     |          |
+| PASSWORD          | Password set for the user                                                                                                            |          |
+| IDLE_TIME         | Trigger the idle hook after x time                                                                                                   |          |
+| DISABLE_VGL       | Disable VirtualGL Wrapper around the entire desktop session. You will need to manually run applications that require it via `vglrun` |          |
+| DESKTOP_FILES     | Paths separated by `:`. For example, `/some/path/1/*.desktop:/some/*/2/*.desktop`                                                    |          |
+| PREFIX            | Prefix for URL for use behind a reverse proxy                                                                                        |          |
+| SELKIES_FRAMERATE | Set framerate as a range (e.g., `15-60`) or a fixed value (e.g., `30`)                                                               |          |
+| SUDO              | Grant `SUDO` to the user on the container                                                                                            |          |
 
 
 When using the Orion Platform, you can configure them in the [Templates](https://juno-fx.github.io/Orion-Documentation/genesis/workstations/)

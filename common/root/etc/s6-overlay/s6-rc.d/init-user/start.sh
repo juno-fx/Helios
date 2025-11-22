@@ -33,6 +33,16 @@ else
 	echo "Group $GID already exists, skipping group creation"
 fi
 
+# if SUDO is set in the env, add the user to the sudoers
+# and grant passwordless sudo access
+if [ "$SUDO" = "true" ] || [ "$SUDO" = "1" ]; then
+  echo "Granting sudo access to user $USER"
+  echo "$USER ALL=(ALL) NOPASSWD:ALL" >/etc/sudoers.d/"$USER"
+  chmod 440 /etc/sudoers.d/"$USER"
+else
+  echo "No sudo access granted to user $USER"
+fi
+
 # handle user creation
 if id "$USER" >/dev/null 2>&1; then
 	echo 'User already exists. Skipping user creation.'

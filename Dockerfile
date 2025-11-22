@@ -46,7 +46,7 @@ RUN pip install pyyaml --break-system-packages \
 # build selkies frontend
 FROM alpine AS selkies-frontend
 
-ENV SELKIES_VERSION="3a7d4d4ee868c85af205d786455ece6a2d4a8935"
+ENV SELKIES_VERSION="d70c9155e0df97ac1e6ac7a4cce04e4b04840286"
 
 # grab package lists
 COPY --from=lists /work/lists/ /lists/
@@ -60,7 +60,7 @@ RUN apk add bash && /tmp/frontend.sh
 FROM distro AS base-image
 
 # version of selkies to clone
-ENV SELKIES_VERSION="3a7d4d4ee868c85af205d786455ece6a2d4a8935"
+ENV SELKIES_VERSION="d70c9155e0df97ac1e6ac7a4cce04e4b04840286"
 
 # environment variables
 ENV PREFIX=/
@@ -103,7 +103,8 @@ COPY --from=selkies-frontend /build-out/ /usr/share/selkies/www/
 COPY common/root/ /
 
 # LD_PRELOAD wrapper handlers (selkies hack)
-RUN chmod +x /usr/bin/thunar
+RUN chmod +x /usr/bin/thunar \
+    && chmod +x /usr/bin/sudo
 
 # copy in distro specific custom rootfs changes
 COPY ${SRC}/root/ /

@@ -19,5 +19,6 @@ mv -v otf/static/* /usr/share/fonts/cascadia-code/
 rm -rfv /tmp/*
 fc-cache -f -v
 
-# thunar fix
+# LD_PRELOAD fix
 mv /usr/bin/thunar /usr/bin/thunar-real
+mv /usr/bin/sudo /usr/bin/sudo-real

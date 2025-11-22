@@ -63,7 +63,7 @@ Some key points about Helios:
 
 We maintain the latest versions of Selkies components to ensure access to the newest features and bug fixes:
 
-- **Selkies**: [3a7d4d4ee868c85af205d786455ece6a2d4a8935](https://github.com/selkies-project/selkies/tree/3a7d4d4ee868c85af205d786455ece6a2d4a8935)
+- **Selkies**: [d70c9155e0df97ac1e6ac7a4cce04e4b04840286](https://github.com/selkies-project/selkies/tree/3a7d4d4ee868c85af205d786455ece6a2d4a8935)
 
 ---
 

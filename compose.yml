@@ -16,6 +16,7 @@ services:
     environment:
       - USER=helios
       - UID=5040
+      - SUDO=true
 #      - DISABLE_VGL=1
 #      - DESKTOP_FILES="/desktops/*.desktop:/tmp/*.desktop"
 #      - IDLE_TIME=1
