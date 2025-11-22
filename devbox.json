@@ -5,8 +5,8 @@
     "gnumake@latest",
     "docker@latest",
     "docker-compose@latest",
-    "python@latest",
-    "uv@latest"
+    "uv@latest",
+    "python-full@3.13.3"
   ],
   "shell": {
     "init_hook": [
