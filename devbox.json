@@ -6,9 +6,13 @@
     "docker@latest",
     "docker-compose@latest",
     "uv@latest",
-    "python-full@3.13.3",
-    "python313Packages.types-webencodings@latest"
+    "python-full@3.13.3"
   ],
+  "env": {
+      "LANG": "en_US.UTF-8",
+      "LC_ALL": "en_US.UTF-8",
+      "PYTHONIOENCODING": "utf-8"
+    },
   "shell": {
     "init_hook": [
       ". $VENV_DIR/bin/activate",
