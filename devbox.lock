@@ -250,6 +250,70 @@
         }
       }
     },
+    "python313Packages.types-webencodings@latest": {
+      "last_modified": "2025-11-17T10:23:24Z",
+      "resolved": "github:NixOS/nixpkgs/8b6600824693a9c706ef09bd86711ca393703466#python313Packages.types-webencodings",
+      "source": "devbox-search",
+      "version": "0.5.0.20251108",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/k9p1krz57nc35z2r46b2g66s3pjp66wv-python3.13-types-webencodings-0.5.0.20251108",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/w6sh9xmijphhigqh4ml3f7zvfxd2wmyv-python3.13-types-webencodings-0.5.0.20251108-dist"
+            }
+          ],
+          "store_path": "/nix/store/k9p1krz57nc35z2r46b2g66s3pjp66wv-python3.13-types-webencodings-0.5.0.20251108"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/cybb2m6my1gp5dhaz39709xzvxcip01h-python3.13-types-webencodings-0.5.0.20251108",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/lqszj4xgd7581zwzmy3jlsrilc8f1hnj-python3.13-types-webencodings-0.5.0.20251108-dist"
+            }
+          ],
+          "store_path": "/nix/store/cybb2m6my1gp5dhaz39709xzvxcip01h-python3.13-types-webencodings-0.5.0.20251108"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/9dwxn1yg5hdj0nyz2cbqm7iddfililxx-python3.13-types-webencodings-0.5.0.20251108",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/arc581pmffrn4z4yrjpb26q541zi04x7-python3.13-types-webencodings-0.5.0.20251108-dist"
+            }
+          ],
+          "store_path": "/nix/store/9dwxn1yg5hdj0nyz2cbqm7iddfililxx-python3.13-types-webencodings-0.5.0.20251108"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/1h9c7nahx7xk8737ixn4xbyl2r6za2b2-python3.13-types-webencodings-0.5.0.20251108",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/lxwdv7vjcadnmwcdvm18pq135pvvddkx-python3.13-types-webencodings-0.5.0.20251108-dist"
+            }
+          ],
+          "store_path": "/nix/store/1h9c7nahx7xk8737ixn4xbyl2r6za2b2-python3.13-types-webencodings-0.5.0.20251108"
+        }
+      }
+    },
     "shfmt@latest": {
       "last_modified": "2025-05-16T20:19:48Z",
       "resolved": "github:NixOS/nixpkgs/12a55407652e04dcf2309436eb06fef0d3713ef3#shfmt",

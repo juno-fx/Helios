@@ -6,7 +6,8 @@
     "docker@latest",
     "docker-compose@latest",
     "uv@latest",
-    "python-full@3.13.3"
+    "python-full@3.13.3",
+    "python313Packages.types-webencodings@latest"
   ],
   "shell": {
     "init_hook": [
