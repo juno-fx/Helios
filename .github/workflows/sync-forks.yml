@@ -46,7 +46,8 @@ jobs:
             echo "Syncing $repo"
             git remote remove ${repo} || true
             gh auth setup-git
-            git remote add ${repo} https://x-access-token:${GH_TOKEN}@github.com/${TARGET_ORG}/${repo}.git
+            git remote add ${repo} https://github.com/${TARGET_ORG}/${repo}.git
+            git push ${repo} HEAD:sync-${short_sha}
             gh pr create \
               --repo ${TARGET_ORG}/${repo} \
               --base main \
