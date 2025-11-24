@@ -13,4 +13,4 @@ jobs:
       - name: Run the lint target
         shell: bash
         run: |
-          make lint-docs
+          devbox run make lint-docs
