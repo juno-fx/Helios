@@ -47,7 +47,7 @@ rm -f /etc/apt/sources.list
 rm -f /etc/xdg/autostart/xscreensaver.desktop
 
 # configure vgl
-/opt/VirtualGL/bin/vglserver_config +glx +s +f +t
+/opt/VirtualGL/bin/vglserver_config +egl +s +f +t
 
 # build locale
 /usr/sbin/locale-gen en_US.UTF-8

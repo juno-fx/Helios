@@ -28,7 +28,7 @@ dnf module install "nodejs:$SELKIES_NODE_VERSION/common" -y
 rm -f /etc/xdg/autostart/xscreensaver.desktop
 
 # configure vgl
-/opt/VirtualGL/bin/vglserver_config +glx +s +f +t
+/opt/VirtualGL/bin/vglserver_config +egl +s +f +t
 
 # run clean up
 dnf config-manager --set-disabled crb

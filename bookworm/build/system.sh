@@ -44,7 +44,7 @@ rm -f /etc/apt/sources.list
 rm -f /etc/xdg/autostart/xscreensaver.desktop
 
 # configure vgl
-/opt/VirtualGL/bin/vglserver_config +glx +s +f +t
+/opt/VirtualGL/bin/vglserver_config +egl +s +f +t
 
 # remove duplicate sources
 rm -f /etc/apt/sources.list
