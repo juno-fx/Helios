@@ -6,8 +6,9 @@ packages:
   # Command-line tool for transferring data with URLs (supports HTTP, FTP, etc.).
   - selkies: curl
 
-#  # Python package installer used for managing and installing Python packages in build environments.
-#  - selkies: python3-pip
+  # Library for handling XKB (X Keyboard Extension) keymaps, essential for keyboard input handling in graphical applications.
+  - selkies-debian: libxkbcommon-dev
+    selkies-rhel: libxkbcommon-devel
 
   # Header files and development tools for building Python extensions and native modules.
   - selkies-debian: python3-dev

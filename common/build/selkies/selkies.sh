@@ -28,6 +28,7 @@ sed -i '/cryptography/d' pyproject.toml
 wget https://bootstrap.pypa.io/get-pip.py
 python3 get-pip.py --break-system-packages
 python3 -m pip install --upgrade pip --break-system-packages
+pip install -r /tmp/reqs/selkies-requirements.txt --break-system-packages
 pip install . --break-system-packages
 pip install --upgrade setuptools --break-system-packages
 

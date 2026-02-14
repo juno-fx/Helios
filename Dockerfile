@@ -88,6 +88,7 @@ RUN /tmp/system.sh
 
 # install selkies
 COPY --chmod=777 common/build/selkies/*.sh /tmp/
+COPY selkies-requirements.txt /tmp/reqs/selkies-requirements.txt
 RUN /tmp/selkies.sh
 
 # clean up package lists
