@@ -31,6 +31,7 @@ apt install --no-install-recommends -y \
 rm -rfv /usr/share/backgrounds/*
 
 # backwards compat for password generation
+sudo apt-get install -y libcrypt-dev build-essential
 pip install crypt-r --break-system-packages
 
 # package clean up
@@ -38,7 +39,9 @@ apt remove --purge -y \
 	gcc \
 	g++ \
 	python3-dev \
-	python3-pip
+	python3-pip \
+	libcrypt-dev \
+	build-essential
 
 # remove duplicate sources
 rm -f /etc/apt/sources.list

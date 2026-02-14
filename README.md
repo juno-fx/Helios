@@ -80,14 +80,14 @@ Explore the supported Linux distributions with their versions, image sizes, and 
 
 #### [Debian Rolling (Sid)](https://hub.docker.com/_/debian/tags?name=sid)
 
-- **Size:** 1.69 GB  
+- **Size:** 1.76 GB  
 
 #### [Kali Linux (Rolling Release)](https://hub.docker.com/r/kalilinux/kali-rolling)
 
 > [!TIP]  
 > No default Kali tools are installed in this image. Please refer to the [Kali Linux Docker Image documentation](https://www.kali.org/docs/containers/official-kalilinux-docker-images/) for installing them.
 
-- **Size:** 1.69 GB (Excludes Kali tools which increase image size) 
+- **Size:** 1.72 GB (Excludes Kali tools which increase image size) 
 
 ---
 
@@ -95,11 +95,11 @@ Explore the supported Linux distributions with their versions, image sizes, and 
 
 #### [Ubuntu 24.04 (Noble)](https://hub.docker.com/_/ubuntu/tags?name=noble)
 
-- **Size:** 1.45 GB 
+- **Size:** 1.48 GB 
 
 #### [Ubuntu 22.04 (Jammy)](https://hub.docker.com/_/ubuntu/tags?name=jammy)
 
-- **Size:** 1.32 GB
+- **Size:** 1.35 GB
 
 ---
 
@@ -107,11 +107,11 @@ Explore the supported Linux distributions with their versions, image sizes, and 
 
 #### [Rocky Linux 9](https://hub.docker.com/_/rockylinux/tags?name=9)
 
-- **Size:** 1.8 GB
+- **Size:** 1.76 GB
 
 #### [Alma Linux 9](https://hub.docker.com/_/almalinux/tags?name=9)
 
-- **Size:** 1.56 GB
+- **Size:** 1.61 GB
 
 ## 🏷️ Versioning
 
