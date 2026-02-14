@@ -88,6 +88,8 @@ RUN /tmp/system.sh
 
 # install selkies
 COPY --chmod=777 common/build/selkies/*.sh /tmp/
+
+# this is required to fight any dependency slips from upstream selkies
 COPY selkies-requirements.txt /tmp/reqs/selkies-requirements.txt
 RUN /tmp/selkies.sh
 
