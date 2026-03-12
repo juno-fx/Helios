@@ -1,3 +1,4 @@
-# selkies does not pin their upstream requirements properly, so we have to do it ourselves here.
+# selkies does not pin their upstream requirements properly,
+# so we have to do it ourselves here.
 av==14.0.0
-pixelflux==1.4.7
+pixelflux==1.5.9

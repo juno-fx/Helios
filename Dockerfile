@@ -58,7 +58,7 @@ FROM alpine AS selkies-frontend
 # pull in args for the tag
 ARG SRC
 
-ENV SELKIES_VERSION="d70c9155e0df97ac1e6ac7a4cce04e4b04840286"
+ENV SELKIES_VERSION="f114a2332672852f7845b3543b9390edfc033787"
 
 # grab package lists
 COPY --from=lists /work/lists/ /lists/
@@ -75,7 +75,7 @@ FROM distro AS base-image
 ARG SRC
 
 # version of selkies to clone
-ENV SELKIES_VERSION="d70c9155e0df97ac1e6ac7a4cce04e4b04840286"
+ENV SELKIES_VERSION="f114a2332672852f7845b3543b9390edfc033787"
 
 # environment variables
 ENV PREFIX=/
