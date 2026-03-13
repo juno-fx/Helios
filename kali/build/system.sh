@@ -29,8 +29,8 @@ mv -v /usr/share/backgrounds/kali/kali-oleo-16x9.png /tmp/background.png
 rm -rfv /usr/share/backgrounds/*
 mv -v /tmp/background.png /usr/share/backgrounds/
 
-# backwards compat for password generation
-pip install crypt-r --break-system-packages
+## backwards compat for password generation
+#pip install crypt-r --break-system-packages
 
 # package clean up
 apt remove --purge -y \

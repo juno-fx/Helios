@@ -17,28 +17,5 @@ packages:
   # GNU Compiler Collection – essential for compiling C/C++ source code during builds.
   - selkies: gcc
 
-  # G++ compiler (required for pixelflux native extension)
-  - selkies: g++
-
-  # X11 development headers (required for pixelflux X11 backend)
-  - selkies-debian: libx11-dev
-    selkies-rhel: libx11-devel
-  - selkies-debian: libxext-dev
-    selkies-rhel: libext-devel
-  - selkies-debian: libxfixes-dev
-    selkies-rhel: libxfixes-devel
-
-  # FFmpeg development libraries (required for pixelflux encoding)
-  - selkies-debian: libavcodec-dev
-    selkies-rhel: libavcodec-devel
-  - selkies-debian: libavutil-dev
-    selkies-rhel: libavutil-devel
-  - selkies-debian: libjpeg-turbo8-dev
-    selkies-rhel: libjpeg-turbo-devel
-  - selkies-debian: libx264-dev
-    selkies-rhel: x264-devel
-  - selkies-debian: libyuv-dev
-    selkies-rhel: libyuv-devel
-
   # Utility for managing build automation, typically used to compile and install software from source.
   - selkies: make

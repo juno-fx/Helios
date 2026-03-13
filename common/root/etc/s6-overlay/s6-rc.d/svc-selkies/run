@@ -21,10 +21,10 @@ if [ ! -f '/dev/shm/audio.lock' ]; then
 fi
 
 echo "Starting Selkies..."
-
+# LD_PRELOAD=/usr/local/lib/python3.12/dist-packages/pixelflux/
 # Start Selkies
 exec s6-setuidgid "${USER}" \
-	selkies \
+	helios \
 	--addr="0.0.0.0" \
 	--port="8081" \
 	--enable_basic_auth="false" \
