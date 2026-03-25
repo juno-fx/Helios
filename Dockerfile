@@ -3,6 +3,9 @@ ARG SRC=jammy
 
 FROM ${IMAGE} AS distro
 
+# pull in args for the tag
+ARG SRC
+
 ENV HELIOS_VERSION="0.0.0"
 ENV SRC=${SRC}
 
@@ -10,6 +13,9 @@ ENV SRC=${SRC}
 
 # s6 init system
 FROM alpine AS s6
+
+# pull in args for the tag
+ARG SRC
 
 # install init system
 ENV S6_VERSION="v3.2.1.0"
@@ -33,6 +39,9 @@ RUN tar -C /s6 -Jxpf /tmp/s6-overlay-symlinks-arch.tar.xz
 # generate install lists
 FROM python:alpine AS lists
 
+# pull in args for the tag
+ARG SRC
+
 WORKDIR /work
 
 COPY hack/packages.py ./
@@ -46,7 +55,10 @@ RUN pip install pyyaml --break-system-packages \
 # build selkies frontend
 FROM alpine AS selkies-frontend
 
-ENV SELKIES_VERSION="d70c9155e0df97ac1e6ac7a4cce04e4b04840286"
+# pull in args for the tag
+ARG SRC
+
+ENV SELKIES_VERSION="af1a1c252563d2f136d641b81d6b1dd38a3a0d93"
 
 # grab package lists
 COPY --from=lists /work/lists/ /lists/
@@ -59,8 +71,11 @@ RUN apk add bash && /tmp/frontend.sh
 
 FROM distro AS base-image
 
+# pull in args for the tag
+ARG SRC
+
 # version of selkies to clone
-ENV SELKIES_VERSION="d70c9155e0df97ac1e6ac7a4cce04e4b04840286"
+ENV SELKIES_VERSION="af1a1c252563d2f136d641b81d6b1dd38a3a0d93"
 
 # environment variables
 ENV PREFIX=/
@@ -73,9 +88,6 @@ ENV IDLE_TIME=30
 ENV SELKIES_INTERPOSER=/usr/lib/selkies_joystick_interposer.so
 ENV DISABLE_ZINK=false
 ENV SELKIES_NODE_VERSION=22
-
-# pull in args for the tag
-ARG SRC
 
 # grab package lists
 COPY --from=lists /work/lists/ /lists/

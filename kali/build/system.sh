@@ -22,7 +22,8 @@ apt install --no-install-recommends -y \
 	gcc \
 	g++ \
 	python3-dev \
-	python3-pip
+	python3-pip \
+	libcrypt-dev
 
 # handle background
 mv -v /usr/share/backgrounds/kali/kali-oleo-16x9.png /tmp/background.png
@@ -37,7 +38,8 @@ apt remove --purge -y \
 	gcc \
 	g++ \
 	python3-dev \
-	python3-pip
+	python3-pip \
+	libcrypt-dev
 
 # remove screensaver and lock screen
 rm -f /etc/xdg/autostart/xscreensaver.desktop
@@ -52,4 +54,4 @@ rm -f /etc/xdg/autostart/xscreensaver.desktop
 apt clean -y
 apt autoclean -y
 apt autoremove --purge -y
-rm -rfv /var/lib/{apt,cache,log}/ /tmp/* /etc/systemd /var/lib/apt/lists/* /var/tmp/* /tmp/*
+rm -rfv /var/lib/{apt,cache,log}/ /etc/systemd /var/lib/apt/lists/* /var/tmp/* /tmp/*
