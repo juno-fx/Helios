@@ -1,0 +1,10 @@
+#!/bin/bash
+unset LD_PRELOAD
+
+# get the python version formatted as "python3.x"
+PYTHON_VERSION=$(python3 -c "import sys; print(f'python{sys.version_info.major}.{sys.version_info.minor}')")
+
+# add the python version to the LD_PRELOAD path
+export LD_PRELOAD="$LD_PRELOAD:/usr/local/lib/${PYTHON_VERSION}/dist-packages/pixelflux/screen_capture_module.so"
+
+selkies "$@"
