@@ -8,7 +8,14 @@ jobs:
     runs-on:
       - self-hosted
     steps:
+      - name: Generate a token
+        id: generate-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.JUNO_CI_APP_ID }}
+          private-key: ${{ secrets.JUNO_CI_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
       - name: delete branch
         uses: SvanBoxel/delete-merged-branch@main
         env:
-          GITHUB_TOKEN: ${{ secrets.GIT_PASS }}
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}

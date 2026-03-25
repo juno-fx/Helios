@@ -9,13 +9,20 @@ jobs:
   google-chat-action:
     runs-on: self-hosted
     steps:
+      - name: Generate a token
+        id: generate-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.JUNO_CI_APP_ID }}
+          private-key: ${{ secrets.JUNO_CI_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
       - name: Checkout CI repository
         uses: actions/checkout@v4
         with:
           repository: juno-fx/ci
           ref: main
           path: .juno-ci
-          token: ${{ secrets.RO_CI_REPO_TOKEN }}
+          token: ${{ steps.generate-token.outputs.token }}
       - name: Run Google Chat notification
         uses: ./.juno-ci/actions/workflow/pr-gChat-notification
         with:

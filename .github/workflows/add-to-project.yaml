@@ -11,7 +11,15 @@ jobs:
     name: Add Issue to Project
     runs-on: self-hosted
     steps:
+      - name: Generate a token
+        id: generate-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.JUNO_CI_APP_ID }}
+          private-key: ${{ secrets.JUNO_CI_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
       - uses: actions/add-to-project@main
         with:
           project-url: https://github.com/orgs/juno-fx/projects/12
-          github-token: ${{ secrets.GIT_PASS }}
+          github-token: ${{ steps.generate-token.outputs.token }}
+
