@@ -88,7 +88,9 @@ ENV IDLE_TIME=30
 ENV SELKIES_INTERPOSER=/usr/lib/selkies_joystick_interposer.so
 ENV DISABLE_ZINK=false
 ENV SELKIES_NODE_VERSION=22
-
+ENV WEBRTC_MAX_CLIENTS=4
+ENV WEBRTC_PRIMARY_CLIENT_ONLY=0
+ENV ENABLE_VIEW_ONLY=1
 # grab package lists
 COPY --from=lists /work/lists/ /lists/
 
