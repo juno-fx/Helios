@@ -50,8 +50,6 @@ COPY packages packages
 RUN pip install pyyaml --break-system-packages \
     && python3 /work/packages.py /work/packages/ /work/lists/
 
-
-
 # build selkies frontend
 FROM alpine AS selkies-frontend
 
@@ -104,6 +102,9 @@ COPY --chmod=777 common/build/selkies/*.sh /tmp/
 # this is required to fight any dependency slips from upstream selkies
 COPY selkies-requirements.txt /tmp/reqs/selkies-requirements.txt
 RUN /tmp/selkies.sh
+
+COPY common/build/requirements.txt /tmp/requirements.txt
+RUN pip install --break-system-packages -r /tmp/requirements.txt
 
 # clean up package lists
 RUN rm -rf /lists

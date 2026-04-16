@@ -1,0 +1,2 @@
+# Install Orion-Py to enable Orion API access
+git+https://github.com/juno-fx/Orion-Py.git@10-open-source-orionpy
