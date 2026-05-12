@@ -119,6 +119,8 @@ nav:
           - deploy-k8s.md
       - Persistence:
           - deploy-session.md
+      - Plugins:
+          - plugins-autoshutdown.md
   - Building Workstations:
       - getting-started.md
       - Customization:
