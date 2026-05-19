@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   PR:
-    runs-on: X64
+    runs-on: self-hosted
     if: github.event.ref_type == 'branch'
     steps:
       - name: Checkout repository
