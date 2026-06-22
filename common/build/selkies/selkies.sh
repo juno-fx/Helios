@@ -25,7 +25,13 @@ curl -o selkies.tar.gz -L "https://github.com/selkies-project/selkies/archive/${
 tar xf selkies.tar.gz
 cd selkies-*
 sed -i '/cryptography/d' pyproject.toml
-wget https://bootstrap.pypa.io/get-pip.py
+PY_VER=$(python3 -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
+if [ "$PY_VER" = "3.9" ]; then
+    PIP_URL="https://bootstrap.pypa.io/pip/3.9/get-pip.py"
+else
+    PIP_URL="https://bootstrap.pypa.io/get-pip.py"
+fi
+wget -O get-pip.py "$PIP_URL"
 python3 get-pip.py --break-system-packages
 python3 -m pip install --upgrade pip --break-system-packages
 pip install -r /tmp/reqs/selkies-requirements.txt --break-system-packages
