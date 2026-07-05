@@ -9,9 +9,6 @@ cleanup=/tmp/rhel-clean.sh
 if command -v apt >/dev/null 2>&1; then
 	dependencies=/tmp/debian-dependencies.sh
 	cleanup=/tmp/debian-clean.sh
-elif command -v dnf >/dev/null 2>&1; then
-	dependencies=/tmp/rhel-dependencies.sh
-	cleanup=/tmp/rhel-clean.sh
 fi
 
 echo "Using dependencies script: $dependencies"
@@ -25,18 +22,23 @@ curl -o selkies.tar.gz -L "https://github.com/selkies-project/selkies/archive/${
 tar xf selkies.tar.gz
 cd selkies-*
 sed -i '/cryptography/d' pyproject.toml
+# widen av constraint to accept 15.x (14.x wheels use manylinux_2_17 tags not recognized by this pip)
+sed -i 's/av>=14.0.0,<15.0.0/av>=15.0.0,<16.0.0/' pyproject.toml
 PY_VER=$(python3 -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
 if [ "$PY_VER" = "3.9" ]; then
     PIP_URL="https://bootstrap.pypa.io/pip/3.9/get-pip.py"
 else
     PIP_URL="https://bootstrap.pypa.io/get-pip.py"
 fi
+# wrap pip to always use --break-system-packages (PEP 668)
+pip() { command pip "$@" --break-system-packages; }
+
 wget -O get-pip.py "$PIP_URL"
 python3 get-pip.py --break-system-packages
-python3 -m pip install --upgrade pip --break-system-packages
-pip install -r /tmp/reqs/selkies-requirements.txt --break-system-packages
-pip install . --break-system-packages
-pip install --upgrade setuptools --break-system-packages
+pip install --upgrade pip
+pip install --only-binary av,pixelflux -r /tmp/reqs/selkies-requirements.txt
+pip install .
+pip install --upgrade setuptools
 
 # setup interposer
 cd addons/js-interposer
@@ -49,13 +51,13 @@ make
 mkdir /opt/lib
 mv libudev.so.1.0.0-fake /opt/lib/
 
-# why do I need this?
+# setup Selkies web UI directory and branding assets
 mkdir -p /usr/share/selkies/www
 curl -o /usr/share/selkies/www/icon.png https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/selkies-logo.png &&
 	curl -o /usr/share/selkies/www/favicon.ico https://raw.githubusercontent.com/linuxserver/docker-templates/refs/heads/master/linuxserver.io/img/selkies-icon.ico
 
 # clean up pip
-pip cache purge
+command pip cache purge
 
 # hook into distro dependencies cleanup
 bash $cleanup
