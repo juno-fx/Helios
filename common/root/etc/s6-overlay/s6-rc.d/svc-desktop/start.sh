@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# Only run in Selkies mode (or default)
+if [ "${REMOTE_PROTOCOL}" = "dcv" ]; then
+	echo "svc-desktop: REMOTE_PROTOCOL=${REMOTE_PROTOCOL}, exiting (desktop runs inside DCV virtual session)"
+	exec sleep infinity
+fi
+
 # wait for X to be running
 while true; do
 	if xset q &>/dev/null; then

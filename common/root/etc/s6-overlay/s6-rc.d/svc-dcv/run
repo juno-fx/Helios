@@ -1,0 +1,29 @@
+#!/usr/bin/with-contenv bash
+
+set -e
+
+# Only run in DCV mode
+if [ "${REMOTE_PROTOCOL}" != "dcv" ]; then
+	echo "svc-dcv: REMOTE_PROTOCOL=${REMOTE_PROTOCOL}, exiting (DCV disabled)"
+	exec sleep infinity
+fi
+
+echo "Starting DCV Server..."
+
+DCV_LIBDIR=/usr/lib/x86_64-linux-gnu/dcv
+export LD_LIBRARY_PATH=${DCV_LIBDIR}
+export GIO_EXTRA_MODULES=${DCV_LIBDIR}/gio/modules
+export DCV_MODULE_DIR=${DCV_LIBDIR}/modules
+export DCV_SASL_PLUGIN_DIR=${DCV_LIBDIR}/sasl2
+export DCV_AGENT_DIR=${DCV_LIBDIR}
+
+# Create runtime dirs that systemd normally provides
+mkdir -p /run/dcv /run/dcvlogon
+
+DCV_ARGS="--web-port 3000 --auth none"
+
+if [ -n "${DCV_LICENSE_FILE}" ]; then
+	DCV_ARGS="${DCV_ARGS} --license-file ${DCV_LICENSE_FILE}"
+fi
+
+exec ${DCV_LIBDIR}/dcvserver ${DCV_ARGS}

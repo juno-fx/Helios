@@ -88,6 +88,7 @@ ENV IDLE_TIME=30
 ENV SELKIES_INTERPOSER=/usr/lib/selkies_joystick_interposer.so
 ENV DISABLE_ZINK=false
 ENV SELKIES_NODE_VERSION=22
+ENV REMOTE_PROTOCOL=selkies
 
 # grab package lists
 COPY --from=lists /work/lists/ /lists/
@@ -97,6 +98,10 @@ COPY --chmod=777 ${SRC}/build/system.sh /tmp/
 RUN /tmp/system.sh
 COPY --chmod=777 common/build/system.sh /tmp/
 RUN /tmp/system.sh
+
+# install amazon dcv (for REMOTE_PROTOCOL=dcv)
+COPY --chmod=777 common/build/dcv/*.sh /tmp/
+RUN /tmp/dcv.sh
 
 # install selkies
 COPY --chmod=777 common/build/selkies/*.sh /tmp/

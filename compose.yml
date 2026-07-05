@@ -1,4 +1,3 @@
-
 services:
   helios:
     image: junoinnovations/helios:unstable-jammy
@@ -22,6 +21,8 @@ services:
 #      - IDLE_TIME=1
 #      - PASSWORD=password
 #      - PREFIX=/custom/prefix
+      - REMOTE_PROTOCOL=${REMOTE_PROTOCOL:-selkies}  # selkies|dcv
+#      - DCV_LICENSE_FILE=/path/to/license.lic  # DCV license for non-EC2 usage
     ports:
       - "3000:3000"
       - "3001:3001"

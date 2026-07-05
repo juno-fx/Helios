@@ -2,6 +2,12 @@
 
 set -e
 
+# Only run in Selkies mode (or default)
+if [ "${REMOTE_PROTOCOL}" = "dcv" ]; then
+	echo "svc-nginx: REMOTE_PROTOCOL=${REMOTE_PROTOCOL}, exiting (DCV has embedded web server)"
+	exit 0
+fi
+
 # nginx Path
 NGINX_CONFIG=/etc/nginx/sites-available/default
 
