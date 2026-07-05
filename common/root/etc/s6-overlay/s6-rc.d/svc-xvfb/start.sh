@@ -2,12 +2,6 @@
 
 set -e
 
-# Only run in Selkies mode (or default)
-if [ "${REMOTE_PROTOCOL}" = "dcv" ]; then
-	echo "svc-xvfb: REMOTE_PROTOCOL=${REMOTE_PROTOCOL}, exiting (Xvfb disabled)"
-	exec sleep infinity
-fi
-
 # handle a restart if needed
 XVFB_PIDS=$(pgrep Xvfb)
 if [ -n "$XVFB_PIDS" ]; then

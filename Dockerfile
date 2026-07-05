@@ -89,6 +89,7 @@ ENV SELKIES_INTERPOSER=/usr/lib/selkies_joystick_interposer.so
 ENV DISABLE_ZINK=false
 ENV SELKIES_NODE_VERSION=22
 ENV REMOTE_PROTOCOL=selkies
+ENV XDG_SESSION_TYPE=x11
 
 # grab package lists
 COPY --from=lists /work/lists/ /lists/

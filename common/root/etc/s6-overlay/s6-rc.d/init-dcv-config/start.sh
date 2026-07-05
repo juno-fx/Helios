@@ -12,10 +12,23 @@ echo "Generating DCV server configuration..."
 
 mkdir -p /etc/dcv
 
+# DCVsession starter and session launcher require this env var
+printf "x11" >/run/s6/container_environment/XDG_SESSION_TYPE
+
+# Re-run package postinst at runtime to install demo license with valid RLM DB
+# During Docker build, systemd runtime dirs (/run/dcv/) don't exist; postinst runs but RLM
+# can't persist its license database. At runtime this dir is a real tmpfs, so it works.
+mkdir -p /run/dcv /run/dcvlogon
+if [ -x /var/lib/dpkg/info/nice-dcv-server.postinst ]; then
+	/var/lib/dpkg/info/nice-dcv-server.postinst configure 2>/dev/null || true
+elif command -v rpm &>/dev/null; then
+	dcv _idl -n 2>/dev/null || true
+fi
+
 {
 	cat <<EOF
 [connectivity]
-web-port=3000
+web-port=${HTTP_PORT:-3000}
 web-use-hsts=false
 enable-quic-frontend=false
 
