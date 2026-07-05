@@ -45,6 +45,11 @@ jobs:
         run: |
           ref=$(echo "${{ github.ref_name }}" | tr '/' '-')
           echo "ref=$ref" >> "$GITHUB_OUTPUT"
+          if [[ "${{ github.ref_name }}" =~ ^[0-9]+-feat- ]]; then
+            echo "is_feat=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "is_feat=false" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Clone Source Code
         uses: actions/checkout@v4
@@ -60,16 +65,16 @@ jobs:
       - name: Build
         shell: bash
         env:
-          IMAGE: junoinnovations/helios:${{ (github.ref_name == 'main' && 'unstable') || (github.ref_name == 'testing' && 'testing') || steps.calculate_ref.outputs.ref }}-${{ matrix.distro.source }}
+          IMAGE: junoinnovations/helios:${{ (github.ref_name == 'main' && 'unstable') || steps.calculate_ref.outputs.ref }}-${{ matrix.distro.source }}
         run: |
           echo "Building ${IMAGE}"
           docker build . --build-arg IMAGE=${{ matrix.distro.image }} --build-arg SRC=${{ matrix.distro.source }} -t ${IMAGE}
 
       - name: Push
         shell: bash
-        if: ${{ github.ref_name == 'main' || startsWith(github.event.ref, 'refs/tags/v') || github.ref_name == 'testing' }}
+        if: ${{ github.ref_name == 'main' || startsWith(github.event.ref, 'refs/tags/v') || steps.calculate_ref.outputs.is_feat == 'true' }}
         env:
-          IMAGE: junoinnovations/helios:${{ (github.ref_name == 'main' && 'unstable') || (github.ref_name == 'testing' && 'testing') || steps.calculate_ref.outputs.ref }}-${{ matrix.distro.source }}
+          IMAGE: junoinnovations/helios:${{ (github.ref_name == 'main' && 'unstable') || steps.calculate_ref.outputs.ref }}-${{ matrix.distro.source }}
         run: |
           echo "Building ${IMAGE}"
           docker push ${IMAGE}
