@@ -235,9 +235,6 @@ packages:
   # Intel video driver for use with X11.
   - debian: xserver-xorg-video-intel
 
-  # Video driver for QEMU virtual displays using the QXL protocol.
-  - debian: xserver-xorg-video-qxl
-
   # A collection of X11 utilities, often overlaps with x11-utils but includes additional tools.
   - debian: xutils
     rhel: xorg-x11-utils
