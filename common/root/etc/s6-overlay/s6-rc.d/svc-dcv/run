@@ -8,16 +8,7 @@ if [ "${REMOTE_PROTOCOL}" != "dcv" ]; then
 	exec sleep infinity
 fi
 
-# Wait for the X server on ${DISPLAY} to be ready before starting DCV.
-# s6 "started" for svc-xvfb only means the run script was exec'd, not that
-# the X display exists yet. If dcvserver starts first, its console-session
-# agent crash-loops on the missing display and clients that connect during
-# that window get "No session is available or you are not authorised".
-echo "Waiting for X display ${DISPLAY} to be ready..."
-while ! xset q &>/dev/null; do
-	sleep 0.5
-done
-echo "X display ${DISPLAY} is ready."
+DCV_SESSION_TYPE="${DCV_SESSION_TYPE:-console}"
 
 # Surface DCV logs to container output. dcvserver only logs to files, so
 # session/agent failures (the reason a client sees "No session is available")
@@ -27,7 +18,8 @@ mkdir -p "${DCV_LOG_DIR}"
 pkill -f "tail .*NICE/dcv/log" 2>/dev/null || true
 tail -n +1 -F \
 	"${DCV_LOG_DIR}/server.log" \
-	"${DCV_LOG_DIR}/agent.root.console.log" 2>/dev/null &
+	"${DCV_LOG_DIR}/agent.root.console.log" \
+	"${DCV_LOG_DIR}/agent.${USER}.helios.log" 2>/dev/null &
 
 # Handle a restart: the /usr/bin/dcvserver wrapper does not exec the real
 # binary, so a previous instance survives service restart and keeps the web
@@ -41,12 +33,74 @@ pkill -f "dcv/dcvagent" 2>/dev/null || true
 mkdir -p "${HOME}/.config/dcv"
 cp -f /etc/dcv/dcv.conf "${HOME}/.config/dcv/dcv.conf"
 
-echo "Starting DCV Server..."
-
 mkdir -p /run/dcv /run/dcvlogon
 
 # Internal port only — nginx serves ${PREFIX} on 3000 and proxies to it
 # (same architecture as Selkies with its 8081 backend, see svc-nginx)
-DCV_ARGS="-d --web-port 8082 --auth none --create-session --session-type=console --display ${DISPLAY}${DCV_LICENSE_FILE:+ --license-file ${DCV_LICENSE_FILE}}"
+DCV_ARGS="-d --web-port 8082 --auth none${DCV_LICENSE_FILE:+ --license-file ${DCV_LICENSE_FILE}}"
+
+if [ "${DCV_SESSION_TYPE}" = "virtual" ]; then
+	# Virtual session: DCV owns the X server (Xdcv) instead of scraping the
+	# Xvfb display — no Xvfb/svc-desktop, dynamic display sizing, cheaper
+	# frame capture. Requirements handled here:
+	#
+	# 1. Virtual sessions are spawned by dcvsessionlauncher over D-Bus. The
+	#    launcher hard-codes the system bus while a non-systemd dcvserver
+	#    autolaunches a session bus, so they never meet — run a dedicated bus
+	#    and point both (and the dcv CLI) at it.
+	# 2. The session runs as ${USER}, so ${USER} must own its dotfiles; the
+	#    root-run server otherwise creates them root-owned and the session
+	#    starter dies on "Permission denied" writing its log.
+	# 3. The server verifies the agent by reading /proc/<pid>/exe. The agent
+	#    runs as ${USER} while the server is root, which requires
+	#    CAP_SYS_PTRACE — the container must run with --cap-add SYS_PTRACE
+	#    (compose: cap_add, k8s: securityContext.capabilities.add).
+	echo "Starting DCV in virtual session mode..."
+
+	DCV_BUS=/run/dcv/bus
+	export DBUS_SESSION_BUS_ADDRESS="unix:path=${DCV_BUS}"
+	export DBUS_SYSTEM_BUS_ADDRESS="unix:path=${DCV_BUS}"
+	if [ ! -S "${DCV_BUS}" ]; then
+		dbus-daemon --session --address="unix:path=${DCV_BUS}" --fork
+	fi
+
+	pkill -f "dcv/dcvsessionlauncher" 2>/dev/null || true
+	/usr/bin/dcvsessionlauncher &
+
+	# Session user must own its dotfiles (see 2. above)
+	mkdir -p "${HOME}/.local" "${HOME}/.config" "${HOME}/.cache"
+	chown -R "${USER}:${USER}" "${HOME}/.local" "${HOME}/.config" "${HOME}/.cache"
+
+	# Create the session once the server is up; recreate it if it ever drops
+	(
+		sleep 5
+		while true; do
+			if ! dcv list-sessions 2>/dev/null | grep -q "Session:"; then
+				dcv create-session \
+					--type=virtual \
+					--owner "${USER}" \
+					--user "${USER}" \
+					--init /opt/helios/dcv-startwm.sh \
+					helios 2>/dev/null || true
+			fi
+			sleep 5
+		done
+	) &
+else
+	# Console session: attach to the Xvfb display. Wait for the X server on
+	# ${DISPLAY} first — s6 "started" for svc-xvfb only means the run script
+	# was exec'd, not that the display exists yet. If dcvserver starts first,
+	# its console-session agent crash-loops on the missing display and clients
+	# that connect during that window get "No session is available".
+	echo "Waiting for X display ${DISPLAY} to be ready..."
+	while ! xset q &>/dev/null; do
+		sleep 0.5
+	done
+	echo "X display ${DISPLAY} is ready."
+
+	DCV_ARGS="${DCV_ARGS} --create-session --session-type=console --display ${DISPLAY}"
+fi
+
+echo "Starting DCV Server..."
 
 exec /usr/bin/dcvserver ${DCV_ARGS}
