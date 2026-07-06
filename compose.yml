@@ -24,10 +24,6 @@ services:
       - REMOTE_PROTOCOL=${REMOTE_PROTOCOL:-selkies}  # selkies|dcv
       - DCV_SESSION_TYPE=${DCV_SESSION_TYPE:-console}  # console|virtual (dcv only)
 #      - DCV_LICENSE_FILE=/path/to/license.lic  # DCV license for non-EC2 usage
-    # Required for DCV virtual sessions: the server authorizes its agent by
-    # reading /proc/<pid>/exe of the (non-root) session user's processes
-    cap_add:
-      - SYS_PTRACE
     ports:
       - "3000:3000"
       - "3001:3001"
