@@ -15,6 +15,16 @@ mkdir -p /etc/dcv
 # DCVsession starter and session launcher require this env var
 printf "x11" >/run/s6/container_environment/XDG_SESSION_TYPE
 
+# RLM stores the detached demo license as hidden dotfiles in /var/tmp, bound
+# to the identity of the machine that installed them. If the build host's
+# postinst managed to persist them (depends on the builder), the image ships
+# demo state bound to the BUILD container, and the runtime license checkout
+# fails with "No license for product (-1)" — the server then cannot create
+# the console session and clients get "No session is available" (Error 4).
+# The build cleanup's `rm -rf /var/tmp/*` misses dotfiles, so clear them here
+# and let the reinstall below create fresh state valid for THIS container.
+rm -f /var/tmp/.[!.]* 2>/dev/null || true
+
 # Re-run package postinst at runtime to install demo license with valid RLM DB
 # During Docker build, systemd runtime dirs (/run/dcv/) don't exist; postinst runs but RLM
 # can't persist its license database. At runtime this dir is a real tmpfs, so it works.

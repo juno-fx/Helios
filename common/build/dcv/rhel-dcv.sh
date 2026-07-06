@@ -41,4 +41,4 @@ usermod -aG video dcv
 cd /tmp
 rm -rf "/tmp/${DCV_TGZ}" "/tmp/nice-dcv-${DCV_VERSION}-${DCV_BUILD}-el9-${ARCH}"
 dnf clean all -y
-rm -rf /var/tmp/* /tmp/*
+rm -rf /var/tmp/* /var/tmp/.[!.]* /tmp/*

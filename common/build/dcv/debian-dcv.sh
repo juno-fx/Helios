@@ -58,4 +58,4 @@ usermod -aG video dcv
 cd /tmp
 rm -rf "/tmp/${DCV_TGZ}" "/tmp/nice-dcv-${DCV_VERSION}-${DCV_BUILD}-${DCV_RELEASE}-${ARCH}"
 apt clean -y
-rm -rf /var/lib/apt/lists/* /var/tmp/* /tmp/*
+rm -rf /var/lib/apt/lists/* /var/tmp/* /var/tmp/.[!.]* /tmp/*
