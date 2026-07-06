@@ -19,6 +19,16 @@ while ! xset q &>/dev/null; do
 done
 echo "X display ${DISPLAY} is ready."
 
+# Surface DCV logs to container output. dcvserver only logs to files, so
+# session/agent failures (the reason a client sees "No session is available")
+# are invisible in `docker logs` without this.
+DCV_LOG_DIR="${HOME}/.local/share/NICE/dcv/log"
+mkdir -p "${DCV_LOG_DIR}"
+pkill -f "tail .*NICE/dcv/log" 2>/dev/null || true
+tail -n +1 -F \
+	"${DCV_LOG_DIR}/server.log" \
+	"${DCV_LOG_DIR}/agent.root.console.log" 2>/dev/null &
+
 echo "Starting DCV Server..."
 
 mkdir -p /run/dcv /run/dcvlogon
