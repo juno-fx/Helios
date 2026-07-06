@@ -2,12 +2,6 @@
 
 set -e
 
-# Not needed for DCV virtual sessions — DCV owns its own X server (Xdcv)
-if [ "${REMOTE_PROTOCOL}" = "dcv" ] && [ "${DCV_SESSION_TYPE}" = "virtual" ]; then
-	echo "svc-desktop: DCV virtual session mode, exiting (Xdcv replaces Xvfb desktop)"
-	exec sleep infinity
-fi
-
 # wait for X to be running
 while true; do
 	if xset q &>/dev/null; then

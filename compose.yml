@@ -22,7 +22,6 @@ services:
 #      - PASSWORD=password
 #      - PREFIX=/custom/prefix
       - REMOTE_PROTOCOL=${REMOTE_PROTOCOL:-selkies}  # selkies|dcv
-      - DCV_SESSION_TYPE=${DCV_SESSION_TYPE:-console}  # console|virtual (dcv only)
 #      - DCV_LICENSE_FILE=/path/to/license.lic  # DCV license for non-EC2 usage
     ports:
       - "3000:3000"
