@@ -35,12 +35,29 @@ elif command -v rpm &>/dev/null; then
 	dcv _idl -n 2>/dev/null || true
 fi
 
+# nginx fronts DCV on 3000 (same architecture as Selkies with its 8081
+# backend); dcvserver's embedded web server listens on an internal port.
+# PREFIX (e.g. /plugins/bob) maps to DCV's native web-url-path so the web
+# client is served under the base URL — for k8s ingress path-based routing.
+DCV_WEB_PORT=8082
+DCV_WEB_URL_PATH="${PREFIX:-/}"
+
 {
 	cat <<EOF
 [connectivity]
-web-port=${HTTP_PORT:-3000}
+web-port=${DCV_WEB_PORT}
 web-use-hsts=false
 enable-quic-frontend=false
+EOF
+
+	# Only write web-url-path for a real prefix — "/" is the default
+	if [ "${DCV_WEB_URL_PATH}" != "/" ]; then
+		cat <<EOF
+web-url-path="${DCV_WEB_URL_PATH%/}"
+EOF
+	fi
+
+	cat <<EOF
 
 [security]
 authentication=none
