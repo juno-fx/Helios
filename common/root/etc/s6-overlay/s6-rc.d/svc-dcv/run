@@ -8,6 +8,17 @@ if [ "${REMOTE_PROTOCOL}" != "dcv" ]; then
 	exec sleep infinity
 fi
 
+# Wait for the X server on ${DISPLAY} to be ready before starting DCV.
+# s6 "started" for svc-xvfb only means the run script was exec'd, not that
+# the X display exists yet. If dcvserver starts first, its console-session
+# agent crash-loops on the missing display and clients that connect during
+# that window get "No session is available or you are not authorised".
+echo "Waiting for X display ${DISPLAY} to be ready..."
+while ! xset q &>/dev/null; do
+	sleep 0.5
+done
+echo "X display ${DISPLAY} is ready."
+
 echo "Starting DCV Server..."
 
 mkdir -p /run/dcv /run/dcvlogon
