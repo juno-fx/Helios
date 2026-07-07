@@ -94,6 +94,13 @@ for pid in $(pgrep -f "dcv/dcvserver"); do
 done
 sleep 1
 
+# Root DCV processes must not discover PulseAudio via the shared
+# PULSE_RUNTIME_PATH — a root libpulse client chowns that directory to
+# root and locks user applications out of audio (see svc-dcv). Connect to
+# the socket directly and use a private runtime dir.
+export PULSE_SERVER="unix:${PULSE_RUNTIME_PATH}/native"
+export PULSE_RUNTIME_PATH="/tmp/pulse-dcv-direct"
+
 echo "svc-dcv-direct: starting authenticated DCV endpoint on port ${DCV_DIRECT_PORT} (user: ${USER})"
 
 exec /usr/bin/dcvserver -d \

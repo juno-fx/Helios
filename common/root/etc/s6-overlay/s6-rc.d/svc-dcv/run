@@ -41,6 +41,31 @@ pkill -f "dcv/dcvagent" 2>/dev/null || true
 mkdir -p "${HOME}/.config/dcv"
 cp -f /etc/dcv/dcv.conf "${HOME}/.config/dcv/dcv.conf"
 
+# Audio. Desktop apps play into a null sink and DCV grabs its monitor —
+# the same sinks Selkies mode creates (svc-selkies is disabled in DCV mode,
+# so create them here). Wait for PulseAudio the same way svc-selkies does.
+until [ -f "${PULSE_RUNTIME_PATH}/pid" ]; do
+	sleep .5
+done
+if [ ! -f /dev/shm/audio.lock ]; then
+	s6-setuidgid "${USER}" pactl load-module module-null-sink \
+		sink_name="output" sink_properties=device.description="output"
+	s6-setuidgid "${USER}" pactl load-module module-null-sink \
+		sink_name="input" sink_properties=device.description="input"
+	touch /dev/shm/audio.lock
+fi
+s6-setuidgid "${USER}" pactl set-default-sink output
+
+# The DCV server/agent run as root while PulseAudio is the user's. A root
+# libpulse client that discovers the server via the shared
+# PULSE_RUNTIME_PATH "secures" that directory by chowning it to root,
+# which locks every user application out of audio (apps then fail
+# libpulse's ownership check and play nothing — the desktop goes silent
+# while DCV faithfully streams an idle sink). Point the DCV processes at
+# the socket directly and give them a private runtime dir instead.
+export PULSE_SERVER="unix:${PULSE_RUNTIME_PATH}/native"
+export PULSE_RUNTIME_PATH="/tmp/pulse-dcv"
+
 echo "Starting DCV Server..."
 
 mkdir -p /run/dcv /run/dcvlogon
