@@ -56,6 +56,23 @@ if [ ! -f /dev/shm/audio.lock ]; then
 fi
 s6-setuidgid "${USER}" pactl set-default-sink output
 
+# Microphone. The agent creates a virtual mic by loading module-pipe-source
+# with a FIFO under ${HOME}/.cache/NICE/dcv. The agent runs as root and
+# would create that directory root-owned — the user's PulseAudio daemon
+# then cannot create the FIFO inside it and the mic reports Unavailable.
+# Pre-create it as the user.
+s6-setuidgid "${USER}" mkdir -p "${HOME}/.cache/NICE/dcv"
+
+# Recording apps should default to the DCV virtual microphone once the
+# agent creates it — otherwise the first source (a sink monitor) is the
+# default and apps record the desktop instead of the client mic.
+(
+	until s6-setuidgid "${USER}" pactl list short sources 2>/dev/null | grep -q "AWS-Virtual-Microphone"; do
+		sleep 2
+	done
+	s6-setuidgid "${USER}" pactl set-default-source "AWS-Virtual-Microphone"
+) &
+
 # The DCV server/agent run as root while PulseAudio is the user's. A root
 # libpulse client that discovers the server via the shared
 # PULSE_RUNTIME_PATH "secures" that directory by chowning it to root,
