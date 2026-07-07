@@ -1,0 +1,8 @@
+; Permissions for the password-authenticated direct-connect DCV session.
+; The direct dcvserver runs as root, so its console session is owned by
+; root; the client authenticates as ${USER} (a different principal) and
+; would be denied by the default "%owner% allow" rule. Access here is
+; already gated by system (PAM) authentication — the OS password — so grant
+; any authenticated principal full access to the session.
+[permissions]
+%any% allow builtin
