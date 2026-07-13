@@ -44,6 +44,16 @@ To set up your Helios repository, follow these steps:
     $ make noble
     ```
 
+    To launch with [Amazon DCV](deploy-usage.md#dcv) as the remote protocol instead of the default Selkies:
+
+    <!-- termynal -->
+    
+    ```shell
+    $ make dcv-noble
+    ```
+
+    Available DCV targets: `dcv-noble`, `dcv-jammy`, `dcv-rocky-9`, `dcv-alma-9`.
+
 
 
 ## Helios Structure

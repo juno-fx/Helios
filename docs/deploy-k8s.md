@@ -37,6 +37,103 @@ spec:
                         nvidia.com/gpu: "1" # Request one GPU
 ```
 
+## DCV Remote Protocol
+
+Helios supports [Amazon DCV (NICE DCV)](deploy-usage.md#dcv) as an alternative to the default Selkies protocol.
+Set `REMOTE_PROTOCOL=dcv` to enable DCV mode.
+
+### Web Browser Access (DCV)
+
+The DCV web client is served on port 3000, same as Selkies:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-helios-dcv
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-helios-dcv
+  template:
+    metadata:
+      labels:
+        app: my-helios-dcv
+    spec:
+      containers:
+      - name: helios-container
+        image: helios:v0.0.0-noble
+        env:
+        - name: REMOTE_PROTOCOL
+          value: "dcv"
+        ports:
+        - containerPort: 3000
+```
+
+### Native Client Access (DCV)
+
+For the [DCV native client](https://docs.aws.amazon.com/dcv/latest/adminguide/client.html),
+set `PASSWORD` and expose port 8443 for TCP and QUIC (UDP):
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-helios-dcv
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-helios-dcv
+  template:
+    metadata:
+      labels:
+        app: my-helios-dcv
+    spec:
+      containers:
+      - name: helios-container
+        image: helios:v0.0.0-noble
+        env:
+        - name: REMOTE_PROTOCOL
+          value: "dcv"
+        - name: PASSWORD
+          value: "mypassword"
+        - name: USER
+          value: "myuser"
+        ports:
+        - containerPort: 3000
+        - containerPort: 8443
+          protocol: TCP
+        - containerPort: 8443
+          protocol: UDP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-helios-dcv
+spec:
+  selector:
+    app: my-helios-dcv
+  ports:
+  - name: web
+    port: 3000
+    targetPort: 3000
+  - name: dcv-tcp
+    port: 8443
+    targetPort: 8443
+    protocol: TCP
+  - name: dcv-udp
+    port: 8443
+    targetPort: 8443
+    protocol: UDP
+```
+
+!!! info "DCV Licensing"
+
+    See [DCV Licensing](deploy-usage.md#dcv) in the Launch Configuration for details on
+    EC2 auto-license, demo mode, and BYOL with `DCV_LICENSE_FILE`.
+
 ## Custom Event Scripts
 
 In this example, we will mount a custom set of event scripts using Kubernetes instead of baking them into the image. This allows for easier updates and modifications without needing to rebuild the image.
