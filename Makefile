@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: docs jammy kali noble rocky-9 alma-9 bookworm sid alpine-3 packages
+.PHONY: docs jammy kali noble rocky-9 alma-9 bookworm sid alpine-3 packages dcv-noble dcv-jammy dcv-rocky-9 dcv-alma-9
 
 # documentation
 docs: .venv/bin/activate
@@ -57,8 +57,18 @@ jammy:
 	@docker compose build --build-arg IMAGE=ubuntu:jammy --build-arg SRC=jammy
 	@docker compose up
 
+dcv-jammy: export REMOTE_PROTOCOL := dcv
+dcv-jammy:
+	@docker compose build --no-cache --pull --build-arg IMAGE=ubuntu:jammy --build-arg SRC=jammy
+	@docker compose up
+
 noble:
 	@docker compose build --build-arg IMAGE=ubuntu:noble --build-arg SRC=noble
+	@docker compose up
+
+dcv-noble: export REMOTE_PROTOCOL := dcv
+dcv-noble:
+	@docker compose build --no-cache --pull --build-arg IMAGE=ubuntu:noble --build-arg SRC=noble
 	@docker compose up
 
 # RHEL
@@ -66,7 +76,17 @@ rocky-9:
 	@docker compose build --build-arg IMAGE=rockylinux:9 --build-arg SRC=rocky-9
 	@docker compose up
 
+dcv-rocky-9: export REMOTE_PROTOCOL := dcv
+dcv-rocky-9:
+	@docker compose build --no-cache --pull --build-arg IMAGE=rockylinux:9 --build-arg SRC=rocky-9
+	@docker compose up
+
 alma-9:
 	@docker compose build --build-arg IMAGE=almalinux:9 --build-arg SRC=alma-9
+	@docker compose up
+
+dcv-alma-9: export REMOTE_PROTOCOL := dcv
+dcv-alma-9:
+	@docker compose build --no-cache --pull --build-arg IMAGE=almalinux:9 --build-arg SRC=alma-9
 	@docker compose up
 

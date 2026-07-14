@@ -1,0 +1,113 @@
+#!/usr/bin/with-contenv bash
+
+set -e
+
+# Password-authenticated direct-connect DCV endpoint for native DCV clients.
+# Runs a SECOND dcvserver against the same X display as svc-dcv. DCV's
+# authentication setting is global per server process, so the passwordless
+# web endpoint (svc-dcv behind nginx) and this authenticated endpoint must
+# be separate server instances. Both attach console sessions to ${DISPLAY},
+# so both show the same desktop.
+#
+# Enabled when REMOTE_PROTOCOL=dcv and PASSWORD is set. auth=system (PAM):
+# connect with username ${USER} and the container PASSWORD. Native client
+# address: host:${DCV_DIRECT_PORT} (TCP + QUIC on the same port).
+#
+# Two DCV instances cannot share a container as-is; this works around three
+# per-instance-global resources:
+#   1. abstract unix sockets (@/com/nicesoftware/dcv/*): the LD_PRELOAD shim
+#      (DCV_SOCKET_SUFFIX) gives this instance and its agents a private set.
+#   2. the session D-Bus (autolaunched, keyed off DISPLAY): a private bus.
+#   3. session ownership: the web instance owns 'console' as root and the
+#      client authenticates as ${USER}, so a permissions file grants access.
+if [ "${REMOTE_PROTOCOL}" != "dcv" ]; then
+	echo "svc-dcv-direct: REMOTE_PROTOCOL=${REMOTE_PROTOCOL}, exiting (DCV disabled)"
+	exec sleep infinity
+fi
+
+if [ -z "${PASSWORD}" ]; then
+	echo "svc-dcv-direct: PASSWORD not set, exiting (direct connect disabled)"
+	exec sleep infinity
+fi
+
+DCV_DIRECT_PORT="${DCV_DIRECT_PORT:-8443}"
+
+# Wait for the X server (see svc-dcv for why s6 readiness is not enough)
+echo "svc-dcv-direct: waiting for X display ${DISPLAY}..."
+while ! xset q &>/dev/null; do
+	sleep 0.5
+done
+
+# Private abstract-socket namespace so this dcvserver (and the agents it
+# spawns, which inherit the env) do not collide with the web instance.
+export LD_PRELOAD="/usr/lib/dcv-socket-ns.so:${LD_PRELOAD}"
+export DCV_SOCKET_SUFFIX="-direct"
+
+# Private session D-Bus (both instances would otherwise autolaunch and fight
+# for the same bus name keyed off DISPLAY).
+export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/dcv-direct-bus"
+export DBUS_SYSTEM_BUS_ADDRESS="unix:path=/run/dcv-direct-bus"
+if [ ! -S /run/dcv-direct-bus ]; then
+	dbus-daemon --session --address="${DBUS_SESSION_BUS_ADDRESS}" --fork --nopidfile
+fi
+
+# Own config dir — this instance must not read the web instance's config
+# (different port, different auth). dcvserver reads ${HOME}/.config/dcv/dcv.conf.
+export HOME=/var/lib/dcv-direct
+mkdir -p "${HOME}/.config/dcv" "${HOME}/.local/share/NICE/dcv/log"
+
+{
+	cat <<EOF
+[connectivity]
+web-port=${DCV_DIRECT_PORT}
+web-use-hsts=false
+quic-port=${DCV_DIRECT_PORT}
+enable-quic-frontend=true
+
+[security]
+authentication=system
+
+[session-management]
+create-session=false
+
+[display]
+target-fps=${SELKIES_FRAMERATE:-60}
+enable-client-resize=true
+EOF
+	if [ -n "${DCV_LICENSE_FILE}" ]; then
+		printf '\n[license]\nlicense-file=%s\n' "${DCV_LICENSE_FILE}"
+	fi
+} > "${HOME}/.config/dcv/dcv.conf"
+
+# Surface this instance's logs in container output
+pkill -f "tail .*dcv-direct.*NICE/dcv/log" 2>/dev/null || true
+tail -n +1 -F "${HOME}/.local/share/NICE/dcv/log/server.log" 2>/dev/null |
+	sed -u 's/^/[dcv-direct] /' &
+
+# Handle a restart: the dcvserver wrapper does not exec the real binary, so
+# a previous instance survives service restart. Kill only this instance's
+# server (identified by its private HOME), not the web instance's.
+for pid in $(pgrep -f "dcv/dcvserver"); do
+	if grep -qz "HOME=/var/lib/dcv-direct" "/proc/${pid}/environ" 2>/dev/null; then
+		kill "${pid}" 2>/dev/null || true
+	fi
+done
+sleep 1
+
+# Root DCV processes must not discover PulseAudio via the shared
+# PULSE_RUNTIME_PATH — a root libpulse client chowns that directory to
+# root and locks user applications out of audio (see svc-dcv). Connect to
+# the socket directly and use a private runtime dir.
+export PULSE_SERVER="unix:${PULSE_RUNTIME_PATH}/native"
+export PULSE_RUNTIME_PATH="/tmp/pulse-dcv-direct"
+
+echo "svc-dcv-direct: starting authenticated DCV endpoint on port ${DCV_DIRECT_PORT} (user: ${USER})"
+
+exec /usr/bin/dcvserver -d \
+	--web-port "${DCV_DIRECT_PORT}" \
+	--auth system \
+	--create-session \
+	--session-type=console \
+	--display "${DISPLAY}" \
+	--permissions-file /opt/helios/dcv-direct.perm \
+	${DCV_LICENSE_FILE:+--license-file "${DCV_LICENSE_FILE}"}

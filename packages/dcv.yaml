@@ -1,0 +1,17 @@
+packages:
+  # ====================================
+  # Amazon DCV Runtime Dependencies
+  # These merge into the debian/rhel lists
+  # The DCV server packages themselves are downloaded as .deb/.rpm
+  # ====================================
+
+  # Utility for querying OpenGL configuration (required for DCV GL support)
+  - debian: mesa-utils
+    rhel: glx-utils
+
+  # PulseAudio utilities for audio redirection support
+  - common: pulseaudio-utils
+
+  # XDummy driver for non-GPU console sessions
+  - debian: xserver-xorg-video-dummy
+    rhel: xorg-x11-drv-dummy

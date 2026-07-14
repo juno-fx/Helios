@@ -2,6 +2,16 @@
 
 set -e
 
+# nginx fronts both remote protocols on 3000 and serves them under
+# ${PREFIX} (base URL) for k8s ingress path-based routing:
+#   selkies: static frontend + websocket proxy to 127.0.0.1:8081
+#   dcv:     proxy to dcvserver's embedded web server on 127.0.0.1:8082
+NGINX_TEMPLATE=/opt/helios/nginx.conf
+if [ "${REMOTE_PROTOCOL}" = "dcv" ]; then
+	echo "svc-nginx: REMOTE_PROTOCOL=dcv, proxying DCV web server"
+	NGINX_TEMPLATE=/opt/helios/dcv-nginx.conf
+fi
+
 # nginx Path
 NGINX_CONFIG=/etc/nginx/sites-available/default
 
@@ -31,7 +41,7 @@ fi
 
 # modify nginx config
 mkdir -p /etc/nginx/sites-available/
-cp /opt/helios/nginx.conf ${NGINX_CONFIG}
+cp ${NGINX_TEMPLATE} ${NGINX_CONFIG}
 sed -i "s|SUBFOLDER|$SFOLDER|g" ${NGINX_CONFIG}
 if [ ! -z ${DISABLE_IPV6+x} ]; then
 	sed -i '/listen \[::\]/d' ${NGINX_CONFIG}

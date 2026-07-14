@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 # wait for X to be running
 while true; do
 	if xset q &>/dev/null; then
@@ -8,35 +10,16 @@ while true; do
 	sleep .5
 done
 
-echo "Waiting for Selkies process to start..."
-
-# Loop until a process matching "selkies" appears
-while true; do
-	if pgrep -f selkies >/dev/null; then
-		echo "Selkies process detected."
-		break
-	fi
-	sleep 0.25
-done
-
-HOME="/home/$USER"
-
-if [ -z "$USER" ]; then
-	echo "No user configured"
-	exit 1
+if [ "${REMOTE_PROTOCOL}" != "dcv" ]; then
+	echo "Waiting for Selkies process to start..."
+	while true; do
+		if pgrep -f selkies >/dev/null; then
+			echo "Selkies process detected."
+			break
+		fi
+		sleep 0.25
+	done
 fi
-
-if [ -z "$UID" ]; then
-	echo "No UID configured"
-	exit 1
-fi
-
-if [ -z "$GID" ]; then
-	echo "No GID configured, defaulting to matching UID"
-	GID="$UID"
-fi
-
-chmod 777 /tmp/selkies*
 
 # set sane resolution before starting apps
 s6-setuidgid ${USER} xrandr --newmode "1024x768" 63.50 1024 1072 1176 1328 768 771 775 798 -hsync +vsync

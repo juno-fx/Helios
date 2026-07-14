@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
+set -e
+
 # handle a restart if needed
-XVFB_PIDS=$(pgrep Xvfb)
+XVFB_PIDS=$(pgrep Xvfb || true)
 if [ -n "$XVFB_PIDS" ]; then
 	echo "Xvfb is running with PID(s): $XVFB_PIDS"
 	echo "Stopping Xvfb..."

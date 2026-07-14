@@ -1,6 +1,6 @@
 #!/usr/bin/with-contenv bash
 
-mkdir "$PULSE_RUNTIME_PATH"
+mkdir -p "$PULSE_RUNTIME_PATH"
 chmod 700 "$PULSE_RUNTIME_PATH"
 chown "${USER}":"${USER}" "$PULSE_RUNTIME_PATH"
 

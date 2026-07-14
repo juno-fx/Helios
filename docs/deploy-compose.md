@@ -35,6 +35,58 @@ Now, you can launch the container with GPU support:
 docker compose up -d
 ```
 
+## DCV Remote Protocol
+
+Helios supports [Amazon DCV (NICE DCV)](deploy-usage.md#dcv) as an alternative to the default Selkies protocol.
+Set `REMOTE_PROTOCOL=dcv` to enable DCV mode.
+
+### Web Browser Access (DCV)
+
+The DCV web client is served on port 3000, same as Selkies:
+
+```yaml
+services:
+  helios:
+    image: helios:v0.0.0-noble
+    container_name: my-helios-dcv
+    environment:
+      - USER=myuser
+      - UID=1000
+      - GID=1000
+      - REMOTE_PROTOCOL=dcv
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+```
+
+### Native Client Access (DCV)
+
+For the [DCV native client](https://docs.aws.amazon.com/dcv/latest/adminguide/client.html),
+set `PASSWORD` and expose port 8443 for TCP and QUIC (UDP):
+
+```yaml
+services:
+  helios:
+    image: helios:v0.0.0-noble
+    container_name: my-helios-dcv
+    environment:
+      - USER=myuser
+      - UID=1000
+      - GID=1000
+      - REMOTE_PROTOCOL=dcv
+      - PASSWORD=mypassword
+    ports:
+      - "3000:3000"
+      - "8443:8443"
+      - "8443:8443/udp"
+    restart: unless-stopped
+```
+
+!!! info "DCV Licensing"
+
+    See [DCV Licensing](deploy-usage.md#dcv) in the Launch Configuration for details on
+    EC2 auto-license, demo mode, and BYOL with `DCV_LICENSE_FILE`.
+
 ## Custom Event Scripts
 
 In this example, we will mount a custom set of event scripts using docker compose instead of baking them into the image. This allows for easier updates and modifications without needing to rebuild the image.
