@@ -786,6 +786,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#dcv-remote-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DCV Remote Protocol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DCV Remote Protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#web-browser-access-dcv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Web Browser Access (DCV)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#native-client-access-dcv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Native Client Access (DCV)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#custom-event-scripts" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1327,6 +1366,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#dcv-remote-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DCV Remote Protocol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DCV Remote Protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#web-browser-access-dcv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Web Browser Access (DCV)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#native-client-access-dcv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Native Client Access (DCV)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#custom-event-scripts" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1441,6 +1519,41 @@ Ensure you have the NVIDIA Container Toolkit installed to use this feature.</p>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span>-p<span class="w"> </span><span class="m">3000</span>:3000<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span>helios:v0.0.0-noble
 </span></code></pre></div>
+<h2 id="dcv-remote-protocol">DCV Remote Protocol<a class="headerlink" href="#dcv-remote-protocol" title="Permanent link">&para;</a></h2>
+<p>Helios supports <a href="../deploy-usage/#dcv">Amazon DCV (NICE DCV)</a> as an alternative to the default Selkies protocol.
+Set <code>REMOTE_PROTOCOL=dcv</code> to enable DCV mode.</p>
+<h3 id="web-browser-access-dcv">Web Browser Access (DCV)<a class="headerlink" href="#web-browser-access-dcv" title="Permanent link">&para;</a></h3>
+<p>The DCV web client is served on port 3000, same as Selkies. No additional ports needed:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span>--name<span class="w"> </span>my-helios-dcv<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span>-e<span class="w"> </span><span class="nv">USER</span><span class="o">=</span>myuser<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span>-e<span class="w"> </span><span class="nv">UID</span><span class="o">=</span><span class="m">1000</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span>-e<span class="w"> </span><span class="nv">GID</span><span class="o">=</span><span class="m">1000</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span>-e<span class="w"> </span><span class="nv">REMOTE_PROTOCOL</span><span class="o">=</span>dcv<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span>-p<span class="w"> </span><span class="m">3000</span>:3000<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span>helios:v0.0.0-noble
+</span></code></pre></div>
+<h3 id="native-client-access-dcv">Native Client Access (DCV)<a class="headerlink" href="#native-client-access-dcv" title="Permanent link">&para;</a></h3>
+<p>For the <a href="https://docs.aws.amazon.com/dcv/latest/adminguide/client.html">DCV native client</a>,
+set <code>PASSWORD</code> and expose port 8443 for TCP and QUIC (UDP):</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span>--name<span class="w"> </span>my-helios-dcv<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span>-e<span class="w"> </span><span class="nv">USER</span><span class="o">=</span>myuser<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span>-e<span class="w"> </span><span class="nv">UID</span><span class="o">=</span><span class="m">1000</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span>-e<span class="w"> </span><span class="nv">GID</span><span class="o">=</span><span class="m">1000</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span>-e<span class="w"> </span><span class="nv">REMOTE_PROTOCOL</span><span class="o">=</span>dcv<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">  </span>-e<span class="w"> </span><span class="nv">PASSWORD</span><span class="o">=</span>mypassword<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">  </span>-p<span class="w"> </span><span class="m">3000</span>:3000<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">  </span>-p<span class="w"> </span><span class="m">8443</span>:8443<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">  </span>-p<span class="w"> </span><span class="m">8443</span>:8443/udp<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">  </span>helios:v0.0.0-noble
+</span></code></pre></div>
+<p>Connect using the native client with address <code>&lt;host&gt;:8443</code> and username <code>myuser</code>.</p>
+<div class="admonition info">
+<p class="admonition-title">DCV Licensing</p>
+<p>See <a href="../deploy-usage/#dcv">DCV Licensing</a> in the Launch Configuration for details on
+EC2 auto-license, demo mode, and BYOL with <code>DCV_LICENSE_FILE</code>.</p>
+</div>
 <h2 id="custom-event-scripts">Custom Event Scripts<a class="headerlink" href="#custom-event-scripts" title="Permanent link">&para;</a></h2>
 <p>In this example, we will mount a custom set of event scripts using Docker Run instead of baking them into the image. This allows for easier updates and modifications without needing to rebuild the image.</p>
 <h2 id="run-the-container-with-custom-scripts">Run the Container with Custom Scripts<a class="headerlink" href="#run-the-container-with-custom-scripts" title="Permanent link">&para;</a></h2>
@@ -1449,13 +1562,13 @@ Ensure you have the NVIDIA Container Toolkit installed to use this feature.</p>
 <p class="admonition-title">Launch Configuration</p>
 <p>Be sure to also include all required environment variables as is specified in <a href="../deploy-usage/">Launch Configuration</a>.</p>
 </div>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span>--name<span class="w"> </span>my-helios-container<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span>-v<span class="w"> </span>/path/to/my-custom-init.sh:/etc/helios/init.d/my-custom-init.sh<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span>-v<span class="w"> </span>/path/to/my-custom-service.sh:/etc/helios/services.d/custom.sh<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span>-v<span class="w"> </span>/path/to/my-custom-idle.sh:/etc/helios/idle.d/custom.sh<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span>-p<span class="w"> </span><span class="m">3000</span>:3000<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span>helios:v0.0.0-noble
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span>--name<span class="w"> </span>my-helios-container<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span>-v<span class="w"> </span>/path/to/my-custom-init.sh:/etc/helios/init.d/my-custom-init.sh<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span>-v<span class="w"> </span>/path/to/my-custom-service.sh:/etc/helios/services.d/custom.sh<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span>-v<span class="w"> </span>/path/to/my-custom-idle.sh:/etc/helios/idle.d/custom.sh<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span>-p<span class="w"> </span><span class="m">3000</span>:3000<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">  </span>helios:v0.0.0-noble
 </span></code></pre></div>
 
 

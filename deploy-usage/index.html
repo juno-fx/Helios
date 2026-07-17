@@ -691,6 +691,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#selkies-mode-remote_protocolselkies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Selkies mode (REMOTE_PROTOCOL=selkies)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dcv-mode-remote_protocoldcv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DCV mode (REMOTE_PROTOCOL=dcv)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -701,6 +729,45 @@
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remote-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remote Protocols
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Remote Protocols">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#selkies-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Selkies (default)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dcv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DCV
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1335,6 +1402,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#selkies-mode-remote_protocolselkies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Selkies mode (REMOTE_PROTOCOL=selkies)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dcv-mode-remote_protocoldcv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DCV mode (REMOTE_PROTOCOL=dcv)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1345,6 +1440,45 @@
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remote-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remote Protocols
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Remote Protocols">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#selkies-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Selkies (default)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dcv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DCV
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1454,7 +1588,7 @@
 </tr>
 <tr>
 <td>PASSWORD</td>
-<td>Password set for the user</td>
+<td>Password set for the user. Required for DCV native client direct-connect (port 8443)</td>
 <td></td>
 </tr>
 <tr>
@@ -1484,14 +1618,29 @@
 </tr>
 <tr>
 <td>SUDO</td>
-<td>Grant <code>SUDO</code> to the user on the container</td>
+<td>Grant <code>SUDO</code> to the user on the container  ("true" or "1")</td>
+<td></td>
+</tr>
+<tr>
+<td>REMOTE_PROTOCOL</td>
+<td>Remote desktop protocol: <code>selkies</code> (default) or <code>dcv</code></td>
+<td></td>
+</tr>
+<tr>
+<td>DCV_LICENSE_FILE</td>
+<td>Path to a DCV license file for non-EC2 usage. Falls back to auto-license on EC2 or 30-day demo otherwise.</td>
+<td></td>
+</tr>
+<tr>
+<td>DCV_DIRECT_PORT</td>
+<td>Port for the DCV native client direct-connect endpoint. Default <code>8443</code>. Requires <code>PASSWORD</code> to be set.</td>
 <td></td>
 </tr>
 </tbody>
 </table>
 <p>When using the Orion Platform, you can configure them in the <a href="https://juno-fx.github.io/Orion-Documentation/genesis/workstations/">Templates</a>
 User-related settings are already configured automatically by the platform. The Templates are there to adjust settings such as your framerate.</p>
-<p>As we rely on Selkies, many of the environment variables provided by the upstream will be respected.
+<p>When using <code>REMOTE_PROTOCOL=selkies</code> (the default), many of the environment variables provided by the upstream Selkies project will be respected.
 You can find official Selkies documentation here: https://selkies-project.github.io/selkies/usage/#command-line-options-and-environment-variables</p>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
@@ -1506,17 +1655,21 @@ ownership on things like the home directory and other files. This helps with thi
 </div>
 <div class="admonition danger">
 <p class="admonition-title">Authentication</p>
-<p>Helios DOES NOT provide any authentication for connecting to the workstation. This means that anyone who can
+<p>When using <code>REMOTE_PROTOCOL=selkies</code>, Helios DOES NOT provide any authentication for the web endpoint. This means that anyone who can
 connect to the http endpoint can access the desktop as that user. For proper security, we recommend using a 
 reverse proxy with authentication in front of Helios. This can be done using Nginx, Traefik, or any other 
 reverse proxy that supports authentication.</p>
+<p>When using <code>REMOTE_PROTOCOL=dcv</code>, the web endpoint (port 3000) is also unauthenticated. However, setting <code>PASSWORD</code>
+enables a separate password-authenticated endpoint on port 8443 for native DCV clients. The web endpoint remains
+open — use a reverse proxy for access control.</p>
 <p>Security is a very important part of any deployment and it isn't a one size fits all solution. Instead of shipping
 Helios with a specific authentication method, we leave it up to the user to implement their own security measures
 that best fit their deployment. This allows for more flexibility and customization in how Helios is used.</p>
 <p>When using the <a href="https://juno-fx.github.io/Orion-Documentation/">Orion Platform</a>, Authentication and authorization is handled by the product, ensuring the security of your deployment.</p>
 </div>
 <h2 id="endpoints">Endpoints<a class="headerlink" href="#endpoints" title="Permanent link">&para;</a></h2>
-<p>Helios provides 1 endpoint for accessing the desktop:</p>
+<p>Helios provides the following endpoints for accessing the desktop:</p>
+<h3 id="selkies-mode-remote_protocolselkies">Selkies mode (<code>REMOTE_PROTOCOL=selkies</code>)<a class="headerlink" href="#selkies-mode-remote_protocolselkies" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -1527,26 +1680,120 @@ that best fit their deployment. This allows for more flexibility and customizati
 <tbody>
 <tr>
 <td><code>{PREFIX}/</code></td>
-<td>The main interactive endpoint</td>
+<td>Web-based desktop (port 3000)</td>
 </tr>
 </tbody>
 </table>
+<h3 id="dcv-mode-remote_protocoldcv">DCV mode (<code>REMOTE_PROTOCOL=dcv</code>)<a class="headerlink" href="#dcv-mode-remote_protocoldcv" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Endpoint</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{PREFIX}/</code></td>
+<td>Web-based desktop via browser (port 3000, no auth)</td>
+</tr>
+<tr>
+<td><code>&lt;host&gt;:&lt;DCV_DIRECT_PORT&gt;</code></td>
+<td>Native DCV client direct-connect (port 8443, PAM auth via <code>PASSWORD</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>The DCV direct-connect endpoint uses both TCP and QUIC (UDP) for lower-latency streaming.
+Connect using the <a href="https://docs.aws.amazon.com/dcv/latest/adminguide/client.html">DCV native client</a>
+with the address <code>&lt;host&gt;:&lt;DCV_DIRECT_PORT&gt;</code> and username <code>&lt;USER&gt;</code>.</p>
 <h2 id="ports">Ports<a class="headerlink" href="#ports" title="Permanent link">&para;</a></h2>
 <p>Helios exposes the following ports:</p>
 <table>
 <thead>
 <tr>
 <th>Port</th>
+<th>Protocol</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>3000</td>
-<td>HTTPS Desktop Port</td>
+<td>TCP</td>
+<td>HTTPS Desktop (Selkies or DCV)</td>
+</tr>
+<tr>
+<td>8443</td>
+<td>TCP+UDP</td>
+<td>DCV native client direct-connect (when <code>REMOTE_PROTOCOL=dcv</code> and <code>PASSWORD</code> is set)</td>
 </tr>
 </tbody>
 </table>
+<h2 id="remote-protocols">Remote Protocols<a class="headerlink" href="#remote-protocols" title="Permanent link">&para;</a></h2>
+<h3 id="selkies-default">Selkies (default)<a class="headerlink" href="#selkies-default" title="Permanent link">&para;</a></h3>
+<p>Selkies is a WebRTC-based remote desktop protocol. It provides a web-based client that works
+in any modern browser without additional software. Selkies is the default and recommended
+protocol for browser-based access.</p>
+<h3 id="dcv">DCV<a class="headerlink" href="#dcv" title="Permanent link">&para;</a></h3>
+<p><a href="https://aws.amazon.com/hpc/dcv/">Amazon DCV (NICE DCV)</a> is an alternative remote desktop
+protocol that supports both web browser and native client access.</p>
+<p>DCV key characteristics:</p>
+<ul>
+<li><strong>Console sessions only</strong> — DCV connects to the same Xvfb display as Selkies. Both
+  protocols show the same desktop.</li>
+<li><strong>Web access</strong> — Served on port 3000 behind nginx, same as Selkies. The web endpoint
+  is unauthenticated.</li>
+<li><strong>Native client</strong> — A separate dcvserver instance on port 8443 provides
+  password-authenticated access for the <a href="https://docs.aws.amazon.com/dcv/latest/adminguide/client.html">DCV native client</a>.
+  Requires <code>PASSWORD</code> to be set.</li>
+<li><strong>iframe embedding</strong> — DCV web client supports iframe embedding from any origin (CORS
+  headers are set, <code>X-Frame-Options</code> is stripped).</li>
+<li><strong>No GPU sharing</strong> — DCV-GL is installed but the console session does not use it.
+  GPU acceleration is handled by VirtualGL (same as Selkies).</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">DCV Licensing</p>
+<p>DCV requires a license. Helios handles licensing automatically:</p>
+<ul>
+<li><strong>On EC2</strong> uses the free built-in EC2 license.</li>
+<li><strong>Without a license</strong> starts a 30-day demo license on first run.</li>
+<li><strong>BYOL</strong> set <code>DCV_LICENSE_FILE</code> to the path of your license file.</li>
+</ul>
+<p>The demo license is generated at container start via the DCV package postinst
+script. This ensures each container gets its own valid license state.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">EC2 IMDS Hop Limit</p>
+<p>On EC2, DCV fetches its free license from the Instance Metadata Service
+(IMDS) at <code>169.254.169.254</code>. Containers in a separate network namespace
+(bridge/overlay) add one extra hop. The default IMDS hop limit of <code>1</code>
+drops their requests, causing DCV license checkout to fail.</p>
+<p><strong>Host networking</strong> (<code>--network host</code>) — no extra hop. Default hop limit
+works. No change needed.</p>
+<ul>
+<li>
+<p><strong>Bridge/overlay/EKS/Fargate</strong> — IMDS needs hop limit ≥ 2:</p>
+</li>
+<li>
+<p><strong>Karpenter</strong> — add to <code>EC2NodeClass.spec.metadataOptions</code>:
+  <div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">httpPutResponseHopLimit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+</span></code></pre></div></p>
+</li>
+<li><strong>EKS managed node groups / launch templates</strong> — set
+  <code>MetadataOptions.HttpPutResponseHopLimit</code> to <code>2</code>.</li>
+<li><strong>Plain Docker / ECS EC2</strong> — apply to the instance:
+  <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>aws<span class="w"> </span>ec2<span class="w"> </span>modify-instance-metadata-options<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span>--instance-id<span class="w"> </span>&lt;id&gt;<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span>--http-put-response-hop-limit<span class="w"> </span><span class="m">2</span>
+</span></code></pre></div></li>
+</ul>
+</div>
+<div class="admonition info">
+<p class="admonition-title">DCV Audio</p>
+<p>DCV uses the same PulseAudio null-sink setup as Selkies. Desktop audio is captured
+from the output monitor and streamed to the client. Microphone input arrives via
+the DCV agent's virtual microphone (<code>AWS-Virtual-Microphone</code>).</p>
+</div>
 
 
 

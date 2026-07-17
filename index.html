@@ -784,41 +784,46 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-future-of-containerized-workstations" class="md-nav__link">
+  <a href="#what-helios-does" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Future of Containerized Workstations
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="The Future of Containerized Workstations">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#why-industry-leaders-choose-helios" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why Industry Leaders Choose Helios
+        What Helios Does
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#charging-into-the-future" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#who-uses-helios" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Charging into the Future
+        Who Uses Helios
       
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#orion-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orion Integration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Get Started
+      
+    </span>
+  </a>
   
 </li>
       
@@ -853,32 +858,45 @@
   <img src="assets/logos/helios/helios-light.png" class="light-only" alt="Helios Logo">
   <img src="assets/logos/helios/helios-dark.png" class="dark-only" alt="Helios Logo">
 </span></p>
-<h2 id="the-future-of-containerized-workstations"><strong>The Future of Containerized Workstations</strong><a class="headerlink" href="#the-future-of-containerized-workstations" title="Permanent link">&para;</a></h2>
-<p>Helios is a bleeding-edge containerized workstation image designed to revolutionize the way users and system administrators
-deploy desktop environments. Built on the latest technologies, Helios provides a secure, efficient, and user-friendly 
-experience for both developers and end-users.</p>
-<h3 id="why-industry-leaders-choose-helios"><strong>Why Industry Leaders Choose Helios</strong><a class="headerlink" href="#why-industry-leaders-choose-helios" title="Permanent link">&para;</a></h3>
+<p>Helios is Juno's containerized workstation product. It packages a full desktop environment (applications, GPU drivers, and user configuration) into a container image that deploys in 60 seconds on any Orion cluster.</p>
+<p>Instead of provisioning dedicated workstations per user, Helios lets administrators define workstation images once and deliver them on demand. Users get a consistent, GPU-accelerated desktop. Administrators get one image to maintain instead of dozens of physical machines.</p>
+<hr />
+<h2 id="what-helios-does">What Helios Does<a class="headerlink" href="#what-helios-does" title="Permanent link">&para;</a></h2>
 <ul>
-<li>
-<p><strong>Community Driven</strong> — Helios is built by the community, for the community. We welcome contributions and feedback to continuously improve the workstations.</p>
-</li>
-<li>
-<p><strong>Flexible</strong> — Helios is designed to be flexible, allowing users to customize their workstations to fit their specific needs and workflows.</p>
-</li>
-<li>
-<p><strong>Juno Orion Ready</strong> — Built to be run on the Juno Orion Platform, joining the continually growing list of supported workstation containers.</p>
-</li>
-<li>
-<p><strong>Standalone Ready</strong> — While Helios is optimized for Juno Orion, it can also be run as a standalone container, making it versatile for various environments.</p>
-</li>
-<li>
-<p><strong>Extendable</strong> — Helios is intended to be extended in many ways. From adding new features to integrating with existing tools, the possibilities are endless.</p>
-</li>
+<li><strong>Containerized desktop delivery</strong> — Full Linux desktop environments packaged as OCI-compliant container images</li>
+<li><strong>60-second launch</strong> — A workstation that previously took hours to provision is ready in under a minute</li>
+<li><strong>GPU-accelerated</strong> — NVIDIA, AMD, and Intel GPU pass-through for DCC tools, ML frameworks, and scientific software</li>
+<li><strong>Orion-native</strong> — Runs directly on Juno Orion clusters; inherits Orion's scheduling, resource allocation, and GPU management</li>
+<li><strong>Standalone-compatible</strong> — Runs as a standalone container outside Orion for development and testing</li>
+<li><strong>Extensible base images</strong> — Extend official Helios images with your own software, licenses, and configuration using standard Dockerfile patterns</li>
+<li><strong>Community-maintained</strong> — Official images are open source; contributions are welcome</li>
 </ul>
-<h3 id="charging-into-the-future"><strong>Charging into the Future</strong><a class="headerlink" href="#charging-into-the-future" title="Permanent link">&para;</a></h3>
-<p>Built and maintained by the same team that brought you Juno Orion, Helios is the next step in the evolution of containerized workstations. Helios is designed 
-to be the go-to solution for developers, scientists, artists, engineers, system administrators, and many others looking for a modern, efficient, and secure desktop 
-environment.</p>
+<hr />
+<h2 id="who-uses-helios">Who Uses Helios<a class="headerlink" href="#who-uses-helios" title="Permanent link">&para;</a></h2>
+<p><strong>VFX artists and animators</strong> — Launch a DCC workstation (Houdini, Nuke, Blender) on shared GPU infrastructure without touching a physical machine.</p>
+<p><strong>Researchers and scientists</strong> — Get a reproducible compute environment with pre-installed libraries and GPU access, without IT provisioning delays.</p>
+<p><strong>Developers</strong> — Spin up isolated, GPU-enabled development environments that match production exactly.</p>
+<p><strong>System administrators</strong> — Define workstation standards once. Eliminate configuration drift, license sprawl, and per-seat provisioning overhead.</p>
+<hr />
+<h2 id="orion-integration">Orion Integration<a class="headerlink" href="#orion-integration" title="Permanent link">&para;</a></h2>
+<p>Helios workstations run as scheduled workloads on Orion. This means:</p>
+<ul>
+<li>Workstations are allocated compute resources dynamically; GPUs aren't reserved when no one is using them</li>
+<li>Administrators manage workstation images alongside other workload types in the Orion admin console</li>
+<li>Terra marketplace integration allows users to launch Helios workstations self-service, without an IT ticket</li>
+<li>A Helios workstation shares the same GPU pool as rendering jobs and ML training runs; utilization applies across the full cluster</li>
+</ul>
+<hr />
+<h2 id="get-started">Get Started<a class="headerlink" href="#get-started" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="deploy-usage/">Launch Configuration</a> — deploy Helios on your Orion cluster</li>
+<li><a href="getting-started/">Building Workstations</a> — create and customize workstation images</li>
+<li><a href="contributing/">Contributing</a> — add images or improve the base</li>
+<li><a href="https://juno-fx.github.io/Orion-Documentation/">Orion Documentation</a> — the compute plane Helios runs on</li>
+<li><a href="https://juno-fx.github.io/Terra-Official-Plugins/">Terra Plugins</a> — deploy Helios via the Terra marketplace</li>
+</ul>
+<hr />
+<p><em>Questions? Visit <a href="https://juno-innovations.com">juno-innovations.com</a> or reach out at <a href="mailto:sales@juno-innovations.com">sales@juno-innovations.com</a>.</em></p>
 
 
 
