@@ -4,21 +4,21 @@
 
 Environment variables are used to configure the Helios container. The following environment variables are available:
 
-| Name              | Value                                                                                                                                                                                        | Required |
-|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
-| USER              | Name of the user                                                                                                                                                                             | X        |
-| UID               | POSIX compliant uid for the user                                                                                                                                                             | X        |
-| GID               | POSIX compliant gid for the user                                                                                                                                                             |          |
-| PASSWORD          | Password set for the user. Required for DCV native client direct-connect (port 8443)                                                                                                         |          |
+| Name              | Value                                                                                                                                                                                       | Required |
+|-------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
+| USER              | Name of the user                                                                                                                                                                            | X        |
+| UID               | POSIX compliant uid for the user                                                                                                                                                            | X        |
+| GID               | POSIX compliant gid for the user                                                                                                                                                            |          |
+| PASSWORD          | Password set for the user. Required for DCV native client direct-connect (port 8443)                                                                                                        |          |
 | IDLE_TIME         | Trigger the idle hook after x minutes (only required when the [auto shutdown plugin](https://github.com/juno-fx/Terra-Official-Plugins/tree/main/plugins/helios-auto-shutdown) is installed) |          |
-| DISABLE_VGL       | Disable VirtualGL Wrapper around the entire desktop session. You will need to manually run applications that require it via `vglrun`                                                         |          |
-| DESKTOP_FILES     | Paths separated by `:`. For example, `/some/path/1/*.desktop:/some/*/2/*.desktop`                                                                                                            |          |
-| PREFIX            | Prefix for URL for use behind a reverse proxy                                                                                                                                                |          |
-| SELKIES_FRAMERATE | Set framerate as a range (e.g., `15-60`) or a fixed value (e.g., `30`)                                                                                                                       |          |
-| SUDO              | Grant `SUDO` to the user on the container                                                                                                                                                    |          |
-| REMOTE_PROTOCOL   | Remote desktop protocol: `selkies` (default) or `dcv`                                                                                                                                        |          |
+| DISABLE_VGL       | Disable VirtualGL Wrapper around the entire desktop session. You will need to manually run applications that require it via `vglrun`                                                        |          |
+| DESKTOP_FILES     | Paths separated by `:`. For example, `/some/path/1/*.desktop:/some/*/2/*.desktop`                                                                                                           |          |
+| PREFIX            | Prefix for URL for use behind a reverse proxy                                                                                                                                               |          |
+| SELKIES_FRAMERATE | Set framerate as a range (e.g., `15-60`) or a fixed value (e.g., `30`)                                                                                                                      |          |
+| SUDO              | Grant `SUDO` to the user on the container  ("true" or "1")                                                                                                                             |          |
+| REMOTE_PROTOCOL   | Remote desktop protocol: `selkies` (default) or `dcv`                                                                                                                                       |          |
 | DCV_LICENSE_FILE  | Path to a DCV license file for non-EC2 usage. Falls back to auto-license on EC2 or 30-day demo otherwise.                                                                                   |          |
-| DCV_DIRECT_PORT   | Port for the DCV native client direct-connect endpoint. Default `8443`. Requires `PASSWORD` to be set.                                                                                       |          |
+| DCV_DIRECT_PORT   | Port for the DCV native client direct-connect endpoint. Default `8443`. Requires `PASSWORD` to be set.                                                                                      |          |
 
 
 When using the Orion Platform, you can configure them in the [Templates](https://juno-fx.github.io/Orion-Documentation/genesis/workstations/)
