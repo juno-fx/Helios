@@ -168,6 +168,12 @@ packages:
   # D-Bus message bus system, used for inter-process communication in Linux environments.
   - common: dbus
 
+  # dbus-send, used by the shutdown hook to checkpoint the xfce4 session. On
+  # debian this ships in dbus-bin, which `dbus` already depends on; on rhel it
+  # is a separate package that nothing else pulls in, so the session save
+  # silently never runs there.
+  - rhel: dbus-tools
+
   # Manages authentication cookies for X11 sessions, enabling secure access to the X server.
   - common: xauth
 
