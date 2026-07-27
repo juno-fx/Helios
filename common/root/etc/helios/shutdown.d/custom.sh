@@ -17,7 +17,7 @@ su $USER -c 'notify-send -i /usr/share/themes/helios-icon-sm.png -u critical "Wo
 su $USER -c 'dbus-send --session --dest=org.xfce.SessionManager --print-reply /org/xfce/SessionManager org.xfce.Session.Manager.Checkpoint string:""'
 
 # Wait for the session to save
-su $USER -c 'notify-send -i /usr/share/themes/helios-icon-sm.png -u critical "Workstation is being shutdown" "Session saved. Shutting down in 5 seconds."'
+su $USER -c 'notify-send -i /usr/share/themes/helios-icon-sm.png -u critical "Workstation is being shutdown" "Session saved. Shutting down in 5 seconds."' || true
 
 # Wait for 5 seconds before shutting down
 sleep 5
