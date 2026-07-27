@@ -24,7 +24,15 @@ if [ -z "$session_pid" ]; then
 	exit 1
 fi
 
-DBUS_SESSION_BUS_ADDRESS=$(tr '\0' '\n' </proc/${session_pid}/environ | sed -n 's/^DBUS_SESSION_BUS_ADDRESS=//p' | head -n1)
+# Read the environ as the user who owns the process, not as root. Reading
+# another uid's /proc/<pid>/environ needs PTRACE_MODE_READ, which root only gets
+# via CAP_SYS_PTRACE - and kubernetes and docker both drop that from the default
+# capability set, so doing this as root fails with EACCES. Same-uid reads need
+# no capability.
+#
+# su's stdout is piped rather than captured directly: command substitution
+# strips NUL bytes, which would collapse the whole environ onto one line.
+DBUS_SESSION_BUS_ADDRESS=$(su "$USER" -c "cat /proc/${session_pid}/environ" 2>/dev/null | tr '\0' '\n' | sed -n 's/^DBUS_SESSION_BUS_ADDRESS=//p' | head -n1)
 if [ -z "$DBUS_SESSION_BUS_ADDRESS" ]; then
 	echo "shutdown.d: no DBUS_SESSION_BUS_ADDRESS in the environ of pid $session_pid" >&2
 	exit 1
