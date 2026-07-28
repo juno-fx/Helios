@@ -67,7 +67,7 @@ session_bus() {
 # Best effort throughout: a failed checkpoint, a missing or read-only /home, or
 # having no session at all must not fail the shutdown.
 save_session() {
-	local dir key before newest bus i
+	local dir key before newest bus last size i
 
 	if [ ! -r /opt/helios/session-key.sh ]; then
 		log "session-key.sh not found, skipping save"
@@ -116,6 +116,21 @@ save_session() {
 	if [ "$(mtime "$newest")" -le "$before" ]; then
 		log "checkpoint did not refresh $newest, saving the existing copy"
 	fi
+
+	# Let the write settle before copying. On a first boot there is no previous
+	# session file, so `before` is 0 and the poll above returns the instant the
+	# file appears - which may be mid-write, as xfce4 rewrites it in place rather
+	# than renaming a finished one into position. A truncated session restores
+	# worse than no session at all.
+	last=""
+	for i in $(seq 1 10); do
+		size=$(stat -c %s "$newest" 2>/dev/null || echo 0)
+		if [ "$size" = "$last" ]; then
+			break
+		fi
+		last="$size"
+		sleep 0.5
+	done
 
 	if cp -p "$newest" "${dir}/helios-session-${key}"; then
 		chown "$USER" "${dir}/helios-session-${key}" 2>/dev/null || true
