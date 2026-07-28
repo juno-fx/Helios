@@ -18,14 +18,20 @@ notify() {
 #
 # Only ever match our own hostname: on a shared /home another workstation may
 # have checkpointed more recently, and taking the newest file outright would
-# save its session under our key. The short hostname is a prefix of both the
-# short and FQDN forms, so this matches whichever one xfce4 stamped.
+# save its session under our key. xfce4 stamps either the short hostname or
+# the FQDN, so match both forms explicitly - but require the hostname be
+# followed immediately by ':' (short form) or '.' (FQDN form). An open '*'
+# right after the hostname would also match a DIFFERENT host that happens to
+# share our hostname as a prefix (e.g. "workstation-1" matching
+# "workstation-10"'s file), which is exactly the cross-workstation collision
+# this function exists to prevent.
 #
 # xfce4 rotates the previous session to a .bak alongside the live file, and the
 # trailing glob matches it too. Exclude it so a save can never persist the
 # previous session in place of the current one.
 session_file() {
-	ls -1t "$1"/xfce4-session-"${HOSTNAME%%.*}"*:* 2>/dev/null | grep -v '\.bak$' | head -n1
+	local dir="$1" host="${HOSTNAME%%.*}"
+	ls -1t "$dir/xfce4-session-${host}:"* "$dir/xfce4-session-${host}."* 2>/dev/null | grep -v '\.bak$' | head -n1
 }
 
 mtime() {
@@ -137,11 +143,12 @@ save_session() {
 		log "saved $(basename "$newest") -> helios-session-${key}"
 
 		# The pod-named file is a handoff buffer with a one-container lifetime -
-		# the next pod looks for a different name and nothing else reads it. Same
-		# prefix match, so this only ever removes our own and never another live
-		# workstation's. Ordered after the copy so a failed save leaves the
-		# original in place.
-		rm -f "$dir"/xfce4-session-"${HOSTNAME%%.*}"*:*
+		# the next pod looks for a different name and nothing else reads it.
+		# Anchored the same way as session_file() above, so this only ever
+		# removes our own hostname's files and never another live workstation's
+		# whose name happens to share our hostname as a prefix. Ordered after
+		# the copy so a failed save leaves the original in place.
+		rm -f "$dir/xfce4-session-${HOSTNAME%%.*}:"* "$dir/xfce4-session-${HOSTNAME%%.*}."*
 	else
 		log "copy to helios-session-${key} failed"
 	fi
