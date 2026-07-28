@@ -20,12 +20,43 @@ notify() {
 # have checkpointed more recently, and taking the newest file outright would
 # save its session under our key. The short hostname is a prefix of both the
 # short and FQDN forms, so this matches whichever one xfce4 stamped.
+#
+# xfce4 rotates the previous session to a .bak alongside the live file, and the
+# trailing glob matches it too. Exclude it so a save can never persist the
+# previous session in place of the current one.
 session_file() {
-	ls -1t "$1"/xfce4-session-"${HOSTNAME%%.*}"*:* 2>/dev/null | head -n1
+	ls -1t "$1"/xfce4-session-"${HOSTNAME%%.*}"*:* 2>/dev/null | grep -v '\.bak$' | head -n1
 }
 
 mtime() {
 	[ -e "$1" ] && stat -c %Y "$1" 2>/dev/null || echo 0
+}
+
+# Address of the session bus xfce4-session is actually on.
+#
+# A kubernetes preStop hook inherits only the container spec's environment, so
+# DBUS_SESSION_BUS_ADDRESS is not set here. Left to itself libdbus falls back to
+# X11 autolaunch, which needs `_DBUS_SESSION_BUS_ADDRESS` on the root window -
+# and `dbus-launch --exit-with-session <program>` never publishes it. Autolaunch
+# then quietly starts a *second, empty* bus and every call to it fails with
+# ServiceUnknown.
+#
+# The address cannot be recovered from the running process either: reading
+# /proc/<pid>/environ needs CAP_SYS_PTRACE, which is not in the container's
+# capability set. So enumerate the listening abstract sockets and ask each one
+# whether it has the session manager on it.
+session_bus() {
+	local sock addr
+
+	for sock in $(awk '/^@?.*@\/tmp\/dbus-/ {print $NF}' /proc/net/unix 2>/dev/null | sort -u); do
+		addr="unix:abstract=${sock#@}"
+		if su "$USER" -c "DBUS_SESSION_BUS_ADDRESS='$addr' dbus-send --session --print-reply --reply-timeout=3000 --dest=org.freedesktop.DBus /org/freedesktop/DBus org.freedesktop.DBus.NameHasOwner string:org.xfce.SessionManager" 2>/dev/null | grep -q 'boolean true'; then
+			echo "$addr"
+			return 0
+		fi
+	done
+
+	return 1
 }
 
 # Checkpoint the running session and copy it to a stable, hostname-independent
@@ -36,7 +67,7 @@ mtime() {
 # Best effort throughout: a failed checkpoint, a missing or read-only /home, or
 # having no session at all must not fail the shutdown.
 save_session() {
-	local dir key before newest i
+	local dir key before newest bus i
 
 	if [ ! -r /opt/helios/session-key.sh ]; then
 		log "session-key.sh not found, skipping save"
@@ -53,13 +84,17 @@ save_session() {
 
 	before=$(mtime "$(session_file "$dir")")
 
-	# dbus-send defaults to a 25 second reply timeout - long enough to outlast
-	# the pod's termination grace period, and under `set -e` long enough to
-	# abort this hook before the copy below ever runs.
-	if su "$USER" -c 'dbus-send --session --dest=org.xfce.SessionManager --print-reply --reply-timeout=10000 /org/xfce/SessionManager org.xfce.Session.Manager.Checkpoint string:""' >/dev/null 2>&1; then
-		log "checkpoint requested"
+	# Always address the bus explicitly. Letting dbus-send autolaunch not only
+	# fails, it leaves a stray bus daemon behind on every attempt. The bounded
+	# --reply-timeout matters too: the default is 25s, long enough to outlast
+	# the pod's termination grace period on its own.
+	bus=$(session_bus) || true
+	if [ -z "$bus" ]; then
+		log "no session bus with org.xfce.SessionManager, cannot checkpoint"
+	elif su "$USER" -c "DBUS_SESSION_BUS_ADDRESS='$bus' dbus-send --session --dest=org.xfce.SessionManager --print-reply --reply-timeout=10000 /org/xfce/SessionManager org.xfce.Session.Manager.Checkpoint string:''" >/dev/null 2>&1; then
+		log "checkpoint requested on $bus"
 	else
-		log "checkpoint failed, falling back to whatever is already on disk"
+		log "checkpoint failed on $bus, falling back to whatever is already on disk"
 	fi
 
 	# The reply means "save started", not "save finished": xfce4 writes the file
@@ -101,7 +136,9 @@ notify "Session is being saved."
 save_session || log "save_session exited unexpectedly"
 notify "Session saved. Shutting down."
 
-# Save the session
+# Ask the desktop to shut down cleanly. Best effort and deliberately not given
+# the discovered bus address: the session is already saved by this point, and
+# SIGTERM from kubelet tears the container down regardless.
 su "$USER" -c 'xfce4-session-logout --halt' || true
 
 # shutting down kasm
