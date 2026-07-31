@@ -1,8 +1,8 @@
 #!/bin/bash
 #
 # Resolves a stable identity for the desktop session. Sourced by the startup
-# restore (startwm.sh) and the shutdown save (shutdown.d/custom.sh), which have
-# to agree on the same key.
+# restore (startwm.sh). shutdown.d/custom.sh keeps its own copy in sync
+# rather than sourcing this file.
 #
 # xfce4 names its saved session after the machine hostname. Under kubernetes
 # that is the pod name, which changes on every restart, so the session saved by

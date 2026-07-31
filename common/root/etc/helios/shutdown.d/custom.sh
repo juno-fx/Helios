@@ -38,6 +38,22 @@ mtime() {
 	[ -e "$1" ] && stat -c %Y "$1" 2>/dev/null || echo 0
 }
 
+# Mirrors helios_session_key() in session-key.sh. Keep in sync.
+session_key() {
+	local ns_file=/var/run/secrets/kubernetes.io/serviceaccount/namespace
+	local key=""
+
+	if [ -r "$ns_file" ]; then
+		read -r key <"$ns_file" 2>/dev/null
+	fi
+
+	case "$key" in
+	"" | */*) key="$HOSTNAME" ;;
+	esac
+
+	echo "$key"
+}
+
 # Address of the session bus xfce4-session is actually on.
 #
 # A kubernetes preStop hook inherits only the container spec's environment, so
@@ -75,12 +91,7 @@ session_bus() {
 save_session() {
 	local dir key before newest bus last size i
 
-	if [ ! -r /opt/helios/session-key.sh ]; then
-		log "session-key.sh not found, skipping save"
-		return 0
-	fi
-	source /opt/helios/session-key.sh
-	key=$(helios_session_key)
+	key=$(session_key)
 
 	dir="$(getent passwd "$USER" | cut -d: -f6)/.cache/sessions"
 	if [ ! -d "$dir" ]; then
