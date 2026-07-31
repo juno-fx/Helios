@@ -65,13 +65,17 @@ session_key() {
 #
 # The address cannot be recovered from the running process either: reading
 # /proc/<pid>/environ needs CAP_SYS_PTRACE, which is not in the container's
-# capability set. So enumerate the listening abstract sockets and ask each one
-# whether it has the session manager on it.
+# capability set. So enumerate the listening dbus sockets and ask each one
+# whether it has the session manager on it. The transport varies by distro -
+# abstract on some, a plain path on others - so build the address to match.
 session_bus() {
 	local sock addr
 
-	for sock in $(awk '/^@?.*@\/tmp\/dbus-/ {print $NF}' /proc/net/unix 2>/dev/null | sort -u); do
-		addr="unix:abstract=${sock#@}"
+	for sock in $(awk '$NF ~ /\/tmp\/dbus-/ {print $NF}' /proc/net/unix 2>/dev/null | sort -u); do
+		case "$sock" in
+		@*) addr="unix:abstract=${sock#@}" ;;
+		*) addr="unix:path=$sock" ;;
+		esac
 		if su "$USER" -c "DBUS_SESSION_BUS_ADDRESS='$addr' dbus-send --session --print-reply --reply-timeout=3000 --dest=org.freedesktop.DBus /org/freedesktop/DBus org.freedesktop.DBus.NameHasOwner string:org.xfce.SessionManager" 2>/dev/null | grep -q 'boolean true'; then
 			echo "$addr"
 			return 0
