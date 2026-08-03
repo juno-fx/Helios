@@ -10,8 +10,12 @@ log() {
 
 # Best effort - a missing notification daemon must never abort the shutdown
 # before the session has been saved.
+#
+# The message is passed positionally (see the cp/rm calls in save_session()
+# for why) rather than interpolated into the -c string, so a message
+# containing shell metacharacters can never be evaluated as code.
 notify() {
-	su "$USER" -c "notify-send -i /usr/share/themes/helios-icon-sm.png -u critical 'Workstation is being shutdown' '$1'" 2>/dev/null || true
+	su -s /bin/bash "$USER" -c 'notify-send -i /usr/share/themes/helios-icon-sm.png -u critical "Workstation is being shutdown" "$1"' -- _ "$1" 2>/dev/null || true
 }
 
 # The newest session file xfce4 wrote for this machine.
@@ -68,6 +72,12 @@ session_key() {
 # capability set. So enumerate the listening dbus sockets and ask each one
 # whether it has the session manager on it. The transport varies by distro -
 # abstract on some, a plain path on others - so build the address to match.
+#
+# addr is built from whatever is currently bound under /tmp/dbus-* in this
+# network namespace - not something this script controls the naming of. Passed
+# positionally into the -c payload (as $1, via env-assignment prefix) rather
+# than interpolated into the command string, so a socket path containing shell
+# metacharacters can never be evaluated as code.
 session_bus() {
 	local sock addr
 
@@ -76,7 +86,7 @@ session_bus() {
 		@*) addr="unix:abstract=${sock#@}" ;;
 		*) addr="unix:path=$sock" ;;
 		esac
-		if su "$USER" -c "DBUS_SESSION_BUS_ADDRESS='$addr' dbus-send --session --print-reply --reply-timeout=3000 --dest=org.freedesktop.DBus /org/freedesktop/DBus org.freedesktop.DBus.NameHasOwner string:org.xfce.SessionManager" 2>/dev/null | grep -q 'boolean true'; then
+		if su -s /bin/bash "$USER" -c 'DBUS_SESSION_BUS_ADDRESS="$1" dbus-send --session --print-reply --reply-timeout=3000 --dest=org.freedesktop.DBus /org/freedesktop/DBus org.freedesktop.DBus.NameHasOwner string:org.xfce.SessionManager' -- _ "$addr" 2>/dev/null | grep -q 'boolean true'; then
 			echo "$addr"
 			return 0
 		fi
@@ -112,7 +122,7 @@ save_session() {
 	bus=$(session_bus) || true
 	if [ -z "$bus" ]; then
 		log "no session bus with org.xfce.SessionManager, cannot checkpoint"
-	elif su "$USER" -c "DBUS_SESSION_BUS_ADDRESS='$bus' dbus-send --session --dest=org.xfce.SessionManager --print-reply --reply-timeout=10000 /org/xfce/SessionManager org.xfce.Session.Manager.Checkpoint string:''" >/dev/null 2>&1; then
+	elif su -s /bin/bash "$USER" -c 'DBUS_SESSION_BUS_ADDRESS="$1" dbus-send --session --dest=org.xfce.SessionManager --print-reply --reply-timeout=10000 /org/xfce/SessionManager org.xfce.Session.Manager.Checkpoint string:""' -- _ "$bus" >/dev/null 2>&1; then
 		log "checkpoint requested on $bus"
 	else
 		log "checkpoint failed on $bus, falling back to whatever is already on disk"
