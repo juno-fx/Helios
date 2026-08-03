@@ -155,8 +155,11 @@ save_session() {
 
 	# Keep these file ops running as $USER, consistent with everything else
 	# this script does to the session. Args are passed positionally rather
-	# than interpolated into the -c string.
-	if su -s /bin/bash "$USER" -c 'cp -p "$1" "$2"' -- "$newest" "${dir}/helios-session-${key}"; then
+	# than interpolated into the -c string. `su -c CMD -- args...` fills $0
+	# first (same convention as `sh -c`), so a throwaway `_` is required to
+	# push the real arguments into $1, $2 - without it "$1" silently receives
+	# what was meant for "$2", and "$2" is empty.
+	if su -s /bin/bash "$USER" -c 'cp -p "$1" "$2"' -- _ "$newest" "${dir}/helios-session-${key}"; then
 		log "saved $(basename "$newest") -> helios-session-${key}"
 
 		# The pod-named file is a handoff buffer with a one-container lifetime -
@@ -165,7 +168,7 @@ save_session() {
 		# removes our own hostname's files and never another live workstation's
 		# whose name happens to share our hostname as a prefix. Ordered after
 		# the copy so a failed save leaves the original in place.
-		su -s /bin/bash "$USER" -c 'rm -f "$1/xfce4-session-$2:"* "$1/xfce4-session-$2."*' -- "$dir" "${HOSTNAME%%.*}"
+		su -s /bin/bash "$USER" -c 'rm -f "$1/xfce4-session-$2:"* "$1/xfce4-session-$2."*' -- _ "$dir" "${HOSTNAME%%.*}"
 	else
 		log "copy to helios-session-${key} failed"
 	fi
