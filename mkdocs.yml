@@ -153,6 +153,9 @@ nav:
     - related/related-docs.md
 
 extra:
+  analytics:
+    provider: google
+    property: G-VJ3J3RJWC1
   generator: false
   #version:
   #  provider: mike  # Uncomment when mike is installed
