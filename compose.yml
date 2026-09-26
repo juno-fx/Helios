@@ -20,7 +20,7 @@ services:
 #      - DESKTOP_FILES="/desktops/*.desktop:/tmp/*.desktop"
 #      - IDLE_TIME=1
 #      - PASSWORD=password
-#      - PREFIX=/custom/prefix
+#      - PREFIX=/custom/prefix/
       - REMOTE_PROTOCOL=${REMOTE_PROTOCOL:-selkies}  # selkies|dcv
 #      - DCV_DIRECT_PORT=8443  # password-authenticated native-client endpoint (needs PASSWORD)
 #      - DCV_LICENSE_FILE=/path/to/license.lic  # DCV license for non-EC2 usage

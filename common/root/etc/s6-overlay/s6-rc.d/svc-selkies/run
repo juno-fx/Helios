@@ -29,6 +29,13 @@ fi
 echo "Starting Selkies..."
 
 # Start Selkies
+# Selkies learns the URL prefix from its own SUBFOLDER setting, which nothing
+# else in this image provides: svc-nginx substitutes PREFIX into the nginx
+# template, the server reads SUBFOLDER. Without it the backend keeps serving
+# /api/... unprefixed and every websocket proxied under PREFIX 404s. Selkies
+# normalizes the value itself, so the default PREFIX=/ stays the root.
+export SUBFOLDER="${SUBFOLDER:-$PREFIX}"
+
 exec s6-setuidgid "${USER}" \
 	helios \
 	--addr="0.0.0.0" \

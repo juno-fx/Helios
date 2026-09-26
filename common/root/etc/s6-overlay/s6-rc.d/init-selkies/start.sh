@@ -34,6 +34,9 @@ mknod /dev/input/event1003 c 13 1067
 chmod 777 /dev/input/js* /dev/input/event* /tmp/selkies*
 
 # Manifest creation
+# start_url is where the installed PWA launches, so it has to stay under the
+# prefix; the root serves nothing in a prefixed deployment. icon.png is already
+# relative and so follows the manifest.
 echo "{
   \"name\": \"Helios\",
   \"short_name\": \"Helios\",
@@ -49,5 +52,5 @@ echo "{
       \"sizes\": \"180x180\"
     }
   ],
-  \"start_url\": \"/\"
+  \"start_url\": \"${PREFIX}\"
 }" >/usr/share/selkies/www/manifest.json
