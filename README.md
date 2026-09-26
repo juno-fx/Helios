@@ -63,7 +63,7 @@ Some key points about Helios:
 
 We maintain the latest versions of Selkies components to ensure access to the newest features and bug fixes:
 
-- **Selkies**: [d70c9155e0df97ac1e6ac7a4cce04e4b04840286](https://github.com/selkies-project/selkies/tree/3a7d4d4ee868c85af205d786455ece6a2d4a8935)
+- **Selkies**: [2.0.0](https://github.com/selkies-project/selkies/releases/tag/2.0.0)
 
 ---
 
@@ -76,18 +76,18 @@ Explore the supported Linux distributions with their versions, image sizes, and 
 
 #### [Debian 12 (Bookworm)](https://hub.docker.com/_/debian/tags?name=bookworm)
 
-- **Size:** 2.35 GB  
+- **Size:** 2.4 GB  
 
 #### [Debian Rolling (Sid)](https://hub.docker.com/_/debian/tags?name=sid)
 
-- **Size:** 2.55 GB  
+- **Size:** 2.65 GB  
 
 #### [Kali Linux (Rolling Release)](https://hub.docker.com/r/kalilinux/kali-rolling)
 
 > [!TIP]  
 > No default Kali tools are installed in this image. Please refer to the [Kali Linux Docker Image documentation](https://www.kali.org/docs/containers/official-kalilinux-docker-images/) for installing them.
 
-- **Size:** 2.54 GB (Excludes Kali tools which increase image size) 
+- **Size:** 2.92 GB (Excludes Kali tools which increase image size) 
 
 ---
 
@@ -95,11 +95,11 @@ Explore the supported Linux distributions with their versions, image sizes, and 
 
 #### [Ubuntu 24.04 (Noble)](https://hub.docker.com/_/ubuntu/tags?name=noble)
 
-- **Size:** 2.14 GB 
+- **Size:** 2.33 GB 
 
 #### [Ubuntu 22.04 (Jammy)](https://hub.docker.com/_/ubuntu/tags?name=jammy)
 
-- **Size:** 1.97 GB
+- **Size:** 2.2 GB
 
 ---
 
@@ -107,11 +107,11 @@ Explore the supported Linux distributions with their versions, image sizes, and 
 
 #### [Rocky Linux 9](https://hub.docker.com/_/rockylinux/tags?name=9)
 
-- **Size:** 2.6 GB
+- **Size:** 2.71 GB
 
 #### [Alma Linux 9](https://hub.docker.com/_/almalinux/tags?name=9)
 
-- **Size:** 2.44 GB
+- **Size:** 2.55 GB
 
 ## 🏷️ Versioning
 

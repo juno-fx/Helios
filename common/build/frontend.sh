@@ -15,15 +15,13 @@ cd /src
 git checkout -f ${SELKIES_VERSION}
 
 # build
-cd addons/gst-web-core
+# the streaming core; its postbuild gendb.js generates the jsdb remap database
+cd addons/selkies-web-core
 npm install
 npm run build
-cp dist/selkies-core.js ../selkies-dashboard/src
+# the dashboard's own prebuild (copy-core.js) and postbuild (copy-jsdb.js) read
+# the core and jsdb out of the tree above, so it must be built after it
 cd ../selkies-dashboard
 npm install
 npm run build
-mkdir dist/src dist/nginx
-cp ../universal-touch-gamepad/universalTouchGamepad.js dist/src/
-cp ../gst-web-core/nginx/* dist/nginx/
-cp -r ../gst-web-core/dist/jsdb dist/
 cp -ar dist/* /build-out/

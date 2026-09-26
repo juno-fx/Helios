@@ -1,4 +1,0 @@
-# selkies does not pin their upstream requirements properly, so we have to do it ourselves here.
-av==15.1.0
-pixelflux==1.5.9
-xkbcommon==1.0.1

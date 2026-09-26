@@ -21,9 +21,6 @@ mv -v /usr/share/backgrounds/rocky-default-9-onyx-mountains.png /tmp/background.
 rm -rfv /usr/share/backgrounds/*
 mv -v /tmp/background.png /usr/share/backgrounds/
 
-# install node
-dnf module install "nodejs:$SELKIES_NODE_VERSION/common" -y
-
 # remove screensaver and lock screen
 rm -f /etc/xdg/autostart/xscreensaver.desktop
 

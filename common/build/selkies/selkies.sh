@@ -21,14 +21,11 @@ cd /tmp/
 curl -o selkies.tar.gz -L "https://github.com/selkies-project/selkies/archive/${SELKIES_VERSION}.tar.gz"
 tar xf selkies.tar.gz
 cd selkies-*
-sed -i '/cryptography/d' pyproject.toml
-# widen av constraint to accept 15.x (14.x wheels use manylinux_2_17 tags not recognized by this pip)
-sed -i 's/av>=14.0.0,<15.0.0/av>=15.0.0,<16.0.0/' pyproject.toml
 PY_VER=$(python3 -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
 if [ "$PY_VER" = "3.9" ]; then
-    PIP_URL="https://bootstrap.pypa.io/pip/3.9/get-pip.py"
+	PIP_URL="https://bootstrap.pypa.io/pip/3.9/get-pip.py"
 else
-    PIP_URL="https://bootstrap.pypa.io/get-pip.py"
+	PIP_URL="https://bootstrap.pypa.io/get-pip.py"
 fi
 # wrap pip to always use --break-system-packages (PEP 668)
 pip() { command pip "$@" --break-system-packages; }
@@ -36,14 +33,12 @@ pip() { command pip "$@" --break-system-packages; }
 wget -O get-pip.py "$PIP_URL"
 python3 get-pip.py --break-system-packages
 pip install --upgrade pip
-pip install --only-binary av,pixelflux -r /tmp/reqs/selkies-requirements.txt
 pip install .
-pip install --upgrade setuptools
 
-# setup interposer
-cd addons/js-interposer
-gcc -shared -fPIC -ldl -o selkies_joystick_interposer.so joystick_interposer.c
-mv selkies_joystick_interposer.so /usr/lib/selkies_joystick_interposer.so
+# setup input interposer (upstream renamed js-interposer -> input-interposer in 2.0.0)
+cd addons/input-interposer
+gcc -shared -fPIC -ldl -o selkies_input_interposer.so input_interposer.c
+mv selkies_input_interposer.so /usr/lib/selkies_input_interposer.so
 
 # setup udev fake library
 cd ../fake-udev

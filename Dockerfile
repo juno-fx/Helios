@@ -58,7 +58,7 @@ FROM alpine AS selkies-frontend
 # pull in args for the tag
 ARG SRC
 
-ENV SELKIES_VERSION="af1a1c252563d2f136d641b81d6b1dd38a3a0d93"
+ENV SELKIES_VERSION="2.0.0"
 
 # grab package lists
 COPY --from=lists /work/lists/ /lists/
@@ -75,7 +75,7 @@ FROM distro AS base-image
 ARG SRC
 
 # version of selkies to clone
-ENV SELKIES_VERSION="af1a1c252563d2f136d641b81d6b1dd38a3a0d93"
+ENV SELKIES_VERSION="2.0.0"
 
 # environment variables
 ENV PREFIX=/
@@ -85,9 +85,7 @@ ENV PERL5LIB=/usr/local/bin
 ENV PULSE_RUNTIME_PATH=/tmp/pulse
 ENV NVIDIA_DRIVER_CAPABILITIES=all
 ENV IDLE_TIME=30
-ENV SELKIES_INTERPOSER=/usr/lib/selkies_joystick_interposer.so
 ENV DISABLE_ZINK=false
-ENV SELKIES_NODE_VERSION=22
 ENV REMOTE_PROTOCOL=selkies
 ENV XDG_SESSION_TYPE=x11
 
@@ -107,8 +105,6 @@ RUN /tmp/dcv.sh
 # install selkies
 COPY --chmod=777 common/build/selkies/*.sh /tmp/
 
-# this is required to fight any dependency slips from upstream selkies
-COPY selkies-requirements.txt /tmp/reqs/selkies-requirements.txt
 RUN /tmp/selkies.sh
 
 # clean up package lists

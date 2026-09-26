@@ -134,9 +134,8 @@ packages:
   - debian: zlib1g
     rhel: zlib
 
-  # Development files for the Direct Rendering Manager (DRM), used in low-level graphics driver programming.
-  - debian: libdrm-dev
-    rhel: libdrm
+  # Library for the Direct Rendering Manager (DRM), used in low-level graphics driver programming.
+  - rhel: libdrm
 
   # Library for parsing and generating ASN.1 data structures, used in cryptography and communication protocols (e.g., X.509).
   - debian: libtasn1-6
@@ -160,7 +159,6 @@ packages:
 
   # opengl
   - rhel: libglvnd-opengl
-    debian: libglew-dev
 
   # Provides D-Bus message bus system integration for X11, allowing communication between desktop applications.
   - common: dbus-x11

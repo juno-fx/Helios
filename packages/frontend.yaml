@@ -3,9 +3,6 @@ packages:
   # Used for the frontend build on Alpine
   # ====================================
 
-  # Cross-platform build system used for managing the build process of software, sometimes required by Node.js native modules.
-  - frontend: cmake
-
   # Distributed version control system, used to clone and manage frontend repositories and dependencies.
   - frontend: git
 

@@ -14,7 +14,7 @@ printf "${DISPLAY_CDEPTH:-24}" >/run/s6/container_environment/DISPLAY_CDEPTH
 printf "/tmp/.XDG" >/run/s6/container_environment/XDG_RUNTIME_DIR
 
 if [[ -z ${NO_GAMEPAD+x} ]]; then
-	printf "/usr/lib/selkies_joystick_interposer.so:/opt/lib/libudev.so.1.0.0-fake" >/run/s6/container_environment/LD_PRELOAD
+	printf "/usr/lib/selkies_input_interposer.so:/opt/lib/libudev.so.1.0.0-fake" >/run/s6/container_environment/LD_PRELOAD
 fi
 
 printf "${LC_ALL%.UTF-8}" >/run/s6/container_environment/LANGUAGE
