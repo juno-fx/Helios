@@ -48,7 +48,7 @@ Helios workstations are scheduled workloads on Orion, so:
 - [Building Workstations](https://docs.juno-innovations.com/Helios/getting-started/): create and customize workstation images
 - [Contributing](https://docs.juno-innovations.com/Helios/contributing/): add images or improve the base
 - [Orion Documentation](https://docs.juno-innovations.com/Orion-Documentation/latest/): the unified compute plane Helios runs on
-- [Orion Apps (formerly Terra)](https://docs.juno-innovations.com/Terra-Official-Plugins/): launch Helios from the app catalog
+- [Orion Apps](https://docs.juno-innovations.com/Terra-Official-Plugins/): Install the Helios schema from the app catalog
 Questions? Email [sales@juno-innovations.com](mailto:sales@juno-innovations.com).
 ---
 
