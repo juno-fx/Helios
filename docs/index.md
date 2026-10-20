@@ -9,6 +9,7 @@
 Helios is Juno's containerized workstation. It packages a full Linux desktop (applications, GPU access, and user configuration) into an image. Download it and run it standalone, or launch it in about 60 seconds on an Orion cluster. Orion is customer-hosted, so every workstation runs on your hardware.
  
 Instead of provisioning a physical workstation per user, administrators define a workstation image once and deliver it on demand. Users get a consistent desktop in a browser. Administrators maintain one image instead of dozens of machines.
+
 ---
 
 ## What Helios Does
@@ -30,6 +31,7 @@ Instead of provisioning a physical workstation per user, administrators define a
 **Developers** spin up isolated, GPU-enabled development environments that match production.
  
 **System administrators** define workstation standards once, which ends configuration drift, license sprawl, and per-seat provisioning.
+
 ---
 
 ## How Helios runs on Orion
@@ -37,7 +39,7 @@ Instead of provisioning a physical workstation per user, administrators define a
 Helios workstations are scheduled workloads on Orion, so:
  
 - Compute is allocated on demand. GPUs are not held for workstations nobody is using.
-- Administrators manage workstation images in Orion Admin, next to every other workload type.
+- Administrators manage workstation templates in Orion Admin, next to every other workload type.
 - Users launch workstations themselves from an Orion Workspace, without an IT ticket.
 - Workstations, render jobs, and ML training runs draw from the same GPU pool.
 ---
@@ -48,7 +50,7 @@ Helios workstations are scheduled workloads on Orion, so:
 - [Building Workstations](https://docs.juno-innovations.com/Helios/getting-started/): create and customize workstation images
 - [Contributing](https://docs.juno-innovations.com/Helios/contributing/): add images or improve the base
 - [Orion Documentation](https://docs.juno-innovations.com/Orion-Documentation/latest/): the unified compute plane Helios runs on
-- [Orion Apps](https://docs.juno-innovations.com/Terra-Official-Plugins/): Install the Helios schema from the app catalog
+- [Orion Apps](https://docs.juno-innovations.com/Terra-Official-Plugins/): Install the Helios workload schema from the app catalog
 Questions? Email [sales@juno-innovations.com](mailto:sales@juno-innovations.com).
 ---
 
