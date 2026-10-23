@@ -10,8 +10,12 @@ hooks are available:
 ## Installing Event Hooks
 
 You have a few options for installing event hooks. You can mount them in to the container at runtime, or you can include them in the rootfs during the build process.
-Juno for example, mounts a custom `idle` script into the container at runtime to auto shutdown the container after a certain amount of time being idle. This is done 
+For example, Juno's [auto shutdown plugin](plugins-autoshutdown.md) mounts a custom `idle` script into the container at runtime to auto shutdown the container after a certain amount of time being idle. This is done 
 by mounting the script into the container at `/etc/helios/idle.d/custom.sh`.
+
+!!! note
+
+    The auto shutdown plugin is deprecated as of Genesis chart `v5.2.0` and Orion Workspaces `v4.3.0` (released 2026-07-12), as Orion now has built-in auto shutdown and auto hibernate for every workload. It remains documented as an example of the `idle` hook.
 
 We have seen other users include a custom `init` script in the rootfs during the build process which will trigger a SSSD setup for AD federation. This is done by adding a script to the `common/root/etc/helios/init.d/` directory.
 

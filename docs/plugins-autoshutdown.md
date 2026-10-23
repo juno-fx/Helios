@@ -1,5 +1,11 @@
 # Auto shutdown plugin
 
+!!! warning "Deprecated"
+
+    The Terra auto shutdown plugin is deprecated as of Genesis chart `v5.2.0` and Orion Workspaces `v4.3.0` (released 2026-07-12).
+    Orion now has built-in auto shutdown and auto hibernate for every workload, so the plugin is no longer needed.
+    It is kept here as a reference example of how to use the Helios [idle event hook](event-hooks.md#idled-directory).
+
 Juno supplies an official [Terra](https://juno-fx.github.io/Orion-Documentation/latest/terra/intro/) plugin for automatically shutting down idle workstations after a configurable amount of time.
 
 ## Install the plugin
