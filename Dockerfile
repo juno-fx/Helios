@@ -93,8 +93,11 @@ ENV XDG_SESSION_TYPE=x11
 COPY --from=lists /work/lists/ /lists/
 
 # build our base image
+# copy playbook hook directories into container first
+COPY ${SRC}/playbooks /tmp/playbooks/distro/
 COPY --chmod=777 ${SRC}/build/system.sh /tmp/
 RUN /tmp/system.sh
+COPY common/playbooks /tmp/playbooks/common/
 COPY --chmod=777 common/build/system.sh /tmp/
 RUN /tmp/system.sh
 

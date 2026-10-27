@@ -1,0 +1,18 @@
+# AlmaLinux 9-specific Ansible playbook
+# Runs only when building the alma-9 (AlmaLinux 9) distro
+
+- name: AlmaLinux 9 Ansible playbook
+  hosts: localhost
+  connection: local
+  become: false
+
+  tasks:
+    - name: Display alma-9 playbook execution
+      debug:
+        msg: "Running AlmaLinux 9-specific Ansible playbook"
+
+    # Example: install AlmaLinux-specific package
+    # - name: Install AlmaLinux package
+    #   ansible.builtin.package:
+    #     name: some-almalinux-package
+    #     state: present

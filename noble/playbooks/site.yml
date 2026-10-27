@@ -1,0 +1,18 @@
+# Ubuntu Noble-specific Ansible playbook
+# Runs only when building the noble (Ubuntu 24.04) distro
+
+- name: Ubuntu Noble Ansible playbook
+  hosts: localhost
+  connection: local
+  become: false
+
+  tasks:
+    - name: Display noble playbook execution
+      debug:
+        msg: "Running Ubuntu noble-specific Ansible playbook"
+
+    # Example: install noble-specific package
+    # - name: Install noble package
+    #   ansible.builtin.package:
+    #     name: some-ubuntu-package
+    #     state: present

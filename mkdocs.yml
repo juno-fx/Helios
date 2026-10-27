@@ -145,6 +145,11 @@ nav:
                 - event-idle.md
                 - event-service.md
                 - event-init.md
+          - Ansible:
+            - ansible-playbook-hooks.md
+            - Examples:
+                - ansible-example-common.md
+                - ansible-example-distro.md
   - Contributing:
     - contributing.md
     - code-of-conduct.md
