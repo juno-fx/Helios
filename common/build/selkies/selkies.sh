@@ -21,19 +21,9 @@ cd /tmp/
 curl -o selkies.tar.gz -L "https://github.com/selkies-project/selkies/archive/${SELKIES_VERSION}.tar.gz"
 tar xf selkies.tar.gz
 cd selkies-*
-PY_VER=$(python3 -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
-if [ "$PY_VER" = "3.9" ]; then
-	PIP_URL="https://bootstrap.pypa.io/pip/3.9/get-pip.py"
-else
-	PIP_URL="https://bootstrap.pypa.io/get-pip.py"
-fi
-# wrap pip to always use --break-system-packages (PEP 668)
-pip() { command pip "$@" --break-system-packages; }
 
-wget -O get-pip.py "$PIP_URL"
-python3 get-pip.py --break-system-packages
-pip install --upgrade pip
-pip install .
+pip install --upgrade pip  --break-system-packages || pip install --upgrade pip || true
+pip install --break-system-packages . || pip install .
 
 # setup input interposer (upstream renamed js-interposer -> input-interposer in 2.0.0)
 cd addons/input-interposer

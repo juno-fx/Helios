@@ -1,0 +1,18 @@
+# Rocky Linux 9 / RHEL 9-specific Ansible playbook
+# Runs only when building the rocky-9 (RHEL 9) distro
+
+- name: Rocky Linux 9 Ansible playbook
+  hosts: localhost
+  connection: local
+  become: false
+
+  tasks:
+    - name: Display rocky-9 playbook execution
+      debug:
+        msg: "Running Rocky Linux 9-specific Ansible playbook"
+
+    # Example: install RHEL-specific package
+    # - name: Install RHEL package
+    #   ansible.builtin.package:
+    #     name: some-rhel-package
+    #     state: present
