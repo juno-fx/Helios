@@ -21,122 +21,6 @@ Environment variables are used to configure the Helios container. The following 
 | DCV_LICENSE_FILE  | Path to a DCV license file for non-EC2 usage. Falls back to auto-license on EC2 or 30-day demo otherwise.                                                                                   |          |
 | DCV_DIRECT_PORT   | Port for the DCV native client direct-connect endpoint. Default `8443`. Requires `PASSWORD` to be set.                                                                                      |          |
 
-
-## GPU Acceleration Configuration
-
-### Running Without a GPU
-Helios can be run without a physical GPU. The default configuration has `DISABLE_VGL=false` (vglrun enabled), which allows the desktop to start via VirtualGL's software rendering path (llvpipe). This is the out-of-the-box experience for cloud/deployments without GPU hardware. If you have no GPU and experience issues, verify your container has access to `/dev/dri` devices.
-
-### Running With ZINK
-Set `DISABLE_ZINK=false` to enable ZINK acceleration. ZINK is an OpenGL implementation that runs over Vulkan and is particularly useful:
-- **AMD GPUs** with open-source drivers that support Vulkan but have limited native OpenGL support
-- **Compatibility scenarios** where applications expect OpenGL but the backend is Vulkan-based
-- **Container environments** where direct driver access is restricted
-
-Note that ZINK may add overhead for some workloads. The default is `DISABLE_ZINK=true` (ZINK disabled).
-
-### 3D Heavy Applications (Houdini, Maya, etc.)
-For professional 3D applications with a discrete GPU, you may experience performance issues if VGL or ZINK are enabled. Both add translation overhead:
-- **VGL** adds host-side VirtualGL translation
-- **ZINK** adds OpenGL-to-Vulkan translation
-
-For best performance with Houdini, Maya, or similar applications:
-1. Set `DISABLE_VGL=true` to disable the VGL wrapper
-2. Set `DISABLE_ZINK=true` to disable ZINK acceleration
-
-When disabling both features and using native GPU drivers, you will also need to proper ICD (Installable Client Driver) files so OpenGL can discover the correct GPU driver (see "ICD Files for Target GPU" below).
-
-### ICD Files for Target GPU
-When using native GPU drivers (both VGL and ZINK disabled), you need to provide ICD (Installable Client Driver) configuration so the OpenGL stack can find the correct driver library.
-
-**NVIDIA ICD example** (`nvidia.json`):
-```json
-{
-    "file_format_version" : "1.0.0",
-    "ICD" : {
-        "library_path" : "libGLX_nvidia.so.0"
-    }
-}
-```
-
-**ICD file placement:**
-- `/etc/ld.so.d/` — for library linker discovery (example above)
-- `/usr/share/glvnd/egl/vendor.d/` — preferred for modern GLVND implementations
-
-**Deployment method examples:**
-
-**Docker run:**
-```bash
-docker run -v /path/to/nvidia.json:/etc/ld.so.d/nvidia.json \
-  -e DISABLE_VGL=true -e DISABLE_ZINK=true \
-  junoinnovations/helios:unstable-jammy
-```
-
-**Docker Compose:**
-```yaml
-services:
-  helios:
-    image: junoinnovations/helios:unstable-jammy
-    volumes:
-      - ./nvidia.json:/etc/ld.so.d/nvidia.json
-    environment:
-      - DISABLE_VGL=true
-      - DISABLE_ZINK=true
-```
-
-**Kubernetes:**
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: helios
-spec:
-  template:
-    spec:
-      containers:
-        - name: helios
-          image: junoinnovations/helios:unstable-jammy
-          volumeMounts:
-            - name: nvidia-icd
-              mountPath: /etc/ld.so.d
-      volumes:
-        - name: nvidia-icd
-          configMap:
-            name: nvidia-icd-config
-```
-
-When using `REMOTE_PROTOCOL=selkies` (the default), many of the environment variables provided by the upstream Selkies project will be respected.
-You can find official Selkies documentation here: https://selkies-project.github.io/selkies/usage/#command-line-options-and-environment-variables
-
-!!! info 
-
-    The `GID` will match the `UID` if not specified.
-
-!!! info "UID and GID"
-
-    The `UID` and `GID` are NOT the user that is launching and running the container. 
-    Because of s6, the container always starts and runs as root. It then uses s6 to run the desktop using the specified 
-    user using those environment variables. This is done to ensure that the desktop has the correct permissions and 
-    ownership on things like the home directory and other files. This helps with things like Network Shares as well.
-
-
-!!! danger "Authentication"
-
-    When using `REMOTE_PROTOCOL=selkies`, Helios DOES NOT provide any authentication for the web endpoint. This means that anyone who can
-    connect to the http endpoint can access the desktop as that user. For proper security, we recommend using a 
-    reverse proxy with authentication in front of Helios. This can be done using Nginx, Traefik, or any other 
-    reverse proxy that supports authentication.
-
-    When using `REMOTE_PROTOCOL=dcv`, the web endpoint (port 3000) is also unauthenticated. However, setting `PASSWORD`
-    enables a separate password-authenticated endpoint on port 8443 for native DCV clients. The web endpoint remains
-    open — use a reverse proxy for access control.
-
-    Security is a very important part of any deployment and it isn't a one size fits all solution. Instead of shipping
-    Helios with a specific authentication method, we leave it up to the user to implement their own security measures
-    that best fit their deployment. This allows for more flexibility and customization in how Helios is used.
-
-    When using the [Orion Platform](https://juno-fx.github.io/Orion-Documentation/), Authentication and authorization is handled by the product, ensuring the security of your deployment.
-
 ## Endpoints
 
 Helios provides the following endpoints for accessing the desktop:
@@ -235,3 +119,129 @@ DCV key characteristics:
     DCV uses the same PulseAudio null-sink setup as Selkies. Desktop audio is captured
     from the output monitor and streamed to the client. Microphone input arrives via
     the DCV agent's virtual microphone (`AWS-Virtual-Microphone`).
+
+
+
+## GPU Acceleration Configuration
+
+### Running Without a GPU
+Helios can be run without a physical GPU. The default configuration has `DISABLE_VGL=false` (vglrun enabled), which allows the desktop to start via VirtualGL's software rendering path (llvpipe). This is the out-of-the-box experience for cloud/deployments without GPU hardware. If you have no GPU and experience issues, verify your container has access to `/dev/dri` devices.
+
+### Running With ZINK
+Set `DISABLE_ZINK=false` to enable ZINK acceleration. ZINK is an OpenGL implementation that runs over Vulkan and is particularly useful:
+
+- **AMD GPUs** with open-source drivers that support Vulkan but have limited native OpenGL support
+- **Compatibility scenarios** where applications expect OpenGL but the backend is Vulkan-based
+- **Container environments** where direct driver access is restricted
+
+!!! warning
+
+    ZINK may add overhead for some workloads. The default is `DISABLE_ZINK=true` (ZINK disabled).
+
+### 3D Heavy Applications (Houdini, Maya, etc.)
+For professional 3D applications with a discrete GPU, you may experience performance issues if VGL or ZINK are enabled. 
+Both add translation overhead:
+
+!!! warning
+
+    - **VGL** adds host-side VirtualGL translation
+    - **ZINK** adds OpenGL-to-Vulkan translation
+
+For best performance with Houdini, Maya, or similar applications:
+
+1. Set `DISABLE_VGL=true` to disable the VGL wrapper
+2. Set `DISABLE_ZINK=true` to disable ZINK acceleration
+
+When disabling both features and using native GPU drivers, you will also need to proper ICD (Installable Client Driver) files so OpenGL can discover the correct GPU driver (see "ICD Files for Target GPU" below).
+
+### ICD Files for Target GPU
+When using native GPU drivers (both VGL and ZINK disabled), you need to provide ICD (Installable Client Driver) configuration so the OpenGL stack can find the correct driver library.
+
+**NVIDIA ICD example** (`nvidia.json`):
+```json
+{
+    "file_format_version" : "1.0.0",
+    "ICD" : {
+        "library_path" : "libGLX_nvidia.so.0"
+    }
+}
+```
+
+**ICD file placement:**
+- `/etc/ld.so.d/` — for library linker discovery (example above)
+- `/usr/share/glvnd/egl/vendor.d/` — preferred for modern GLVND implementations
+
+**Deployment method examples:**
+
+**Docker run:**
+```bash
+docker run -v /path/to/nvidia.json:/etc/ld.so.d/nvidia.json \
+  -e DISABLE_VGL=true -e DISABLE_ZINK=true \
+  junoinnovations/helios:unstable-jammy
+```
+
+**Docker Compose:**
+```yaml
+services:
+  helios:
+    image: junoinnovations/helios:unstable-jammy
+    volumes:
+      - ./nvidia.json:/etc/ld.so.d/nvidia.json
+    environment:
+      - DISABLE_VGL=true
+      - DISABLE_ZINK=true
+```
+
+**Kubernetes:**
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helios
+spec:
+  template:
+    spec:
+      containers:
+        - name: helios
+          image: junoinnovations/helios:unstable-jammy
+          volumeMounts:
+            - name: nvidia-icd
+              mountPath: /etc/ld.so.d
+      volumes:
+        - name: nvidia-icd
+          configMap:
+            name: nvidia-icd-config
+```
+
+When using `REMOTE_PROTOCOL=selkies` (the default), many of the environment variables provided by the upstream Selkies project will be respected.
+You can find official Selkies documentation here: https://selkies-project.github.io/selkies/usage/#command-line-options-and-environment-variables
+
+!!! info 
+
+    The `GID` will match the `UID` if not specified.
+
+!!! info "UID and GID"
+
+    The `UID` and `GID` are NOT the user that is launching and running the container. 
+    Because of s6, the container always starts and runs as root. It then uses s6 to run the desktop using the specified 
+    user using those environment variables. This is done to ensure that the desktop has the correct permissions and 
+    ownership on things like the home directory and other files. This helps with things like Network Shares as well.
+
+
+!!! danger "Authentication"
+
+    When using `REMOTE_PROTOCOL=selkies`, Helios DOES NOT provide any authentication for the web endpoint. This means that anyone who can
+    connect to the http endpoint can access the desktop as that user. For proper security, we recommend using a 
+    reverse proxy with authentication in front of Helios. This can be done using Nginx, Traefik, or any other 
+    reverse proxy that supports authentication.
+
+    When using `REMOTE_PROTOCOL=dcv`, the web endpoint (port 3000) is also unauthenticated. However, setting `PASSWORD`
+    enables a separate password-authenticated endpoint on port 8443 for native DCV clients. The web endpoint remains
+    open — use a reverse proxy for access control.
+
+    Security is a very important part of any deployment and it isn't a one size fits all solution. Instead of shipping
+    Helios with a specific authentication method, we leave it up to the user to implement their own security measures
+    that best fit their deployment. This allows for more flexibility and customization in how Helios is used.
+
+    When using the [Orion Platform](https://juno-fx.github.io/Orion-Documentation/), Authentication and authorization is handled by the product, ensuring the security of your deployment.
+
