@@ -27,6 +27,25 @@ rm -f /etc/xdg/autostart/xscreensaver.desktop
 # configure vgl
 /opt/VirtualGL/bin/vglserver_config +glx +s +f +t
 
+# Run ansible playbooks from hook directories
+if [ -d "/tmp/playbooks/distro" ]; then
+    echo "Running rocky-9-specific Ansible playbooks..."
+
+    # Install ansible if not present
+    if ! command -v ansible-playbook &>/dev/null; then
+        pip install ansible
+    fi
+
+    # Run playbooks from distro playbooks directory
+    for playbook in /tmp/playbooks/distro/*.yml; do
+        [ -f "$playbook" ] && ansible-playbook "$playbook" --connection=local
+    done
+
+    # Clean up ansible to keep container lean
+    pip uninstall -y ansible 2>/dev/null || true
+    rm -rf /root/.cache/pip 2>/dev/null || true
+fi
+
 # run clean up
 dnf config-manager --set-disabled crb
 dnf config-manager --set-disabled devel

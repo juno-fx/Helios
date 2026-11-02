@@ -51,6 +51,25 @@ rm -f /etc/apt/sources.list
 # build locale
 /usr/sbin/locale-gen en_US.UTF-8
 
+# Run ansible playbooks from hook directories
+if [ -d "/tmp/playbooks/distro" ]; then
+    echo "Running bookworm-specific Ansible playbooks..."
+
+    # Install ansible if not present
+    if ! command -v ansible-playbook &>/dev/null; then
+        pip install --break-system-packages ansible
+    fi
+
+    # Run playbooks from distro playbooks directory
+    for playbook in /tmp/playbooks/distro/*.yml; do
+        [ -f "$playbook" ] && ansible-playbook "$playbook" --connection=local
+    done
+
+    # Clean up ansible to keep container lean
+    pip uninstall -y ansible 2>/dev/null || true
+    rm -rf /root/.cache/pip 2>/dev/null || true
+fi
+
 # run clean up
 apt clean -y
 apt autoclean -y

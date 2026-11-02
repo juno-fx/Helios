@@ -1,0 +1,18 @@
+# Ubuntu Jammy-specific Ansible playbook
+# Runs only when building the jammy (Ubuntu 22.04) distro
+
+- name: Ubuntu Jammy Ansible playbook
+  hosts: localhost
+  connection: local
+  become: false
+
+  tasks:
+    - name: Display jammy playbook execution
+      debug:
+        msg: "Running Ubuntu jammy-specific Ansible playbook"
+
+    # Example: install jammy-specific package
+    # - name: Install jammy package
+    #   ansible.builtin.package:
+    #     name: some-ubuntu-package
+    #     state: present

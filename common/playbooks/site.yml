@@ -1,0 +1,19 @@
+# Common Ansible playbook - runs on all distros during container build
+# This playbook executes after distro-specific playbooks, providing
+# common configuration applied to all Helios container images.
+
+- name: Common Ansible playbook for all distros
+  hosts: localhost
+  connection: local
+  become: false
+
+  tasks:
+    - name: Display common playbook execution
+      debug:
+        msg: "Running common Ansible playbook on all distros"
+
+    # Example: install a common package
+    # - name: Install common package
+    #   ansible.builtin.package:
+    #     name: some-package
+    #     state: present

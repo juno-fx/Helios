@@ -1,0 +1,18 @@
+# Debian Bookworm-specific Ansible playbook
+# Runs only when building the bookworm (Debian 12) distro
+
+- name: Debian Bookworm Ansible playbook
+  hosts: localhost
+  connection: local
+  become: false
+
+  tasks:
+    - name: Display bookworm playbook execution
+      debug:
+        msg: "Running Debian bookworm-specific Ansible playbook"
+
+    # Example: install bookworm-specific package
+    # - name: Install bookworm package
+    #   ansible.builtin.package:
+    #     name: some-debian-package
+    #     state: present
