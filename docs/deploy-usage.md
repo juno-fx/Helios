@@ -11,7 +11,8 @@ Environment variables are used to configure the Helios container. The following 
 | GID               | POSIX compliant gid for the user                                                                                                                                                            |          |
 | PASSWORD          | Password set for the user. Required for DCV native client direct-connect (port 8443)                                                                                                        |          |
 | IDLE_TIME         | Trigger the idle hook after x minutes. Previously used by the [auto shutdown plugin](plugins-autoshutdown.md), which is deprecated as of Genesis `v5.2.0` / Orion Workspaces `v4.3.0` in favor of Orion's built-in auto shutdown / auto hibernate |          |
-| DISABLE_VGL       | Disable VirtualGL Wrapper around the entire desktop session. You will need to manually run applications that require it via `vglrun`                                                        |          |
+| DISABLE_VGL       | Disable VirtualGL Wrapper around the entire desktop session. Set to `false` to use vglrun (default: `false`, vglrun enabled). Set to `true` (or any value) to run without vglrun. Matches the pattern of DISABLE_ZINK. |          |
+| DISABLE_ZINK      | Disable ZINK acceleration. Set to `false` to enable ZINK (default: `true`, ZINK disabled). Set to `true` (or any value) to disable ZINK. Matches the pattern of DISABLE_VGL. |          |
 | DESKTOP_FILES     | Paths separated by `:`. For example, `/some/path/1/*.desktop:/some/*/2/*.desktop`                                                                                                           |          |
 | PREFIX            | Prefix for URL for use behind a reverse proxy, both slashes required, e.g. `/custom/prefix/`                                                                                                |          |
 | SELKIES_FRAMERATE | Set framerate as a range (e.g., `15-60`) or a fixed value (e.g., `30`)                                                                                                                      |          |
@@ -21,8 +22,88 @@ Environment variables are used to configure the Helios container. The following 
 | DCV_DIRECT_PORT   | Port for the DCV native client direct-connect endpoint. Default `8443`. Requires `PASSWORD` to be set.                                                                                      |          |
 
 
-When using the Orion Platform, you can configure them in the [Templates](https://juno-fx.github.io/Orion-Documentation/genesis/workstations/)
-User-related settings are already configured automatically by the platform. The Templates are there to adjust settings such as your framerate.
+## GPU Acceleration Configuration
+
+### Running Without a GPU
+Helios can be run without a physical GPU. The default configuration has `DISABLE_VGL=false` (vglrun enabled), which allows the desktop to start via VirtualGL's software rendering path (llvpipe). This is the out-of-the-box experience for cloud/deployments without GPU hardware. If you have no GPU and experience issues, verify your container has access to `/dev/dri` devices.
+
+### Running With ZINK
+Set `DISABLE_ZINK=false` to enable ZINK acceleration. ZINK is an OpenGL implementation that runs over Vulkan and is particularly useful:
+- **AMD GPUs** with open-source drivers that support Vulkan but have limited native OpenGL support
+- **Compatibility scenarios** where applications expect OpenGL but the backend is Vulkan-based
+- **Container environments** where direct driver access is restricted
+
+Note that ZINK may add overhead for some workloads. The default is `DISABLE_ZINK=true` (ZINK disabled).
+
+### 3D Heavy Applications (Houdini, Maya, etc.)
+For professional 3D applications with a discrete GPU, you may experience performance issues if VGL or ZINK are enabled. Both add translation overhead:
+- **VGL** adds host-side VirtualGL translation
+- **ZINK** adds OpenGL-to-Vulkan translation
+
+For best performance with Houdini, Maya, or similar applications:
+1. Set `DISABLE_VGL=true` to disable the VGL wrapper
+2. Set `DISABLE_ZINK=true` to disable ZINK acceleration
+
+When disabling both features and using native GPU drivers, you will also need to proper ICD (Installable Client Driver) files so OpenGL can discover the correct GPU driver (see "ICD Files for Target GPU" below).
+
+### ICD Files for Target GPU
+When using native GPU drivers (both VGL and ZINK disabled), you need to provide ICD (Installable Client Driver) configuration so the OpenGL stack can find the correct driver library.
+
+**NVIDIA ICD example** (`nvidia.json`):
+```json
+{
+    "file_format_version" : "1.0.0",
+    "ICD" : {
+        "library_path" : "libGLX_nvidia.so.0"
+    }
+}
+```
+
+**ICD file placement:**
+- `/etc/ld.so.d/` — for library linker discovery (example above)
+- `/usr/share/glvnd/egl/vendor.d/` — preferred for modern GLVND implementations
+
+**Deployment method examples:**
+
+**Docker run:**
+```bash
+docker run -v /path/to/nvidia.json:/etc/ld.so.d/nvidia.json \
+  -e DISABLE_VGL=true -e DISABLE_ZINK=true \
+  junoinnovations/helios:unstable-jammy
+```
+
+**Docker Compose:**
+```yaml
+services:
+  helios:
+    image: junoinnovations/helios:unstable-jammy
+    volumes:
+      - ./nvidia.json:/etc/ld.so.d/nvidia.json
+    environment:
+      - DISABLE_VGL=true
+      - DISABLE_ZINK=true
+```
+
+**Kubernetes:**
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helios
+spec:
+  template:
+    spec:
+      containers:
+        - name: helios
+          image: junoinnovations/helios:unstable-jammy
+          volumeMounts:
+            - name: nvidia-icd
+              mountPath: /etc/ld.so.d
+      volumes:
+        - name: nvidia-icd
+          configMap:
+            name: nvidia-icd-config
+```
 
 When using `REMOTE_PROTOCOL=selkies` (the default), many of the environment variables provided by the upstream Selkies project will be respected.
 You can find official Selkies documentation here: https://selkies-project.github.io/selkies/usage/#command-line-options-and-environment-variables
