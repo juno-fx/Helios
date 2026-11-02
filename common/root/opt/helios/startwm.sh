@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Enable Nvidia GPU support if detected
-if which nvidia-smi && [ "${DISABLE_ZINK}" == "false" ]; then
+# Enable ZINK acceleration if DISABLE_ZINK is "false"
+if [ "${DISABLE_ZINK}" == "false" ]; then
 	export LIBGL_KOPPER_DRI2=1
 	export MESA_LOADER_DRIVER_OVERRIDE=zink
 	export GALLIUM_DRIVER=zink
@@ -119,18 +119,18 @@ restore_session() {
 restore_session || true
 
 if [ -x /usr/bin/xfce4-session ]; then
-	if [[ -n "$DISABLE_VGL" ]]; then
-		# Run without vglrun if DISABLE_VGL is set
-		echo
-		echo ">>> Running without vglrun as DISABLE_VGL is set <<<"
-		echo
-		exec dbus-launch --exit-with-session /usr/bin/xfce4-session 2>&1
-	else
-		# Default: wrap in vglrun
+	if [ "${DISABLE_VGL}" == "false" ]; then
+		# DISABLE_VGL is "false" → enable vglrun (matches DISABLE_ZINK pattern)
 		echo
 		echo ">>> Running with vglrun <<<"
 		echo
 		exec vglrun -d "$chosen" dbus-launch --exit-with-session /usr/bin/xfce4-session 2>&1
+	else
+		# DISABLE_VGL is "true" or anything else → disable vglrun
+		echo
+		echo ">>> Running without vglrun <<<"
+		echo
+		exec dbus-launch --exit-with-session /usr/bin/xfce4-session 2>&1
 	fi
 else
 	echo "Desktop Environment not found."
