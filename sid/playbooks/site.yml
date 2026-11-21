@@ -1,0 +1,18 @@
+# Debian Sid-specific Ansible playbook
+# Runs only when building the sid (Debian testing/unstable) distro
+
+- name: Debian Sid Ansible playbook
+  hosts: localhost
+  connection: local
+  become: false
+
+  tasks:
+    - name: Display sid playbook execution
+      debug:
+        msg: "Running Debian sid-specific Ansible playbook"
+
+    # Example: install sid-specific package
+    # - name: Install sid package
+    #   ansible.builtin.package:
+    #     name: some-sid-package
+    #     state: present

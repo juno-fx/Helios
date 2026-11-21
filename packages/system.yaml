@@ -51,6 +51,9 @@ packages:
   # Python 3 interpreter for running Python scripts and applications.
   - common: python3
 
+  # Python 3 package manager.
+  - common: python3-pip
+
   # Utility to create, manipulate, and extract tar archive files.
   - common: tar
 
