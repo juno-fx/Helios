@@ -124,6 +124,7 @@ if [ -x /usr/bin/xfce4-session ]; then
 		vgl_args=(-d "$chosen")
 		# libdlfaker.so conflicts with the HAMi GPU scheduler's preload
 		if [ "${HAMI_ENABLED}" == "true" ]; then
+      echo ">>> Hami Enabled <<<"
 			vgl_args+=(-nodl)
 		fi
 		echo
