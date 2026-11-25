@@ -121,10 +121,16 @@ restore_session || true
 if [ -x /usr/bin/xfce4-session ]; then
 	if [ "${DISABLE_VGL}" == "false" ]; then
 		# DISABLE_VGL is "false" → enable vglrun (matches DISABLE_ZINK pattern)
+		vgl_args=(-d "$chosen")
+		# libdlfaker.so conflicts with the HAMi GPU scheduler's preload
+		if [ "${HAMI_ENABLED}" == "true" ]; then
+      echo ">>> Hami Enabled <<<"
+			vgl_args+=(-nodl)
+		fi
 		echo
-		echo ">>> Running with vglrun <<<"
+		echo ">>> Running with vglrun ${vgl_args[*]} <<<"
 		echo
-		exec vglrun -d "$chosen" dbus-launch --exit-with-session /usr/bin/xfce4-session 2>&1
+		exec vglrun "${vgl_args[@]}" dbus-launch --exit-with-session /usr/bin/xfce4-session 2>&1
 	else
 		# DISABLE_VGL is "true" or anything else → disable vglrun
 		echo
